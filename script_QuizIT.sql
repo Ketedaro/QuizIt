@@ -12,71 +12,84 @@ SET FEEDBACK OFF
 -- --------------------------------------------------------
 
 --
--- users' table
+-- Table users
 --
 
-CREATE TABLE `users` (
-	`id` VARCHAR(20),	
-	`login` VARCHAR(40) NOT NULL,
-	`password` VARCHAR(40) NOT NULL,
-	`email` VARCHAR(100),
-	`score` INTEGER DEFAULT NULL,
-	CONSTRAINT PK_PROPRIETAIRES PRIMARY KEY (`id`)
+CREATE TABLE users (
+	id_user INTEGER NOT NULL AUTO_INCREMENT,	
+	login VARCHAR(20) NOT NULL UNIQUE,
+	password VARCHAR(40) NOT NULL,
+	email VARCHAR(100),
+	score INTEGER DEFAULT NULL,
+	isAdmin BOOLEAN DEFAULT NULL,
+	CONSTRAINT PK_USERS PRIMARY KEY (id_user)
 );
+
+--
+-- Content users
+--
+
+INSERT INTO users (login, password, email, isAdmin) VALUES
+('Xaizo', 'xaizo', 'xaizo@xaizo.fr', true),
+('Ketedaro', 'kete', 'kete@kete.fr', true),
+('Yoshiiix', 'yos', 'yos@yos.fr', false),
+('H0tmilk', 'hot', 'hot@hot.fr', true);
 
 -- --------------------------------------------------------
 
 --
--- questions' table
+-- Table questions // Composition descendante
 --
 
-CREATE TABLE `questions` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT, 
-	`typeQuest` VARCHAR(15) NOT NULL,
-	`questName` VARCHAR(255) NOT NULL,
-	`topicQuest` VARCHAR(50) NOT NULL,
-	`q_submitter` VARCHAR(20) DEFAULT 'admin',
-	`validation` NUMERIC(1,0) DEFAULT NULL,
-	CONSTRAINT PK_QUESTIONS PRIMARY KEY (`id`),
-	CONSTRAINT FK_SUBMITTER FOREIGN KEY (`q_submitter`) REFERENCES `users` (`login`)
+CREATE TABLE questions (
+	id_quest INTEGER NOT NULL AUTO_INCREMENT,
+	typeQuest VARCHAR(10) NOT NULL,
+	topicQuest VARCHAR(50) NOT NULL,
+	questContent VARCHAR(255) NOT NULL,
+	mp3_link VARCHAR(255),
+	id_submitter VARCHAR(20) NOT NULL,
+	validation BOOLEAN DEFAULT NULL,
+	CONSTRAINT PK_QUESTIONS PRIMARY KEY (id_quest),
+	CONSTRAINT FK_SUBMITTER FOREIGN KEY (id_submitter) REFERENCES users (id_user)
 );
 
 --
--- `questions` content
+-- Content questions
 --
 
-INSERT INTO `questions` (`id`, `typeQuest`, `questName`, `topicQuest`, `validation`) VALUES
-(NULL, 'MCQ', 'Dans quelle langue est écrite cette question ?', 'Culture générale', '1'),
-(NULL, 'ToF', 'Paris est-elle la capitale de la France?', 'Géographie', '1');
+INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, login_submitter, validation) VALUES
+('MCQ', 'Culture générale', 'Dans quelle langue est écrite cette question ?', null, '1',  true),
+('BlindTest', 'Géographie', 'Paris est-elle la capitale de la France?', null, '1', false);
 
 -- --------------------------------------------------------
 
 --
--- answers' table
+-- Table answers
 --
 
-CREATE TABLE `answers` (
-	`id` INTEGER NOT NULL AUTO_INCREMENT,
-	`typeAnswer` VARCHAR(15) NOT NULL,
-	`answerName` VARCHAR(75) NOT NULL,
-	`a_submitter` VARCHAR(255) DEFAULT 'admin',
-	`validation` NUMERIC(1,0) DEFAULT NULL,
-	`goodAnswer` NUMERIC(1,0) DEFAULT NULL,
-	`idQuest` INTEGER NOT NULL,
-	CONSTRAINT FK_QUESTION FOREIGN KEY (`idQuest`) REFERENCES `questions` (`id`)
+CREATE TABLE answers (
+	id_answer INTEGER NOT NULL AUTO_INCREMENT,
+	id_quest INTEGER NOT NULL,
+	typeAnswer VARCHAR(15) NOT NULL,
+	answerContent VARCHAR(75) NOT NULL,
+	id_submitter VARCHAR(20) NOT NULL,
+	validation BOOLEAN DEFAULT NULL,
+	isTrue BOOLEAN DEFAULT NULL,
+	CONSTRAINT PK_ANSWERS PRIMARY KEY (id_answer),
+	CONSTRAINT FK_ANSWER FOREIGN KEY (id_quest) REFERENCES questions (id)
 );
 
 --
--- `answers` content
+-- answers content
 --
 
-INSERT INTO `answers` (`id`, `typeAnswer`, `answerName`, `validation`, `goodAnswer`, `idQuest`) VALUES
-(NULL, 'MCQ', 'Français', '1', '1'),
-(NULL, 'MCQ', 'Anglais', '0', '1'),
-(NULL, 'MCQ', 'Chinois', '0', '1'),
-(NULL, 'MCQ', 'Russe', '0', '1'),
-(NULL, 'ToF', 'Vrai', '1', '2'),
-(NULL, 'ToF', 'Faux', '0', '2');
+INSERT INTO answers (id_quest, typeAnswer, answerContent, idsubmitter, validation, isTrue) VALUES
+('1', 'MCQ', 'Français', '1', true, true),
+('1', 'MCQ', 'Anglais', '1', true, false),
+('1', 'MCQ', 'Chinois', '1', true, false),
+('1', 'MCQ', 'Russe', '1', true, false),
+('2', 'BlindTest', 'Vrai', '1', false, true),
+('2', 'BlindTest', 'Faux', '1', false, false);
 
 -- --------------------------------------------------------
 
@@ -84,8 +97,8 @@ INSERT INTO `answers` (`id`, `typeAnswer`, `answerName`, `validation`, `goodAnsw
 -- TESTS
 --
 
-SELECT * FROM `questions` ORDER BY `id`;
-SELECT * FROM `answers` ORDER BY `id`;
+SELECT * FROM questions ORDER BY id;
+SELECT * FROM answers ORDER BY id;
 
 
 COMMIT;
