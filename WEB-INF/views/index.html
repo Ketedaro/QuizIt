@@ -34,6 +34,14 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="#"><i class="fa fa-list"></i> Liste des quiz</a></li>
             <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catégories de questions
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#MCQ">Questions à choix multiples</a></li>
+                <li><a href="#Blind">Blindtests</a></li>
+              </ul>
+            </li>
             <!-- IF PAGE = LEADERBOARD-->
             <!-- <li class="active"><a href="#"><i class="fa fa-trophy"></i> Classement</a></li> -->
             <!-- ELSE -->
@@ -50,7 +58,7 @@
     <div class="row">
       <div class="col-md-1"></div>
 
-      <div class="quiz-list col-md-10 tweak-padding-50 row container">
+      <div class="quiz-list col-md-10 tweak-padding-50 row container" id="MCQ">
         <header>
           <h2>
             Questions à choix multiples <br>
@@ -81,6 +89,48 @@
           <a class="quiz col-xs-3 col-centered" href="quiz.html">
               <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Histoire</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </a>
+          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+              <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
+              <h3>Histoire</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </a>
+          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+              <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
+              <h3>Histoire</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-1"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-1"></div>
+
+      <div class="quiz-list col-md-10 tweak-padding-50 row container" id="Blind">
+        <header>
+          <h2>
+            Blindtests <br>
+            <small>Testez votre culture musicale.</small>
+          </h2>
+        </header>
+        <div class="row row-centered">
+          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+              <img src="../images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
+              <h3>Années 70s</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </a>
+          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+              <img src="../images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
+              <h3>Variété française</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          </a>
+          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+              <img src="../images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
+              <h3>Pop / électro</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
         </div>
