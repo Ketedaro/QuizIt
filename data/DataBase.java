@@ -1,6 +1,6 @@
 package data;
 
-import java.util.HashMap;
+import java.util.List;
 
 import quizIT.Question;
 
@@ -19,8 +19,8 @@ public class DataBase {
 		return INSTANCE;
 	}
 
-	public int sizeQuestion(String type) {
-		return dataBConnect.getSizeQuestion(type);		
+	public List<Question> getQuestions(String type) {
+		return dataBConnect.getQuestion(type);		
 	}
 	
 	public int sizeQuestion(String[] type) {
@@ -31,19 +31,22 @@ public class DataBase {
 		return size;
 	}
 
-	public Question getQuestion(int id, String type) {
-		return this.getTypeQuestion(dataBConnect.getQuestion(id,type),type);
+	public int sizeQuestion(String type) {
+		return this.getQuestions(type).size();
+	}
+
+	public Question getQuestion(int id) {
+		return dataBConnect.getQuestion(id);
 	}
 	
+	//Récupère une question alétoire d'un type choisi aléatoirement dans un tableau de type
 	public Question getQuestion(int id, String[]type) {
 		int numType=(int)(Math.random()*type.length);
-		return this.getQuestion(id,type[numType]);
+		return this.getRandQuestion(type[numType]);
 	}
-
-	private Question getTypeQuestion(HashMap<String, String> question,String type) {
-		return null;
+	//Récupère une question alétoire d'un certain type
+	public Question getRandQuestion(String type) {
+		return dataBConnect.getRandQuestion(type);
 	}
-
-
 	
 }

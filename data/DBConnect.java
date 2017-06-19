@@ -11,10 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import quizIT.Answer;
+import quizIT.Factory;
 import quizIT.Question;
+import quizIT.User;
 
 public class DBConnect {
 
@@ -57,7 +59,8 @@ public class DBConnect {
 			e2.printStackTrace();
 		}
 	}
-
+	
+	//Vérifié que le login n'est pas déjà pris 
 	public boolean existLogin(String login) {
 		Statement request;
 		ResultSet res;
@@ -81,7 +84,8 @@ public class DBConnect {
 		ResultSet res;
 		boolean tmp = false;
 		try {
-			String sql = "SELECT * FROM USER WHERE id_user = '" + loginConnect + "' and password = '" + passConnect + "'";
+			String sql = "SELECT * FROM USER WHERE id_user = '" + loginConnect + "' and password = '" + passConnect
+					+ "'";
 			request = connect.createStatement();
 			res = request.executeQuery(sql);
 			tmp = res.next();
@@ -92,148 +96,110 @@ public class DBConnect {
 
 	}
 
-	public int getSizeQuestion(String type) {
-		String sql = "select * from Question where typeQuest='"+type+"'";
-		Statement request;
-		ResultSet resultSet;
-		int cpt = 0;
-		try {
-			request = connect.createStatement();
-			resultSet = request.executeQuery(sql);
-			while (resultSet.next()) {
-				++cpt;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return cpt;
+	// Récupérer le nombre de ligne de la table Question
+	public List<Question> getQuestion(String type) {
+		String sql = "select * from Question where typeQuest='" + type + "'";
+		return this.getQuestions(sql);
+	}
+	
+	public Question getRandQuestion(String type){
+		String sql="select * from Question where typeQuest='"+type+"' order by rand() limit 1";
+		return this.getQuestions(sql).get(0);
 	}
 
-	public HashMap<String, String> getQuestion(int id, String type) {
-		HashMap<String, String> hm = new HashMap<String, String>();
-		Statement request;
-		ResultSet resultSet;
-		String sql = "select * from Question where id_quest= " + id+" and typeQuest='"+type+"'";
-		try {
-			request = connect.createStatement();
-			resultSet = request.executeQuery(sql);
-			while (resultSet.next()) {
-				 hm.put("id_quest",String.valueOf(resultSet.getInt("id_quest")));
-				 hm.put("typeQuestion",resultSet.getString("typeQuestion"));
-				 hm.put("topicQuestion",resultSet.getString("topicQuestion"));
-				 hm.put("mp3_link",resultSet.getString("mp3_link"));
-				 hm.put("id_Submitter",String.valueOf(resultSet.getInt("id_Submitter")));
-				 hm.put("validation",String.valueOf(resultSet.getBoolean("validation")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return hm;
+	// Récupérer une question avec son id
+	public Question getQuestion(int id) {
+		return this.getQuestions("select * from Question where id_quest="+id).get(0);
 	}
 
-	private HashMap<String, List<String>> getUsers(String sql) {
-		HashMap<String, List<String>> hm = new HashMap<String, List<String>>();
-		Statement request;
-		ResultSet resultSet;
-		List<String> listIdUser = new ArrayList<String>();
-		List<String> listLogin = new ArrayList<String>();
-		List<String> listPassword = new ArrayList<String>();
-		List<String> listEmail = new ArrayList<String>();
-		List<String> listScore = new ArrayList<String>();
-		List<String> listIsAdmin = new ArrayList<String>();
-
-		try {
-			request = connect.createStatement();
-			resultSet = request.executeQuery(sql);
-			while (resultSet.next()) {
-				listIdUser.add(String.valueOf(resultSet.getInt("id_user")));
-				listLogin.add(resultSet.getString("login"));
-				listPassword.add(resultSet.getString("password"));
-				listEmail.add(resultSet.getString("email"));
-				listScore.add(String.valueOf(resultSet.getInt("score")));
-				listIsAdmin.add(String.valueOf(resultSet.getBoolean("isAdmin")));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		hm.put("id_user", listIdUser);
-		hm.put("login", listLogin);
-		hm.put("password", listPassword);
-		hm.put("email", listEmail);
-		hm.put("score", listScore);
-		hm.put("isAdmin", listIsAdmin);
-
-		return hm;
+	// Récupérer un user avec son id
+	public User getUser(int id) {
+		return this.getUsers("select * from user where id_user=" + id).get(0);
 	}
 
-	private HashMap<String, List<String>> getQuestions(String sql) {
-		HashMap<String, List<String>> hm = new HashMap<String, List<String>>();
+	public List<Question> getQuestion(String type,String topic){
+		String sql="select * from Question where typequest='"+type+"' and topicQuestion='"+topic+"'";
+		return this.getQuestions(sql);
+	}
+	
+	private List<User> getUsers(String sql) {
 		Statement request;
 		ResultSet resultSet;
-		List<String> listIdQuest = new ArrayList<String>();
-		List<String> listTypeQuest = new ArrayList<String>();
-		List<String> listTopicQuestion = new ArrayList<String>();
-		List<String> listMP3Link = new ArrayList<String>();
-		List<String> listIdSubmitter = new ArrayList<String>();
-		List<String> listValidation = new ArrayList<String>();
-
+		String login = null, password = null, email = null;
+		int id = 0, score = 0;
+		boolean isAdmin = false;
+		List<User> lUser = new ArrayList<User>();
 		try {
 			request = connect.createStatement();
 			resultSet = request.executeQuery(sql);
+
 			while (resultSet.next()) {
-				listIdQuest.add(String.valueOf(resultSet.getInt("id_quest")));
-				listTypeQuest.add(resultSet.getString("typeQuest"));
-				listTopicQuestion.add(resultSet.getString("topicQuestion"));
-				listMP3Link.add(resultSet.getString("mp3_link"));
-				listIdSubmitter.add(String.valueOf(resultSet.getInt("id_submitter")));
-				listValidation.add(String.valueOf(resultSet.getBoolean("validation")));
+				id = resultSet.getInt("id");
+				login = resultSet.getString("login");
+				password = resultSet.getString("password");
+				email = resultSet.getString("email");
+				score = resultSet.getInt("score");
+				isAdmin = resultSet.getBoolean("isAdmin");
+				lUser.add(Factory.getUser(id, login, password, email, score, isAdmin));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		hm.put("id_quest", listIdQuest);
-		hm.put("typeQuest", listTypeQuest);
-		hm.put("topicQuestion", listTopicQuestion);
-		hm.put("mp3_link", listMP3Link);
-		hm.put("id_submitter", listIdSubmitter);
-		hm.put("validation", listValidation);
-
-		return hm;
+		return lUser;
 	}
 
-	private HashMap<String, List<String>> getAnswers(String sql) {
-		HashMap<String, List<String>> hm = new HashMap<String, List<String>>();
+	private List<Answer> getAnswers(String sql) {
 		Statement request;
 		ResultSet resultSet;
-		List<String> listIdUser = new ArrayList<String>();
-		List<String> listLogin = new ArrayList<String>();
-		List<String> listPassword = new ArrayList<String>();
-		List<String> listEmail = new ArrayList<String>();
-		List<String> listScore = new ArrayList<String>();
-		List<String> listIsAdmin = new ArrayList<String>();
-
+		String answerEnti = null, typeAns = null;
+		boolean correct = false;
+		List<Answer> lAnswer = new ArrayList<Answer>();
 		try {
 			request = connect.createStatement();
 			resultSet = request.executeQuery(sql);
 			while (resultSet.next()) {
-				listIdUser.add(String.valueOf(resultSet.getInt("id_user")));
-				listLogin.add(resultSet.getString("login"));
-				listPassword.add(resultSet.getString("password"));
-				listEmail.add(resultSet.getString("email"));
-				listScore.add(String.valueOf(resultSet.getInt("score")));
-				listIsAdmin.add(String.valueOf(resultSet.getBoolean("isAdmin")));
+				answerEnti = resultSet.getString("answer");
+				typeAns = resultSet.getString("type");
+				correct = resultSet.getBoolean("correct");
+				lAnswer.add(Factory.getAnswer(answerEnti, typeAns, correct));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		hm.put("id_user", listIdUser);
-		hm.put("login", listLogin);
-		hm.put("password", listPassword);
-		hm.put("email", listEmail);
-		hm.put("score", listScore);
-		hm.put("isAdmin", listIsAdmin);
+		return lAnswer;
+	}
 
-		return hm;
+	private List<Question> getQuestions(String sql) {
+		Statement request;
+		ResultSet resultSet;
+		List<Question> lQuestion = new ArrayList<Question>();
+
+		String entitled = null, type = null, topic = null, mp3Link = null;
+		int submitter = 0, id;
+		boolean valid = false;
+		List<Answer> listAnw = new ArrayList<Answer>();
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery(sql);
+			while (resultSet.next()) {
+				id = resultSet.getInt("id_quest");
+				type = resultSet.getString("typeQuestion");
+				topic = resultSet.getString("topicQuestion");
+				entitled = resultSet.getString("questContent");
+				mp3Link = resultSet.getString("mp3_link");
+				submitter = resultSet.getInt("id_Submitter");
+				valid = resultSet.getBoolean("validation");
+				listAnw = this.getAnswers("select * from Anwser where id_quest=" + id);
+
+				lQuestion.add(Factory.getQuestion(id, type, topic, entitled, mp3Link, submitter, valid, listAnw));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return lQuestion;
 	}
 
 }
+
+

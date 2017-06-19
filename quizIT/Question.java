@@ -6,8 +6,10 @@ public abstract class Question {
 	protected List<Answer> answer;
 	protected String entitled;
 	protected int id;
+	protected String topic;
+	protected int submitter;
 	
-	public Question(List<Answer> listAwnser, String entit,int ID){
+	public Question(List<Answer> listAwnser, String entit,int ID,String topic,int Submitter){
 		this.answer=listAwnser;
 		this.entitled=entit;
 		this.id=ID;

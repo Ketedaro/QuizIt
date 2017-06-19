@@ -16,12 +16,9 @@ public class Game {
 		public Game(int nbQ,Class<? extends Question> type){
 			score=0;
 			DataBase db=DataBase.getDataBase();
-			int max=db.sizeQuestion(type.getSimpleName());
-			int rdm;
 			Question tmp;
 			for(int i=0;i<nbQ;i++){
-				rdm=(int)(Math.random()*(max));
-				tmp=db.getQuestion(rdm,type.getSimpleName());
+				tmp=db.getRandQuestion(type.getSimpleName());
 				if(questions.contains(tmp))
 					this.questions.add(tmp);
 			}
