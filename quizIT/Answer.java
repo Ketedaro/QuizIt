@@ -2,17 +2,22 @@ package quizIT;
 
 public abstract class Answer {
 	protected String answer;
+	protected int id;
 	protected boolean correct;
 	
 	
-	public Answer(String answ, boolean corre){
+	public Answer(int id,String answ, boolean corre){
+		this.id=id;
 		this.answer=answ;
 		this.correct=corre;
 	}
 	
-	@Override
-	public String toString(){
+	public String getAnswer(){
 		return answer;
+	}
+	
+	public int getId(){
+		return this.id;
 	}
 	
 	public boolean isCorrect(){

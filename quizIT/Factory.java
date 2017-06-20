@@ -18,11 +18,11 @@ public class Factory {
 		return newQuestion;
 	}
 
-	public static Answer getAnswer(String answerEnti, String typeAns, boolean correct) {
+	public static Answer getAnswer(int id_answer, String answerEnti, String typeAns, boolean correct) {
 		Answer newAnswer = null;
 		switch(typeAns){
 		case "simple":
-			newAnswer=new SimpleAnswer(answerEnti,correct);
+			newAnswer=new SimpleAnswer(id_answer,answerEnti,correct);
 			break;
 		}
 		return newAnswer;

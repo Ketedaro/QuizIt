@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import quizIT.Answer;
+import quizIT.Blindtest;
 import quizIT.Factory;
+import quizIT.MCQ;
 import quizIT.Question;
+import quizIT.SimpleAnswer;
 import quizIT.User;
 
 public class DBConnect {
@@ -59,8 +62,8 @@ public class DBConnect {
 			e2.printStackTrace();
 		}
 	}
-	
-	//Vérifié que le login n'est pas déjà pris 
+
+	// Vérifié que le login n'est pas déjà pris
 	public boolean existLogin(String login) {
 		Statement request;
 		ResultSet res;
@@ -98,18 +101,17 @@ public class DBConnect {
 
 	// Récupérer le nombre de ligne de la table Question
 	public List<Question> getQuestion(String type) {
-		String sql = "select * from Question where typeQuest='" + type + "'";
-		return this.getQuestions(sql);
+		return this.getQuestions("select * from Question where typeQuest='" + type + "'");
 	}
-	
-	public Question getRandQuestion(String type){
-		String sql="select * from Question where typeQuest='"+type+"' order by rand() limit 1";
-		return this.getQuestions(sql).get(0);
+
+	public Question getRandQuestion(String type) {
+		return this.getQuestions("select * from Question where typeQuest='" + type + "' order by rand() limit 1")
+				.get(0);
 	}
 
 	// Récupérer une question avec son id
 	public Question getQuestion(int id) {
-		return this.getQuestions("select * from Question where id_quest="+id).get(0);
+		return this.getQuestions("select * from Question where id_quest=" + id).get(0);
 	}
 
 	// Récupérer un user avec son id
@@ -117,11 +119,72 @@ public class DBConnect {
 		return this.getUsers("select * from user where id_user=" + id).get(0);
 	}
 
-	public List<Question> getQuestion(String type,String topic){
-		String sql="select * from Question where typequest='"+type+"' and topicQuestion='"+topic+"'";
-		return this.getQuestions(sql);
+	public List<Question> getQuestion(String type, String topic) {
+		return this.getQuestions("select * from Question where typequest='" + type + "' and topicQuestion='" + topic + "'");
 	}
-	
+
+	public void playGame(User user) {
+		String sql = "Update User set score=" + user.getScore() + " where id_user=" + user.getId();
+		this.setUpdate(sql);
+	}
+
+	public void addQuestion(Question q) throws Exception {
+		String sql = "";
+		Statement request = null;
+		switch (q.getClass().getSimpleName()) {
+		case "MCQ":
+			MCQ mcq = (MCQ) q;
+			sql = "Insert into Question (id_quest,typeQuestion,topicQuestion,questContent,id_id_Submitter,validation)"
+					+ " Values ('" + mcq.getId() + "','MCQ'" + mcq.getTopic() + "','" + mcq.getEntitled() + "','"
+					+ mcq.getSubmitter() + "','" + mcq.getValidate() + "')";
+			break;
+
+		case "Blindtest":
+			Blindtest blt = (Blindtest) q;
+			sql = "Insert into Question (id_quest,typeQuestion,topicQuestion,questContent,mp3_link,id_id_Submitter,validation)"
+					+ " Values ('" + blt.getId() + "','Blindtest','" + blt.getTopic() + "','" + blt.getEntitled()
+					+ "','" + blt.getLinkMp3() + "','" + blt.getSubmitter() + "','" + blt.getValidate() + "')";
+			break;
+		default:
+			throw new Exception("Typage incorrect pour une question");
+		}
+		try {
+			request = connect.createStatement();
+			request.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		List<Answer> lA = q.getAnswers();
+		String sql2 = "";
+		for (int i = 0; i < lA.size(); ++i) {
+			switch (lA.get(i).getClass().getSimpleName()) {
+			case "SimpleAnswer":
+				SimpleAnswer sA = (SimpleAnswer) lA.get(i);
+				sql2 = "Insert into Answer (id_answer,id_quest,typeAnswer,answerContent,isTrue)" + " Values ('"
+						+ sA.getId() + "','" + q.getId() + "','SimpleAnswer','" + sA.getAnswer() + "','"
+						+ sA.isCorrect() + "')";
+				break;
+
+			default:
+				throw new Exception("Typage incorrect pour une réponse");
+			}
+			try {
+				request.executeUpdate(sql2);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void createUser(String formPseudo, String formPwd, String formMail) {
+		this.setUpdate("Insert into user(login,password,email,isAdmin) Values('" + formPseudo + "','" + formPwd + "','"
+				+ formMail + "')");
+	}
+
+	public User getUser(String formPseudo) {
+		return this.getUsers("select * from user where login='" + formPseudo + "'").get(0);
+	}
+
 	private List<User> getUsers(String sql) {
 		Statement request;
 		ResultSet resultSet;
@@ -134,7 +197,7 @@ public class DBConnect {
 			resultSet = request.executeQuery(sql);
 
 			while (resultSet.next()) {
-				id = resultSet.getInt("id");
+				id = resultSet.getInt("id_user");
 				login = resultSet.getString("login");
 				password = resultSet.getString("password");
 				email = resultSet.getString("email");
@@ -151,6 +214,7 @@ public class DBConnect {
 	private List<Answer> getAnswers(String sql) {
 		Statement request;
 		ResultSet resultSet;
+		int id_answer = 0;
 		String answerEnti = null, typeAns = null;
 		boolean correct = false;
 		List<Answer> lAnswer = new ArrayList<Answer>();
@@ -158,10 +222,11 @@ public class DBConnect {
 			request = connect.createStatement();
 			resultSet = request.executeQuery(sql);
 			while (resultSet.next()) {
-				answerEnti = resultSet.getString("answer");
-				typeAns = resultSet.getString("type");
-				correct = resultSet.getBoolean("correct");
-				lAnswer.add(Factory.getAnswer(answerEnti, typeAns, correct));
+				id_answer = resultSet.getInt("id_answer");
+				typeAns = resultSet.getString("typeAnswer");
+				answerEnti = resultSet.getString("answerContent");
+				correct = resultSet.getBoolean("isTrue");
+				lAnswer.add(Factory.getAnswer(id_answer, answerEnti, typeAns, correct));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -200,6 +265,14 @@ public class DBConnect {
 		return lQuestion;
 	}
 
+	private void setUpdate(String sql) {
+		Statement request = null;
+		try {
+			request = connect.createStatement();
+			request.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
-
-
