@@ -118,8 +118,8 @@ CREATE TABLE answers (
 	id_answer INTEGER NOT NULL AUTO_INCREMENT,
 	id_quest INTEGER NOT NULL,
 	typeAnswer VARCHAR(15) NOT NULL, -- Type de réponse
-	answerContent VARCHAR(255), -- Réponse
-	desc_answer VARCHAR(255) NOT NULL, -- Description de la réponse
+	answerContent VARCHAR(255) NOT NULL, -- Réponse
+	desc_answer VARCHAR(255), -- Description de la réponse
 	isTrue BOOLEAN, -- Réponse juste ou non
 	CONSTRAINT PK_ANSWERS PRIMARY KEY (id_answer),
 	FOREIGN KEY (id_quest) REFERENCES questions (id_quest)
