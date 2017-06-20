@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Question {
 	protected List<Answer> answer;
 	protected String entitled;
-	protected int id;
+	protected int id=0;
 	protected String topic;
 	protected int submitter;
 	protected boolean validate;
@@ -65,6 +65,11 @@ public abstract class Question {
 	        return false;
 	    }
 		return true;
+	}
+
+	public void setId(int ID) {
+		if(this.id==0)
+			this.id=ID;		
 	}
 	
 }

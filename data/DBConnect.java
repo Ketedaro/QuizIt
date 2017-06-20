@@ -120,7 +120,8 @@ public class DBConnect {
 	}
 
 	public List<Question> getQuestion(String type, String topic) {
-		return this.getQuestions("select * from Question where typequest='" + type + "' and topicQuestion='" + topic + "'");
+		return this.getQuestions(
+				"select * from Question where typequest='" + type + "' and topicQuestion='" + topic + "'");
 	}
 
 	public void playGame(User user) {
@@ -134,16 +135,16 @@ public class DBConnect {
 		switch (q.getClass().getSimpleName()) {
 		case "MCQ":
 			MCQ mcq = (MCQ) q;
-			sql = "Insert into Question (id_quest,typeQuestion,topicQuestion,questContent,id_id_Submitter,validation)"
-					+ " Values ('" + mcq.getId() + "','MCQ'" + mcq.getTopic() + "','" + mcq.getEntitled() + "','"
-					+ mcq.getSubmitter() + "','" + mcq.getValidate() + "')";
+			sql = "Insert into Questions (typeQuestion,topicQuestion,questContent,id_Submitter,validation)"
+					+ " Values ('MCQ'" + mcq.getTopic() + "','" + mcq.getEntitled() + "','" + mcq.getSubmitter() + "','"
+					+ mcq.getValidate() + "')";
 			break;
 
 		case "Blindtest":
 			Blindtest blt = (Blindtest) q;
-			sql = "Insert into Question (id_quest,typeQuestion,topicQuestion,questContent,mp3_link,id_id_Submitter,validation)"
-					+ " Values ('" + blt.getId() + "','Blindtest','" + blt.getTopic() + "','" + blt.getEntitled()
-					+ "','" + blt.getLinkMp3() + "','" + blt.getSubmitter() + "','" + blt.getValidate() + "')";
+			sql = "Insert into Questions (typeQuestion,topicQuestion,questContent,mp3_link,id_Submitter,validation)"
+					+ " Values ('Blindtest','" + blt.getTopic() + "','" + blt.getEntitled() + "','" + blt.getLinkMp3()
+					+ "','" + blt.getSubmitter() + "','" + blt.getValidate() + "')";
 			break;
 		default:
 			throw new Exception("Typage incorrect pour une question");
@@ -154,6 +155,13 @@ public class DBConnect {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		ResultSet resultSet=request.executeQuery("select id_quest from Questions where typeQuestion='" + q.getClass().getSimpleName()
+				+ "' and topicQuestion='" + q.getTopic() + "' and questContent=" + q.getEntitled()
+				+ "' and id_Submitter=" + q.getSubmitter() + " and validation='"+q.getValidate());
+		resultSet.next();
+		q.setId(resultSet.getInt("id_quest"));
+		
+
 		List<Answer> lA = q.getAnswers();
 		String sql2 = "";
 		for (int i = 0; i < lA.size(); ++i) {
@@ -161,8 +169,8 @@ public class DBConnect {
 			case "SimpleAnswer":
 				SimpleAnswer sA = (SimpleAnswer) lA.get(i);
 				sql2 = "Insert into Answer (id_answer,id_quest,typeAnswer,answerContent,isTrue)" + " Values ('"
-						+ sA.getId() + "','" + q.getId() + "','SimpleAnswer','" + sA.getAnswer() + "','"
-						+ sA.isCorrect() + "')";
+						+ sA.getId() + "','" + q.getId() + "','SimpleAnswer','" + sA.getAnswer() + "','" + sA.isCorrect()
+						+ "')";
 				break;
 
 			default:
