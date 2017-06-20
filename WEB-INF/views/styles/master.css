@@ -48,8 +48,6 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-
-
 @media screen and (max-width: 640px) {
   .quiz-list .quiz {
     width: 100%;
@@ -97,4 +95,53 @@ h1, h2, h3, h4, h5, h6 {
     text-align:left;
     /* inline-block space fix */
     margin-right:-4px;
+}
+
+/* LEADER BOARD*/
+.leaderboard {
+  background-color: white;
+}
+
+/* QUESTIONS */
+
+.question-panel {
+  padding: 0;
+}
+
+.question-panel .panel-body {
+  padding: 5%;
+}
+
+@media screen and (max-width: 640px) {
+  .question-panel {
+    width:80%;
+    margin-left: 10%;
+  }
+
+  .panel h2 {
+    margin-top: 10px;
+    font-size: 20px;
+  }
+
+  .field button{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 1600px) and (min-width: 640px) {
+  .field button{
+    width: 95%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .field button{
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
