@@ -3,11 +3,6 @@
 -- Copyright © 2017 Victor CHEN, Andy HUANG, Kilian CHOLLET, Lucas MASSON
 --
 
-!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;
-!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;
-!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;
-!40101 SET NAMES utf8mb4;
-
 SET NAMES 'utf8' COLLATE 'utf8_general_ci';
 
 --
@@ -95,10 +90,19 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('MCQ', 'La Coupe du monde de football', 'Quel pays détient du record de défaites en finale de Coupe du monde ?', null, '1', true), -- 30
 ('MCQ', 'La Coupe du monde de football', 'Quel footballeur a champion du monde à trois reprises ?', null, '1', true), -- 31
 ('MCQ', 'La Coupe du monde de football', 'De quelle nationalité était le footballeur qui a marqué le premier but de la première édition de la Coupe du monde ?', null, '1', true), -- 32
-('BlindTest', 'Chanson française', 'Qui est l\'artiste ?', 'quelquun_ma_dit.mp3', '1', true), -- 33
-('BlindTest', 'Chanson française', 'Quel est le titre de cette chanson composée par Léo Ferré ?', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 34
-('BlindTest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 35
-('BlindTest', 'Chanson française', 'En quelle année cet album a été le plus vendu ?', 'christophe_mae_on_trace_la_route.mp3', '2', true); -- 36
+('Blindtest', 'Chanson française', 'Qui est l\'artiste ?', 'quelquun_ma_dit.mp3', '1', true), -- 33
+('Blindtest', 'Chanson française', 'Quel est le titre de cette chanson composée par Léo Ferré ?', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 34
+('Blindtest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 35
+('Blindtest', 'Chanson française', 'En quelle année cet album a été le plus vendu ?', 'christophe_mae_on_trace_la_route.mp3', '2', true), -- 36
+('Blindtest', 'Pop / Electro', 'Qui est l\'artiste ?', 'calvin_harris_this_is_what_you_came_for.mp3', '1', true), -- 37
+('Blindtest', 'Pop / Electro', 'Quel est le titre de cette chanson composée par Ed Sheeran ?', 'shape_of_you.mp3', '2', true), -- 38
+('Blindtest', 'Pop / Electro', 'Complétez les paroles "Ooh, it\'s something magical..." Justin Timberlake - Can\'t Stop The Feeling !', 'cant_stop_the_feeling.mp3', '2', true), -- 39
+('Blindtest', 'Pop / Electro', 'Quel est le titre de cette chanson ?', 'two_feets_go_fuck_yourself.mp3', '2', true), -- 40
+('Blindtest', 'House', 'Qui est l\'artiste ?', 'no_promises.mp3', '1', true), -- 41
+('Blindtest', 'House', 'Quel est le titre de cette chanson composée par Justin Caruso ?', 'talk_about_me.mp3', '2', true), -- 42
+('Blindtest', 'House', 'Complétez les paroles "It\'s been a long day..." Wiz Khalifa - See you again', 'see_you_again.mp3', '2', true), -- 43
+('Blindtest', 'House', 'Quel est le titre de cette chanson ?', 'symphony.mp3', '2', true); -- 44
+
 
 --
 -- Data Test
@@ -131,7 +135,7 @@ CREATE TABLE answers (
 
 INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) VALUES
 ('1', 'MCQ', 'France', '', false),
-('1', 'MCQ', 'Irlande', 'Les scènes de débarquement du film Il faut sauver le soldat Ryan ont été tournées en Irlande. La plupart des figurants étaient des réservistes de l’armée allemande.', true, true),
+('1', 'MCQ', 'Irlande', 'Les scènes de débarquement du film Il faut sauver le soldat Ryan ont été tournées en Irlande. La plupart des figurants étaient des réservistes de l’armée allemande.', true),
 ('1', 'MCQ', 'Allemagne', '', false),
 ('1', 'MCQ', 'Angleterre', '', false),
 ('2', 'MCQ', 'Pologne', '', false),
@@ -258,22 +262,54 @@ INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('32', 'MCQ', 'Français', 'Le 13 juillet 1930, le Français Lucien Laurent marque le premier but de la première édition de la Coupe du monde de football.', true),
 ('32', 'MCQ', 'Argentin', '', false),
 ('32', 'MCQ', 'Américain', '', false),
-('33', 'BlindTest', 'Jenifer', '', false),
-('33', 'BlindTest', 'Carla Bruni', '"Quelqu\'un m\'a dit" est le premier album de la chanteuse franco-italienne et mannequin Carla Bruni. Produit et arrangé par Louis Bertignac, il est sorti en 2002.', true),
-('33', 'BlindTest', 'Tal', '', false),
-('33', 'BlindTest', 'Amel Bent', '', false),
-('34', 'BlindTest', 'Avec le temps', '', false),
-('34', 'BlindTest', 'Vingt ans', '', false),
-('34', 'BlindTest', 'Jolie Môme', '', false),
-('34', 'BlindTest', 'L\'affiche rouge', 'Cette composition sous le titre L\'Affiche rouge par Léo Ferré en 1959 est l\'adaptation du poème de Louis Aragon "Strophes pour se souvenir".', true),
-('35', 'BlindTest', '... tous les whiskies', 'Je suis malade est à la fois un album de Serge Lama, sorti en 1973, et l\'une des chansons les plus célèbres de cet album.', true),
-('35', 'BlindTest', '... toutes les bières', '', false),
-('35', 'BlindTest', '... tous les vins', '', false),
-('35', 'BlindTest', '... tous les sodas', '', false),
-('36', 'BlindTest', '2008', '', false),
-('36', 'BlindTest', '2009', '', false),
-('36', 'BlindTest', '2010', 'L\'album "On trace la route" de Christophe Maé sorti le 22 mars 2010 a totalisé 546 575 exemplaires de vendus', true),
-('36', 'BlindTest', '2011', '', false);
+('33', 'Blindtest', 'Jenifer', '', false),
+('33', 'Blindtest', 'Carla Bruni', '"Quelqu\'un m\'a dit" est le premier album de la chanteuse franco-italienne et mannequin Carla Bruni. Produit et arrangé par Louis Bertignac, il est sorti en 2002.', true),
+('33', 'Blindtest', 'Tal', '', false),
+('33', 'Blindtest', 'Amel Bent', '', false),
+('34', 'Blindtest', 'Avec le temps', '', false),
+('34', 'Blindtest', 'Vingt ans', '', false),
+('34', 'Blindtest', 'Jolie Môme', '', false),
+('34', 'Blindtest', 'L\'affiche rouge', 'Cette composition sous le titre L\'Affiche rouge par Léo Ferré en 1959 est l\'adaptation du poème de Louis Aragon "Strophes pour se souvenir".', true),
+('35', 'Blindtest', '... tous les whiskies', 'Je suis malade est à la fois un album de Serge Lama, sorti en 1973, et l\'une des chansons les plus célèbres de cet album.', true),
+('35', 'Blindtest', '... toutes les bières', '', false),
+('35', 'Blindtest', '... tous les vins', '', false),
+('35', 'Blindtest', '... tous les sodas', '', false),
+('36', 'Blindtest', '2008', '', false),
+('36', 'Blindtest', '2009', '', false),
+('36', 'Blindtest', '2010', 'L\'album "On trace la route" de Christophe Maé sorti le 22 mars 2010 a totalisé 546 575 exemplaires de vendus', true),
+('36', 'Blindtest', '2011', '', false),
+('37', 'Blindtest', 'Calvin Harris', 'C\'est un bg', true),
+('37', 'Blindtest', 'Justin Bieber', '', false),
+('37', 'Blindtest', 'Charlie Puth', '', false),
+('37', 'Blindtest', 'Shawn Mendes', '', false),
+('38', 'Blindtest', 'Galway girl', '', false),
+('38', 'Blindtest', 'Shape of you', 'I\'m in love with the shape of you !', true),
+('38', 'Blindtest', 'Thinking out loud', '', false),
+('38', 'Blindtest', 'Perfect', '', false),
+('39', 'Blindtest', 'So just dance, dance, dance, come on', '', false),
+('39', 'Blindtest', 'Don\'t need no reason, don\'t need control', '', false),
+('39', 'Blindtest', 'It goes electric, wavy when I turn it on', '', false),
+('39', 'Blindtest', 'It\'s in the air, it\'s in my blood, it\'s rushing on', 'You can\'t stop my feelings for you', true),
+('40', 'Blindtest', 'Go Fuck Yourself', 'Yeah go on', true),
+('40', 'Blindtest', 'The bass is too loud', '', false),
+('40', 'Blindtest', 'Oh my god', '', false),
+('40', 'Blindtest', 'Shit on', '', false),
+('41', 'Blindtest', 'Ellie Goulding', '', false),
+('41', 'Blindtest', 'Clean Bandit', '', false),
+('41', 'Blindtest', 'Cheat Codes', 'Don\'t use them !', true),
+('41', 'Blindtest', 'Hello', '', false),
+('42', 'Blindtest', 'Talk about me', 'Do not talk about me', true),
+('42', 'Blindtest', 'Closer', '', false),
+('42', 'Blindtest', 'Love somebody', '', false),
+('42', 'Blindtest', 'Satellite', '', false),
+('43', 'Blindtest', 'Without you my friend', '', true),
+('43', 'Blindtest', 'With you my friend', '', false),
+('43', 'Blindtest', 'Well you didn\'t die', '', false),
+('43', 'Blindtest', 'I didn\'t eat burger', '', false),
+('44', 'Blindtest', 'Symphony', 'I just want to be in your symphony', true),
+('44', 'Blindtest', 'Opera', '', false),
+('44', 'Blindtest', 'Theatre', '', false),
+('44', 'Blindtest', 'Hey man', '', false);
 
 
 
