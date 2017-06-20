@@ -26,7 +26,7 @@ CREATE TABLE users (
 	score INTEGER DEFAULT 0,
 	isAdmin BOOLEAN DEFAULT FALSE,
 	CONSTRAINT PK_USERS PRIMARY KEY (id_user)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Content users
@@ -54,49 +54,48 @@ CREATE TABLE questions (
 	validation BOOLEAN DEFAULT 0,
 	CONSTRAINT PK_QUESTIONS PRIMARY KEY (id_quest),
 	FOREIGN KEY (id_submitter) REFERENCES users (id_user)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Content questions
 --
 
 INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitter, validation) VALUES
--- ('BlindTest', 'Geographie', 'Paris est-elle la capitale de la France ?', null, '1', false) --
-('MCQ', 'Le débarquement de Normandie', 'Où étaient tournées les scènes de débarquement du film "Il faut sauver le soldat Ryan" ?', null, '1', true) -- 1
-('MCQ', 'Le débarquement de Normandie', 'Où se trouvait le maréchal Rommel, responsable de la Normandie, le 6 juin 1944 ?', null, '1', true) -- 2
-('MCQ', 'Le débarquement de Normandie', 'Sur combien de plages se concentrés les combats du 6 juin 1944 ?', null, '1', true) -- 3
-('MCQ', 'Le débarquement de Normandie', 'Quel personnage était un ardent défenseur du projet de débarquement en Normandie ?', null, '1', true) -- 4
-('MCQ', 'Les scientifiques', 'Quelle planète Urbain Le Verrier a-t-il découvert par des calculs mathématiques ?', null, '1', true) -- 5
-('MCQ', 'Les scientifiques', 'Sur quelle(s) île(s) Darwin a-t-il développé sa théorie sur l’évolution des espèces ?', null, '1', true) -- 6
-('MCQ', 'Les scientifiques', 'Quel scientifique a donné son nom à l’unité d’intensité du courant électrique ?', null, '1', true) -- 7
-('MCQ', 'Les scientifiques', 'Par quel nom Nikola Tesla a-t-il baptisé l\'invention de la première voiture électrique ?', null, '1', true) -- 8
-('MCQ', 'Les félins', 'De quelle manière voient le chat ? Choisissez la bonne réponse.', null, '1', true) -- 9
-('MCQ', 'Les félins', 'À quelle distance un chat peut-il sentir un autre chat ?', null, '1', true) -- 10
-('MCQ', 'Les félins', 'Quel félin est le seul à vivre en groupe ?', null, '1', true) -- 11
-('MCQ', 'Les félins', 'Quel contient les félins n\'ont-ils pas colonisé naturellement ?', null, '1', true) -- 12
-('MCQ', 'Les États-Unis', 'Quel État est le dernier à avoir joint les États-Unis ?', null, '1', true) -- 13
-('MCQ', 'Les États-Unis', 'Combien de médailles d\'or Jesse Owens a-t-il remporté devant Hitler ?', null, '1', true) -- 14
-('MCQ', 'Les États-Unis', 'Au total, combien d\'Américains ont marché sur la Lune ?', null, '1', true) -- 15
-('MCQ', 'Les États-Unis', 'Combien d\'États comptent les États-Unis ?', null, '1', true) -- 16
-('MCQ', 'Les ordinateurs', 'Combien mesurait la première disquette (en diamètre) ?', null, '1', true) -- 17
-('MCQ', 'Les ordinateurs', 'Quelle capacité avaient les premières disquettes ?', null, '1', true) -- 18
-('MCQ', 'Les ordinateurs', 'En quelle année le premier site web a été mis en ligne ?', null, '1', true) -- 19
-('MCQ', 'Les ordinateurs', 'Quel est le navigateur qui a popularisé l\'utilisation des images dans un site web ?', null, '1', true) -- 20
-('MCQ', 'Culture du monde', 'Un animal rare est un des symboles de la Nouvelle-Zélande, lequel ?', null, '1', true) -- 21
-('MCQ', 'Culture du monde', 'Un des symboles de la France est le coq, mais il l\'est également ... (Complétez)', null, '1', true) -- 22
-('MCQ', 'Culture du monde', 'Si, dans un pays européen vous entendez (étonnamment en langue française)', null, '1', true) -- 23
-('MCQ', 'Culture du monde', 'De quel pays le castor à large queue plate est-il emblématique ?', null, '1', true) -- 24
-('MCQ', 'Le monde en 2016', 'Quel film a remporté l’Oscar du meilleur film en 2016 ?', null, '1', true) -- 25
-('MCQ', 'Le monde en 2016', 'En quel mois a eu lieu l\'ouragan Matthew qui a tué près de 1000 personnes en Haïti ?', null, '1', true) -- 26
-('MCQ', 'Le monde en 2016', 'Quel prix Bob Dylan, chanteur et poète, a-t-il reçu en 2016 ?', null, '1', true) -- 27
-('MCQ', 'Le monde en 2016', 'Quel cycliste a remporté le Tour de France en 2016 ?', null, '1', true) -- 28
-('MCQ', 'La Coupe du monde de football', 'Quel pays a remporté deux fois d\'affilé la Coupe du monde ?', null, '1', true) -- 29
-('MCQ', 'La Coupe du monde de football', 'Quel pays détient du record de défaites en finale de Coupe du monde ?', null, '1', true); -- 30
-('MCQ', 'La Coupe du monde de football', 'Quel footballeur a champion du monde à trois reprises ?', null, '1', true); -- 31
-('MCQ', 'La Coupe du monde de football', 'De quelle nationalité était le footballeur qui a marqué le premier but de la première édition de la Coupe du monde ?', null, '1', true); -- 32
-('BlindTest', 'Chanson française', 'Qui est l\'artiste ?', 'quelquun_ma_dit.mp3', '1', true); -- 33
-('BlindTest', 'Chanson française', 'Quel est le titre de cette chanson composée par Léo Ferré ?', 'leo_ferre_affiche_rouge.mp3', '2', true); -- 34
-('BlindTest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'leo_ferre_affiche_rouge.mp3', '2', true); -- 35
+('MCQ', 'Le débarquement de Normandie', 'Où étaient tournées les scènes de débarquement du film "Il faut sauver le soldat Ryan" ?', null, '1', true), -- 1
+('MCQ', 'Le débarquement de Normandie', 'Où se trouvait le maréchal Rommel, responsable de la Normandie, le 6 juin 1944 ?', null, '1', true), -- 2
+('MCQ', 'Le débarquement de Normandie', 'Sur combien de plages se concentrés les combats du 6 juin 1944 ?', null, '1', true), -- 3
+('MCQ', 'Le débarquement de Normandie', 'Quel personnage était un ardent défenseur du projet de débarquement en Normandie ?', null, '1', true), -- 4
+('MCQ', 'Les scientifiques', 'Quelle planète Urbain Le Verrier a-t-il découvert par des calculs mathématiques ?', null, '1', true), -- 5
+('MCQ', 'Les scientifiques', 'Sur quelle(s) île(s) Darwin a-t-il développé sa théorie sur l’évolution des espèces ?', null, '1', true), -- 6
+('MCQ', 'Les scientifiques', 'Quel scientifique a donné son nom à l’unité d’intensité du courant électrique ?', null, '1', true), -- 7
+('MCQ', 'Les scientifiques', 'Par quel nom Nikola Tesla a-t-il baptisé l\'invention de la première voiture électrique ?', null, '1', true), -- 8
+('MCQ', 'Les félins', 'De quelle manière voient le chat ? Choisissez la bonne réponse.', null, '1', true), -- 9
+('MCQ', 'Les félins', 'À quelle distance un chat peut-il sentir un autre chat ?', null, '1', true), -- 10
+('MCQ', 'Les félins', 'Quel félin est le seul à vivre en groupe ?', null, '1', true), -- 11
+('MCQ', 'Les félins', 'Quel contient les félins n\'ont-ils pas colonisé naturellement ?', null, '1', true), -- 12
+('MCQ', 'Les États-Unis', 'Quel État est le dernier à avoir joint les États-Unis ?', null, '1', true), -- 13
+('MCQ', 'Les États-Unis', 'Combien de médailles d\'or Jesse Owens a-t-il remporté devant Hitler ?', null, '1', true), -- 14
+('MCQ', 'Les États-Unis', 'Au total, combien d\'Américains ont marché sur la Lune ?', null, '1', true), -- 15
+('MCQ', 'Les États-Unis', 'Combien d\'États comptent les États-Unis ?', null, '1', true), -- 16
+('MCQ', 'Les ordinateurs', 'Combien mesurait la première disquette (en diamètre) ?', null, '1', true), -- 17
+('MCQ', 'Les ordinateurs', 'Quelle capacité avaient les premières disquettes ?', null, '1', true), -- 18
+('MCQ', 'Les ordinateurs', 'En quelle année le premier site web a été mis en ligne ?', null, '1', true), -- 19
+('MCQ', 'Les ordinateurs', 'Quel est le navigateur qui a popularisé l\'utilisation des images dans un site web ?', null, '1', true), -- 20
+('MCQ', 'Culture du monde', 'Un animal rare est un des symboles de la Nouvelle-Zélande, lequel ?', null, '1', true), -- 21
+('MCQ', 'Culture du monde', 'Un des symboles de la France est le coq, mais il l\'est également ... (Complétez)', null, '1', true), -- 22
+('MCQ', 'Culture du monde', 'Si, dans un pays européen vous entendez (étonnamment en langue française)', null, '1', true), -- 23
+('MCQ', 'Culture du monde', 'De quel pays le castor à large queue plate est-il emblématique ?', null, '1', true), -- 24
+('MCQ', 'Le monde en 2016', 'Quel film a remporté l’Oscar du meilleur film en 2016 ?', null, '1', true), -- 25
+('MCQ', 'Le monde en 2016', 'En quel mois a eu lieu l\'ouragan Matthew qui a tué près de 1000 personnes en Haïti ?', null, '1', true), -- 26
+('MCQ', 'Le monde en 2016', 'Quel prix Bob Dylan, chanteur et poète, a-t-il reçu en 2016 ?', null, '1', true), -- 27
+('MCQ', 'Le monde en 2016', 'Quel cycliste a remporté le Tour de France en 2016 ?', null, '1', true), -- 28
+('MCQ', 'La Coupe du monde de football', 'Quel pays a remporté deux fois d\'affilé la Coupe du monde ?', null, '1', true), -- 29
+('MCQ', 'La Coupe du monde de football', 'Quel pays détient du record de défaites en finale de Coupe du monde ?', null, '1', true), -- 30
+('MCQ', 'La Coupe du monde de football', 'Quel footballeur a champion du monde à trois reprises ?', null, '1', true), -- 31
+('MCQ', 'La Coupe du monde de football', 'De quelle nationalité était le footballeur qui a marqué le premier but de la première édition de la Coupe du monde ?', null, '1', true), -- 32
+('BlindTest', 'Chanson française', 'Qui est l\'artiste ?', 'quelquun_ma_dit.mp3', '1', true), -- 33
+('BlindTest', 'Chanson française', 'Quel est le titre de cette chanson composée par Léo Ferré ?', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 34
+('BlindTest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 35
 ('BlindTest', 'Chanson française', 'En quelle année cet album a été le plus vendu ?', 'christophe_mae_on_trace_la_route.mp3', '2', true); -- 36
 
 --
@@ -122,7 +121,7 @@ CREATE TABLE answers (
 	isTrue BOOLEAN, -- Réponse juste ou non
 	CONSTRAINT PK_ANSWERS PRIMARY KEY (id_answer),
 	FOREIGN KEY (id_quest) REFERENCES questions (id_quest)
-);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- answers content
@@ -272,7 +271,7 @@ INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('36', 'BlindTest', '2008', '', false),
 ('36', 'BlindTest', '2009', '', false),
 ('36', 'BlindTest', '2010', 'L\'album "On trace la route" de Christophe Maé sorti le 22 mars 2010 a totalisé 546 575 exemplaires de vendus', true),
-('36', 'BlindTest', '2011', '', false),
+('36', 'BlindTest', '2011', '', false);
 
 
 
