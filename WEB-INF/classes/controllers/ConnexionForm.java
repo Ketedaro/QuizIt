@@ -11,6 +11,7 @@ public class ConnexionForm {
 	private String message;
 	private boolean correct;
 	
+	
 	public void valider(HttpServletRequest request){
 		String formPseudo = request.getParameter("pseudo");
 		String formMdp = Hashage.sha256(request.getParameter("password"));
@@ -33,13 +34,14 @@ public class ConnexionForm {
 	
 	public HttpServletRequest creerSession(HttpServletRequest request) throws Exception{
 		if (!this.correct) {
-			throw new Exception("Le formulaire de connexion n'a pas été validé ou est incorrect.");
+			throw new Exception("Le formulaire de connexion n'a pas ï¿½tï¿½ validï¿½ ou est incorrect.");
 		}
 		
 		String formPseudo = request.getParameter("pseudo");
+		System.out.println(formPseudo);
 		User user = DataBase.getDataBase().getUser(formPseudo);
 		
-		/* Création ou récupération de la session */
+		/* Crï¿½ation ou rï¿½cupï¿½ration de la session */
 		HttpSession session = request.getSession();
 		
 		session.setAttribute("utilisateur", user);

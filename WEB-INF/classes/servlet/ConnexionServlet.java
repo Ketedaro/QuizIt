@@ -19,28 +19,38 @@ public class ConnexionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		ConnexionForm connexion_utilisateur = new ConnexionForm();
 
-		try {
-			connexion_utilisateur.valider(request);
+		connexion_utilisateur.valider(request);
 
+		try {
 			if (!connexion_utilisateur.isCorrect()) {
 
 				request.setAttribute("form_connexion", connexion_utilisateur);
-				this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/accueil.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/views/connexion.jsp").forward(request, response);
 
 			} else {
 
 				request = connexion_utilisateur.creerSession(request);
-				this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/accueil.jsp").forward(request, response);
-
+				response.sendRedirect(request.getContextPath()+"/home");
+				//this.getServletContext().getRequestDispatcher("/home").forward(request, response);
 			}
+
 		} catch (Exception e) {
+			
 			try {
-				this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/erreur.jsp").forward(request, response);
+				
+				this.getServletContext().getRequestDispatcher("/WEB-INF/views/erreur.jsp").forward(request, response);
+				
 			} catch (ServletException | IOException e1) {
+				
 				e1.printStackTrace();
 			}
-			e.printStackTrace();
-
+			
 		}
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/views/connexion.jsp").forward(request, response);
+		
 	}
 }

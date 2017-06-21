@@ -21,8 +21,8 @@ if (session.getAttribute("utilisateur") == null) {
     <title>QuizIT !</title>
 
     <!-- Personal styles - to modyfy with Tomcat links -->
-    <link rel="stylesheet" href="views/styles/bootstrap-custom.css">
-    <link rel="stylesheet" href="views/styles/master.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap-custom.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/master.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Javascript (jquery BEFORE bootstrap) -->
@@ -77,7 +77,7 @@ if (session.getAttribute("utilisateur") == null) {
               <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li>
             <% } else { %>
               <li>
-                <a href="views/connexion.jsp" target="_blank"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
+                <a href="${pageContext.request.contextPath}/connexion"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
               </li>
               <li>
                 <a href="views/create-account.jsp">

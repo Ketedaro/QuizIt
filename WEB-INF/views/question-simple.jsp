@@ -6,8 +6,8 @@
     <title>QuizIT !</title>
 
     <!-- Personal styles - to modyfy with Tomcat links -->
-    <link rel="stylesheet" href="styles/bootstrap-custom.css">
-    <link rel="stylesheet" href="styles/master.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap-custom.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/master.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Javascript (jquery BEFORE bootstrap) -->
@@ -52,29 +52,45 @@
     </nav>
 
     <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <form class="panel panel-primary tweak-padding-50" method="post" action="/inscription">
-          <fieldset>
-            <legend>Se connecter</legend>
-            <div class="form-group">
-              <label for="inputEmail" class="control-label"> Pseudo</label>
-                <input class="form-control" id="inputEmail" placeholder="Pseudo" type="text">
-            </div>
-            <div class="form-group">
-              <label for="inputPassword" class="control-label"> Mot de passe</label>
-                <input class="form-control" id="inputPassword" placeholder="Password" type="password">
-            </div>
-            <br>
-            <div class="form-group text-center">
-              <a href="index.jsp" class="btn btn-primary">Annuler</a>
-              <button type="submit" class="btn btn-success" data-_extension-text-contrast="">Connexion</button>
-            </div>
-          </fieldset>
-        </form>
+      <div class="col-md-2"></div>
+      <div class="panel panel-success col-md-8 question-panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">Question n°1</h3>
+        </div>
+        <div class="panel-body row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8 row container">
+            <header class="text-center">
+              <h2>Quelle est la couleur du cheval blanc d'Henri IV ?</h2>
+            </header>
+            <form class="row row-centered col-md-12" action="index.jsp" method="post">
+              <div class="field col-md-6">
+                <button class="btn btn-success" name="button" value="1">Bleu</button>
+              </div>
+              <div class="field col-md-6">
+                <button class="btn btn-success" name="button" value="2">Blanc</button>
+              </div>
+              <div class="field col-md-6">
+                <button class="btn btn-success" name="button" value="2">Vert</button>
+              </div>
+              <div class="field col-md-6">
+                <button class="btn btn-success" name="button" value="2">Violet</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2"></div>
+    </div>
+
+    <!-- PUB -->
+    <div class="row">
+      <div class="col-md-2"></div></div>
+      <div class="">
 
       </div>
-      <div class="col-md-4"></div>
+      <div class="col-md-2"></div>
     </div>
   </body>
 

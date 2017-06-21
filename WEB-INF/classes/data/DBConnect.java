@@ -26,7 +26,7 @@ public class DBConnect {
 	private Connection connect;
 
 	public DBConnect() {
-		File file = new File("Z:\\git\\config.txt");
+		File file = new File("/var/lib/tomcat7/webapps/QuizIt/WEB-INF/classes/config.txt");
 		try {
 			FileReader fis = new FileReader(file);
 			@SuppressWarnings("resource")
@@ -63,7 +63,7 @@ public class DBConnect {
 		}
 	}
 
-	// Vérifié que le login n'est pas déjà pris
+	// Vï¿½rifiï¿½ que le login n'est pas dï¿½jï¿½ pris
 	public boolean existLogin(String login) {
 		Statement request;
 		ResultSet res;
@@ -99,7 +99,7 @@ public class DBConnect {
 
 	}
 
-	// Récupérer le nombre de ligne de la table Question
+	// Rï¿½cupï¿½rer le nombre de ligne de la table Question
 	public List<Question> getQuestion(String type) {
 		return this.getQuestions("select * from questions where typeQuest='" + type + "'");
 	}
@@ -109,12 +109,12 @@ public class DBConnect {
 				.get(0);
 	}
 
-	// Récupérer une question avec son id
+	// Rï¿½cupï¿½rer une question avec son id
 	public Question getQuestion(int id) {
 		return this.getQuestions("select * from questions where id_quest=" + id).get(0);
 	}
 
-	// Récupérer un user avec son id
+	// Rï¿½cupï¿½rer un user avec son id
 	public User getUser(int id) {
 		return this.getUsers("select * from users where id_user=" + id).get(0);
 	}
@@ -173,7 +173,7 @@ public class DBConnect {
 				break;
 
 			default:
-				throw new Exception("Typage incorrect pour une réponse");
+				throw new Exception("Typage incorrect pour une rï¿½ponse");
 			}
 			try {
 				request.executeUpdate(sql2);

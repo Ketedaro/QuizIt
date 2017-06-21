@@ -16,12 +16,12 @@ public class DeconnexionServlet {
 		if (session == null) {
 			message = "Vous n'�tes pas connect�.";
 			request.setAttribute("/*TODO*/", message);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 		} else {
 			message = "Vous �tes d�connect�.";
 			session.invalidate();
 			request.setAttribute("/*TODO*/", message);
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("/WEB-INF/views/index.jsp");
 		}
 	}
 }
