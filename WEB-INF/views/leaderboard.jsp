@@ -6,8 +6,8 @@
     <title>QuizIT !</title>
 
     <!-- Personal styles - to modyfy with Tomcat links -->
-    <link rel="stylesheet" href="styles/bootstrap-custom.css">
-    <link rel="stylesheet" href="styles/master.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap-custom.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/master.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Javascript (jquery BEFORE bootstrap) -->

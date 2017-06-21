@@ -10,10 +10,10 @@ public class InscriptionForm {
 	private boolean correct;
 
 	public void valider(HttpServletRequest request) {
-		String formPseudo = request.getParameter("login");
-		String formPwd = Hashage.sha256(request.getParameter("password"));
+		String formPseudo = request.getParameter("pseudo");
+		String formPwd = Hashage.sha256(request.getParameter("password1"));
 		String formPwd2 = Hashage.sha256(request.getParameter("password2"));
-		String formMail = request.getParameter("mail");
+		String formMail = request.getParameter("email");
 
 		this.correct = true;
 

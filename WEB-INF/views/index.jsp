@@ -1,4 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import = "java.io.*" %>
+<%@ page import = "java.io.*" %>
+<%@ page import = "java.util.*" %>
+<%@ page import = "quizIT.*" %>
+<%
+boolean connect;
+User utilisateur;
+
+if (session.getAttribute("utilisateur") == null) {
+  connect = false;
+} else {
+  connect = true;
+  utilisateur = (User)session.getAttribute("utilisateur");
+}
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,8 +21,8 @@
     <title>QuizIT !</title>
 
     <!-- Personal styles - to modyfy with Tomcat links -->
-    <link rel="stylesheet" href="views/styles/bootstrap-custom.css">
-    <link rel="stylesheet" href="views/styles/master.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap-custom.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/master.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Javascript (jquery BEFORE bootstrap) -->
@@ -38,39 +53,38 @@
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catégories de questions
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="index.jsp#MCQ">Questions à choix multiples</a></li>
-                <li><a href="index.jsp#Blind">Blindtests</a></li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp#MCQ">Questions à choix multiples</a></li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp#Blind">Blindtests</a></li>
               </ul>
             </li>
             <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li>
 
-            <li><a href="views/leaderboard.jsp"><i class="fa fa-trophy"></i> Classement</a></li>
+            <li><a href="${pageContext.request.contextPath}/leaderboard"><i class="fa fa-trophy"></i> Classement</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <!-- SI CONNECTE -->
-
-            <!-- <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="change-password.jsp">Changer de mot de passe</a></li>
-                <li><a href="disconnect">Se déconnecter</a></li>
-              </ul>
-            </li>
-            <li><a href="new-question.jsp">
-              <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li> -->
-
-            <!-- SINON -->
-            <li>
-              <a href="views/connexion.jsp" target="_blank"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
-            </li>
-            <li>
-              <a href="views/create-account.jsp">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> S'inscrire
-              </a>
-            </li>
+            <% if (connect) { %>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-user-circle" aria-hidden="true"></i> <%= utilisateur %>
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="change-password.jsp">Changer de mot de passe</a></li>
+                  <li><a href="disconnect">Se déconnecter</a></li>
+                </ul>
+              </li>
+              <li><a href="new-question.jsp">
+              <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li>
+            <% } else { %>
+              <li>
+                <a href="${pageContext.request.contextPath}/connexion"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
+              </li>
+              <li>
+                <a href="${pageContext.request.contextPath}/inscription">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> S'inscrire
+                </a>
+              </li>
+            <% } %>
 
             <li><a href="https://github.com/Ketedaro/QuizIt" target="_blank"><i class="fa fa-github"></i> Github</a></li>
           </ul>
