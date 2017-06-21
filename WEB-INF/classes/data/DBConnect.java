@@ -190,7 +190,7 @@ public class DBConnect {
 	}
 
 	public List<User> getTopUser() {
-		return this.getUsers("SELECT login FROM users ORDER BY score DESC LIMIT 20");
+		return this.getUsers("SELECT * FROM users ORDER BY score DESC LIMIT 20");
 	}
 	
 	public void createUser(String formPseudo, String formPwd, String formMail) {
