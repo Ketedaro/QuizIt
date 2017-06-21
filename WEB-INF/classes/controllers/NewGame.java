@@ -13,7 +13,7 @@ public class NewGame {
           int nbQ=Integer.valueOf(request.getParameter("NbQuest"));
           Class<?> classe = null;
 		try {
-			classe = Class.forName("quizIt."+type);
+			classe = Class.forName("quizIT."+type);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -55,7 +55,7 @@ public class DataBase {
 	}
 	
 	public boolean existUser(String login, String pass){
-		return this.existUser(login, pass);
+		return this.dataBConnect.existUser(login, pass);
 	}
 	
 

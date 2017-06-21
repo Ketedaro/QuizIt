@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import data.DataBase;
 import quizIT.User;
+import tools.Hashage;
 
 public class ConnexionForm {
 	private String message;
@@ -12,7 +13,9 @@ public class ConnexionForm {
 	
 	public void valider(HttpServletRequest request){
 		String formPseudo = request.getParameter("pseudo");
-		String formMdp = request.getParameter("password");
+		String formMdp = Hashage.sha256(request.getParameter("password"));
+		
+		
 		
 		this.correct = false;
 		
