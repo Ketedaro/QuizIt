@@ -54,6 +54,10 @@ public class Game {
 			return true;
 		return false;
 	}
+	
+	public List<Answer> getAnswers(){
+		return this.answers;
+	}
 
 	public int getCpt() {
 		return cpt;

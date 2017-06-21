@@ -20,7 +20,7 @@ public class InitializeGameServlet extends HttpServlet{
 		request.setAttribute("game", NewGame.createNewGame(request));
 		try {
 			//Redirection
-			this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/accueil.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,5 @@
 package quizIT;
 
-import data.DataBase;
 
 public class User {
 	private int id;
@@ -43,9 +42,5 @@ public class User {
 		return this.password;
 	}
 	
-	public void playGame(int s){
-		this.score+=s;
-		DataBase.getDataBase().playGame(this);
-	}
 }
 

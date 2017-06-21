@@ -31,7 +31,6 @@ public class ConnexionServlet extends HttpServlet {
 
 				request = connexion_utilisateur.creerSession(request);
 				response.sendRedirect(request.getContextPath()+"/home");
-				//this.getServletContext().getRequestDispatcher("/home").forward(request, response);
 			}
 
 		} catch (Exception e) {

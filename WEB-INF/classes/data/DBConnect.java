@@ -19,6 +19,7 @@ import quizIT.Factory;
 import quizIT.MCQ;
 import quizIT.Question;
 import quizIT.SimpleAnswer;
+import quizIT.Topic;
 import quizIT.User;
 
 public class DBConnect {
@@ -185,7 +186,7 @@ public class DBConnect {
 
 	public void createUser(String formPseudo, String formPwd, String formMail) {
 		this.setUpdate("Insert into users(login,password,email,isAdmin) Values('" + formPseudo + "','" + formPwd + "','"
-				+ formMail + "' false )");
+				+ formMail + "', false )");
 	}
 
 	public User getUser(String formPseudo) {
@@ -283,6 +284,27 @@ public class DBConnect {
 		}
 
 		return lQuestion;
+	}
+
+	public List<Topic> getTopics() {
+		Statement request;
+		ResultSet resultSet;
+		String topicName, pictureURL, descriptionTopic;
+		List<Topic> topics = new ArrayList<Topic>();
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery("select * from topic");
+
+			while (resultSet.next()) {
+				topicName = resultSet.getString("topicName");
+				pictureURL = resultSet.getString("pictureURL");
+				descriptionTopic = resultSet.getString("descriptionTopic");
+				topics.add(Factory.getTopic(topicName, pictureURL, descriptionTopic));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return topics;
 	}
 
 	private void setUpdate(String sql) {

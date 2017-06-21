@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import data.DataBase;
+
 @SuppressWarnings("serial")
 public class HomeServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
+		request.setAttribute("topics", DataBase.getDataBase().getTopics());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 		
     }

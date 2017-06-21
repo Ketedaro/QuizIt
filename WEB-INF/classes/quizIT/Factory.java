@@ -53,4 +53,8 @@ public class Factory {
 		return new Game(nbQ,classe,topic);
 	}
 
+	public static Topic getTopic(String name, String url, String desc) {
+		return new Topic(name,url,desc);
+	}
+
 }

@@ -1,4 +1,3 @@
-
 --
 -- QuizIT
 -- Copyright © 2017 Victor CHEN, Andy HUANG, Kilian CHOLLET, Lucas MASSON
@@ -6,14 +5,12 @@
 
 
 SET NAMES 'utf8' COLLATE 'utf8_general_ci';
-
 DROP TABLE users, answers, questions, topic CASCADE;
-
 --
 -- Database : QuizIT
 --
 
-
+-- --------------------------------------------------------
 
 --
 -- Table users
@@ -39,6 +36,45 @@ INSERT INTO users (login, password, email, isAdmin) VALUES
 ('Yoshiiix', 'yos', 'yos@yos.fr', false),
 ('Test', '532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25', 'hot@hot.fr', true);
 
+-- Top 20 Score
+
+/*
+	SELECT login FROM users
+	ORDER BY score DESC
+	LIMIT 20
+*/
+
+-- --------------------------------------------------------
+
+--
+-- Table topic
+--
+
+CREATE TABLE topic (
+	topicName VARCHAR(50) NOT NULL,
+	pictureURL VARCHAR(255),
+	descriptionTopic VARCHAR(100) NOT NULL,
+	CONSTRAINT PK_TOPIC PRIMARY KEY (topicName)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Content topic
+--
+
+INSERT INTO topic (topicName, pictureURL, descriptionTopic) VALUES
+('Le débarquement de Normandie', 'http://i.imgur.com/iJ40f3D.png', 'Connaissez-vous tout du débarquement en Normadie ?'),
+('Les scientifiques', 'http://i.imgur.com/gNRic7j.png', 'Êtes-vous un adepte des Sciences ?'),
+('Les félins', 'http://i.imgur.com/bgi0he6.png', 'Êtes-vous indétronable sur les félins ?'),
+('Les États-Unis', 'http://i.imgur.com/q9D4MrO.png', 'Connaissez-vous tout du pays de l\'oncle Sam ?'),
+('Les ordinateurs', 'http://i.imgur.com/jXHodw7.png', 'Connaissez-vous l\'histoire de l\'ordinateur ?'),
+('Culture du monde', 'http://i.imgur.com/A0UmzxK.png', 'Connaissez-vous le reste du monde ?'),
+('Le monde en 2016', 'http://i.imgur.com/9Ymc9ka.png', 'Avez-vous tout retenu des actualités en 2016 ?'),
+('La Coupe du monde de football', 'http://i.imgur.com/4PCAmOy.png', 'Avez-vous suivi toutes les Coupes du monde de football ?'),
+('Chanson française', 'http://i.imgur.com/6pVdhSE.png', 'BARRACUDA ?'),
+('Pop et Electro', 'http://i.imgur.com/cu0sF0A.png', 'DUDUDUDUDU... Connaissez-vous bien le monde musical de l\'Electropop ?'),
+('House', 'http://i.imgur.com/HizcRjI.png', 'I <3 HOUSE MUSIC !');
+
+-- --------------------------------------------------------
 
 --
 -- Table questions // Composition descendante
@@ -67,8 +103,8 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('MCQ', 'Le débarquement de Normandie', 'Sur combien de plages se concentrés les combats du 6 juin 1944 ?', null, '1', true), -- 3
 ('MCQ', 'Le débarquement de Normandie', 'Quel personnage était un ardent défenseur du projet de débarquement en Normandie ?', null, '1', true), -- 4
 ('MCQ', 'Les scientifiques', 'Quelle planète Urbain Le Verrier a-t-il découvert par des calculs mathématiques ?', null, '1', true), -- 5
-('MCQ', 'Les scientifiques', 'Sur quelle(s) île(s) Darwin a-t-il développé sa théorie sur lévolution des espèces ?', null, '1', true), -- 6
-('MCQ', 'Les scientifiques', 'Quel scientifique a donné son nom à lunité dintensité du courant électrique ?', null, '1', true), -- 7
+('MCQ', 'Les scientifiques', 'Sur quelle(s) île(s) Darwin a-t-il développé sa théorie sur l\'évolution des espèces ?', null, '1', true), -- 6
+('MCQ', 'Les scientifiques', 'Quel scientifique a donné son nom à l\'unité d\'intensité du courant électrique ?', null, '1', true), -- 7
 ('MCQ', 'Les scientifiques', 'Par quel nom Nikola Tesla a-t-il baptisé l\'invention de la première voiture électrique ?', null, '1', true), -- 8
 ('MCQ', 'Les félins', 'De quelle manière voient le chat ? Choisissez la bonne réponse.', null, '1', true), -- 9
 ('MCQ', 'Les félins', 'À quelle distance un chat peut-il sentir un autre chat ?', null, '1', true), -- 10
@@ -86,7 +122,7 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('MCQ', 'Culture du monde', 'Un des symboles de la France est le coq, mais il l\'est également ... (Complétez)', null, '1', true), -- 22
 ('MCQ', 'Culture du monde', 'Si, dans un pays européen vous entendez (étonnamment en langue française)', null, '1', true), -- 23
 ('MCQ', 'Culture du monde', 'De quel pays le castor à large queue plate est-il emblématique ?', null, '1', true), -- 24
-('MCQ', 'Le monde en 2016', 'Quel film a remporté lOscar du meilleur film en 2016 ?', null, '1', true), -- 25
+('MCQ', 'Le monde en 2016', 'Quel film a remporté l\'Oscar du meilleur film en 2016 ?', null, '1', true), -- 25
 ('MCQ', 'Le monde en 2016', 'En quel mois a eu lieu l\'ouragan Matthew qui a tué près de 1000 personnes en Haïti ?', null, '1', true), -- 26
 ('MCQ', 'Le monde en 2016', 'Quel prix Bob Dylan, chanteur et poète, a-t-il reçu en 2016 ?', null, '1', true), -- 27
 ('MCQ', 'Le monde en 2016', 'Quel cycliste a remporté le Tour de France en 2016 ?', null, '1', true), -- 28
@@ -98,16 +134,25 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('BlindTest', 'Chanson française', 'Quel est le titre de cette chanson composée par Léo Ferré ?', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 34
 ('BlindTest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 35
 ('BlindTest', 'Chanson française', 'En quelle année cet album a été le plus vendu ?', 'christophe_mae_on_trace_la_route.mp3', '2', true), -- 36
-
 ('BlindTest', 'Pop et Electro', 'Qui est l\'artiste ?', 'this_is_what_you_came_for.mp3', '1', true), -- 37
-
 ('BlindTest', 'Pop et Electro', 'Quel est le titre de cette chanson composée par Ed Sheeran ?', 'shape_of_you.mp3', '2', true), -- 38
 ('BlindTest', 'Pop et Electro', 'Complétez les paroles "Ooh, it\'s something magical..." Justin Timberlake - Can\'t Stop The Feeling', 'cant_stop_the_feeling.mp3', '2', true), -- 39
 ('BlindTest', 'Pop et Electro', 'Quel est le titre de cette chanson ?', 'two_feets_go_fuck_yourself.mp3', '2', true), -- 40
 ('BlindTest', 'House', 'Qui est l\'artiste ?', 'no_promises.mp3', '1', true), -- 41
 ('BlindTest', 'House', 'Quel est le titre de cette chanson composée par Justin Caruso ?', 'talk_about_me.mp3', '2', true), -- 42
 ('BlindTest', 'House', 'Complétez les paroles "It\'s been a long day..." Wiz Khalifa - See you again', 'see_you_again.mp3', '2', true), -- 43
-('BlindTest', 'House', 'Quel est le titre de cette chanson ?', 'symphony.mp3', '2', true); -- 44
+('BlindTest', 'House', 'Quel est le titre de cette chanson ?', 'symphony.mp3', '2', true), -- 44
+('MCQ', 'Le débarquement de Normandie', 'De quelle ville française la population a été éliminée par les troupes SS ?', null, '1', true), -- 45
+('MCQ', 'Les scientifiques', 'À la suite du projet Manhattan, quel surnom Robert Oppenheimer a-t-il obtenu ?', null, '1', true), -- 46
+('MCQ', 'Les félins', 'Combien de kg de viande mange un tigre adulte annuellement ?', null, '1', true), -- 47
+('MCQ', 'Les États-Unis', 'Combien de personnes volent au-dessus des États-Unis à chaque instant ?', null, '1', true), -- 48
+('MCQ', 'Les ordinateurs', 'Qu\'est-ce que Ray Tomlinson a créé ? ?', null, '1', true), -- 49
+('MCQ', 'Culture du monde', 'Quel est le nom du quartier populaire geek à Tokyo ?', null, '1', true), -- 50
+('MCQ', 'Le monde en 2016', 'Quelle mission spatiale a été mise fin en 2016 ?', null, '1', true), -- 51
+('MCQ', 'La Coupe du monde de football', 'Quel pays a remporté la première Coupe du monde ?', null, '1', true), -- 52
+('BlindTest', 'Chanson française', 'Devinez le groupe de musique', 'noir_desir_le_vent_nous_portera.mp3', '1', true), -- 53
+('BlindTest', 'Pop et Electro', 'Qui est l\'artiste ?', 'zara_larsson_aint_my_fault.mp3', '1', true), -- 54
+('BlindTest', 'House', 'En quelle année est sortie cette composition ?', 'calvin_harris_my_way.mp3', '1', true); -- 55
 
 --
 -- Data Test
@@ -117,6 +162,7 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ORDER BY RAND()
 LIMIT 1; */
 
+-- --------------------------------------------------------
 
 --
 -- Table answers
@@ -139,31 +185,31 @@ CREATE TABLE answers (
 
 INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) VALUES
 ('1', 'MCQ', 'France', '', false),
-('1', 'MCQ', 'Irlande', 'Les scènes de débarquement du film Il faut sauver le soldat Ryan ont été tournées en Irlande. La plupart des figurants étaient des réservistes de larmée allemande.', true),
+('1', 'MCQ', 'Irlande', 'Les scènes de débarquement du film Il faut sauver le soldat Ryan ont été tournées en Irlande. La plupart des figurants étaient des réservistes de l\'armée allemande.', true),
 ('1', 'MCQ', 'Allemagne', '', false),
 ('1', 'MCQ', 'Angleterre', '', false),
 ('2', 'MCQ', 'Pologne', '', false),
-('2', 'MCQ', 'Allemagne', 'Et le 6 juin 1944, jour de linvasion, Rommel fêtait lanniversaire de sa femme en Allemagne. Il est rentré précipitamment à son poste de commandement à La Roche-Guyon.', true),
+('2', 'MCQ', 'Allemagne', 'Et le 6 juin 1944, jour de l\'invasion, Rommel fêtait l\'anniversaire de sa femme en Allemagne. Il est rentré précipitamment à son poste de commandement à La Roche-Guyon.', true),
 ('2', 'MCQ', 'France', '', false),
 ('2', 'MCQ', 'Italie', '', false),
-('3', 'MCQ', '5', 'Les combats se sont concentrés sur 5 plages : douest en est, Utah et Omaha (armée américaine), Gold (armée britannique), Juno (armée canadienne) et Sword (armées britannique et française).', true),
+('3', 'MCQ', '5', 'Les combats se sont concentrés sur 5 plages : d\'ouest en est, Utah et Omaha (armée américaine), Gold (armée britannique), Juno (armée canadienne) et Sword (armées britannique et française).', true),
 ('3', 'MCQ', '8', '', false),
 ('3', 'MCQ', '10', '', false),
 ('3', 'MCQ', '12', '', false),
 ('4', 'MCQ', 'Charles de Gaulle', '', false),
 ('4', 'MCQ', 'Winston Churchill', '', false),
-('4', 'MCQ', 'Franklin Delano Roosevelt', 'Ce sont les Américains qui étaient partisans dune attaque par la Manche, la voie la plus courte pour atteindre le cur de lAllemagne.', true),
+('4', 'MCQ', 'Franklin Delano Roosevelt', 'Ce sont les Américains qui étaient partisans d\'une attaque par la Manche, la voie la plus courte pour atteindre le cur de l\'Allemagne.', true),
 ('4', 'MCQ', 'Joseph Staline', '', false),
-('5', 'MCQ', 'Neptune', 'En 1846, lastronome français Urbain Le Verrier a prédit mathématiquement lexistence et la position de Neptune à partir de la trajectoire et des caractéristiques dUranus. Deux ans de calculs ont été nécessaires pour arriver à cette conclusion.', true),
+('5', 'MCQ', 'Neptune', 'En 1846, l\'astronome français Urbain Le Verrier a prédit mathématiquement l\'existence et la position de Neptune à partir de la trajectoire et des caractéristiques d\'Uranus. Deux ans de calculs ont été nécessaires pour arriver à cette conclusion.', true),
 ('5', 'MCQ', 'Saturne', '', false),
 ('5', 'MCQ', 'Pluton', '', false),
 ('5', 'MCQ', 'Uranus', '', false),
 ('6', 'MCQ', 'Madagascar', '', false),
-('6', 'MCQ', 'Îles Galápagos', 'Cest aux îles Galápagos, à louest de lÉquateur, que Charles Darwin a récolté les nombreux échantillons qui lui permettront délaborer sa théorie sur lévolution des espèces.', true),
+('6', 'MCQ', 'Îles Galápagos', 'C\'est aux îles Galápagos, à l\'ouest de l\'Équateur, que Charles Darwin a récolté les nombreux échantillons qui lui permettront d\'élaborer sa théorie sur l\'évolution des espèces.', true),
 ('6', 'MCQ', 'Île Maurice', '', false),
 ('6', 'MCQ', 'Îles aux Cocos', '', false),
 ('7', 'MCQ', 'James Watt', '', false),
-('7', 'MCQ', 'André Marie Ampère', 'Le physicien français André Marie Ampère, né en 1775, a réalisé dimportantes découvertes dans le domaine de lélectromagnétisme. On a donnée son nom à lunité internationale de lintensité du courant électrique : lampère.', true),
+('7', 'MCQ', 'André Marie Ampère', 'Le physicien français André Marie Ampère, né en 1775, a réalisé d\'importantes découvertes dans le domaine de l\'électromagnétisme. On a donnée son nom à l\'unité internationale de l\'intensité du courant électrique : l\'ampère.', true),
 ('7', 'MCQ', 'Dmitri Ivanovitch Mendeleïev', '', false),
 ('7', 'MCQ', 'Michael Faraday', '', false),
 ('8', 'MCQ', 'Chimie', '', false),
@@ -175,7 +221,7 @@ INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('9', 'MCQ', 'Le chat voit à la fois flou de loin et de près', '', false),
 ('9', 'MCQ', 'Le chat voit à la fois mal de loin et de près', '', false),
 ('10', 'MCQ', '50 mètres', '', false),
-('10', 'MCQ', '100 mètres', 'Le chat a un odorat si fin qui peut détecter la présence dun autre chat à 100 m (325 pi) de distance. Il utilise pour cela son nez, mais aussi son organe de Jacobson, situé à lavant du palais.', true),
+('10', 'MCQ', '100 mètres', 'Le chat a un odorat si fin qui peut détecter la présence d\'un autre chat à 100 m (325 pi) de distance. Il utilise pour cela son nez, mais aussi son organe de Jacobson, situé à l\'avant du palais.', true),
 ('10', 'MCQ', '250 mètres', '', false),
 ('10', 'MCQ', '500 mètres', '', false),
 ('11', 'MCQ', 'Le tigre', '', false),
@@ -184,7 +230,7 @@ INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('11', 'MCQ', 'Le puma', '', false),
 ('12', 'MCQ', 'Europe', '', false),
 ('12', 'MCQ', 'Amérique', '', false),
-('12', 'MCQ', 'Antarctique', 'Les félins ont colonisé tous les continents, sauf lAntarctique et lAustralie. Ce sont les humains qui ont introduit les félins en Australie.', true),
+('12', 'MCQ', 'Antarctique', 'Les félins ont colonisé tous les continents, sauf l\'Antarctique et l\'Australie. Ce sont les humains qui ont introduit les félins en Australie.', true),
 ('12', 'MCQ', 'Asie', '', false),
 ('13', 'MCQ', 'Alaska', '', false),
 ('13', 'MCQ', 'Hawaï', 'Le 21 août 1959, Hawaï a été le dernier État à joindre les États-Unis.', true),
@@ -192,14 +238,14 @@ INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('13', 'MCQ', 'Nouveau-Mexique', '', false),
 ('14', 'MCQ', '2', '', false),
 ('14', 'MCQ', '3', '', false),
-('14', 'MCQ', '4', 'Durant les Jeux olympiques dété de 1936 à Berlin, Jesse Owens, le premier athlète afro-américain de renommée internationale, a remporté 4 médailles dor sous les yeux dAdolf Hitler.', true),
+('14', 'MCQ', '4', 'Durant les Jeux olympiques d\'été de 1936 à Berlin, Jesse Owens, le premier athlète afro-américain de renommée internationale, a remporté 4 médailles d\'or sous les yeux d\'Adolf Hitler.', true),
 ('14', 'MCQ', '5', '', false),
 ('15', 'MCQ', '6', '', false),
 ('15', 'MCQ', '8', '', false),
 ('15', 'MCQ', '10', '', false),
 ('15', 'MCQ', '12', 'Dans le cadre du programme Apollo (1969 à 1972), douze astronautes américains ont marché sur la Lune.', true),
 ('16', 'MCQ', '48', '', false),
-('16', 'MCQ', '50', 'Les États-Unis sont composés de 50 États auxquels sajoutent le District de Columbia (comprenant la capitale Washington) et 5 territoires dépendants.', true),
+('16', 'MCQ', '50', 'Les États-Unis sont composés de 50 États auxquels s\'ajoutent le District de Columbia (comprenant la capitale Washington) et 5 territoires dépendants.', true),
 ('16', 'MCQ', '52', '', false),
 ('16', 'MCQ', '56', '', false),
 ('17', 'MCQ', '100 mm', '', false),
@@ -235,16 +281,16 @@ INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('24', 'MCQ', 'Canada', 'Le castor à large queue plate est l\'emblème du Canada. Il figure même sur les pièces de 5 cents et sur un timbre canadien au moins.', true),
 ('24', 'MCQ', 'Chili', '', false),
 ('25', 'MCQ', 'The Revenant', '', false),
-('25', 'MCQ', 'Spotlight', 'Spotlight, le long-métrage consacré à lenquête journalistique du Boston Globe sur un scandale sexuel impliquant lÉglise catholique, a créé la surprise en remportant la statuette du meilleur film au détriment du favori, The Revenant.', true),
+('25', 'MCQ', 'Spotlight', 'Spotlight, le long-métrage consacré à l\'enquête journalistique du Boston Globe sur un scandale sexuel impliquant l\'Église catholique, a créé la surprise en remportant la statuette du meilleur film au détriment du favori, The Revenant.', true),
 ('25', 'MCQ', 'Ex machina', '', false),
 ('25', 'MCQ', 'Mad Max', '', false),
 ('26', 'MCQ', 'Février', '', false),
 ('26', 'MCQ', 'Juin', '', false),
 ('26', 'MCQ', 'Août', '', false),
-('26', 'MCQ', 'Octobre', 'Matthew, un ouragan de catégorie 5, a causé la mort de près de 1000 personnes en Haïti, en plus de faire des dizaines de milliards de dollars de dommage dans les Antilles jusquà la Floride.', true),
+('26', 'MCQ', 'Octobre', 'Matthew, un ouragan de catégorie 5, a causé la mort de près de 1000 personnes en Haïti, en plus de faire des dizaines de milliards de dollars de dommage dans les Antilles jusqu\'à la Floride.', true),
 ('27', 'MCQ', 'Golden Globe de la meilleure chanson originale', '', false),
 ('27', 'MCQ', 'Prix Pulitzer : Citation spéciale', '', false),
-('27', 'MCQ', 'Prix Nobel de littérature', 'LAcadémie suédoise a remis le prix Nobel de littérature au chanteur et poète Bob Dylan « pour avoir créé dans le cadre de la grande tradition de la musique américaine de nouveaux modes dexpression poétique ».', true),
+('27', 'MCQ', 'Prix Nobel de littérature', 'L\'Académie suédoise a remis le prix Nobel de littérature au chanteur et poète Bob Dylan « pour avoir créé dans le cadre de la grande tradition de la musique américaine de nouveaux modes d\'expression poétique ».', true),
 ('27', 'MCQ', 'Grammy Award de la meilleure prestation vocale rock masculine', '', false),
 ('28', 'MCQ', 'Christopher Froome', 'En 2016, Christopher Froome remporte son troisième Tour de France après ceux de 2013 et de 2015.', true),
 ('28', 'MCQ', 'Romain Bardet', '', false),
@@ -313,18 +359,50 @@ INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('44', 'BlindTest', 'Symphony', 'I just want to be in your symphony', true),
 ('44', 'BlindTest', 'Opera', '', false),
 ('44', 'BlindTest', 'Theatre', '', false),
-('44', 'BlindTest', 'Hey man', '', false);
-
-CREATE TABLE topic (
-	topicName VARCHAR(50),
-	pictureURL VARCHAR(255),
-	descriptionTopic VARCHAR(50),
-	CONSTRAINT PK_TOPIC PRIMARY KEY (topicName)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-
---
--- TESTS
---
+('44', 'BlindTest', 'Hey man', '', false),
+('45', 'MCQ', 'Limoges', '', false),
+('45', 'MCQ', 'Oradour-sur-Glane', 'Pour effrayer la population normande et l\'empêcher de soutenir la résistance, les SS ont tué 642 personnes le 10 juin 1944. Il s\'agit du plus grand massacre de civils commis en France par les armées allemandes.', true),
+('45', 'MCQ', 'Angoulême', '', false),
+('45', 'MCQ', 'Cieux', '', false),
+('46', 'MCQ', '« père de la bombe atomique »', 'Le physicien américain Julius Robert Oppenheimer, né en 1904, a été le directeur scientifique du projet Manhattan (nom de code du projet qui produisit la bombe atomique). C\'est à ce rôle qu\'il doit son surnom de « père de la bombe atomique ».', true),
+('46', 'MCQ', '« enfant de la bombe atomique »', '', false),
+('46', 'MCQ', '« père de la bombe nucléaire »', '', false),
+('46', 'MCQ', '« enfant de la bombe nucléaire »', '', false),
+('47', 'MCQ', '0 à 1100 kg', '', false),
+('47', 'MCQ', '1100 kg à 1800 kg', '', false),
+('47', 'MCQ', '1800 kg à 2500 kg', 'Un tigre adulte a besoin de 1800 à 2500 kg de viande par an. Il mange donc en moyenne de 4 à 6 kg de viande par jour. Toutefois, après avoir dévoré une grosse proie, il peut passer plusieurs jours sans rien manger.', true),
+('47', 'MCQ', '2500 kg à 3000 kg', '', false),
+('48', 'MCQ', '10 000 personnes', '', false),
+('48', 'MCQ', '25 000 personnes', '', false),
+('48', 'MCQ', '45 000 personnes', '', false),
+('48', 'MCQ', '60 0000 personnes', 'Plus de 60 000 personnes voyagent à bord d\'un avion quelque part au-dessus des États-Unis à tout moment de la journée.', true),
+('49', 'MCQ', 'Le courrier électronique', '', true),
+('49', 'MCQ', 'Le protocole HTTP', '', false),
+('49', 'MCQ', 'Le World Wide Web', '', false),
+('49', 'MCQ', 'Le système des noms de domaine', 'Ray Tomlinson, le créateur du courrier électronique, a eu l\'idée de séparer le nom d\'utilisateur et le nom d\'hôte par un caractère qui n\'était utilisé dans aucun nom propre et qui pouvait servir de préfixe aux noms de domaine : le symbole @.', false),
+('50', 'MCQ', 'Shibuya', '', false),
+('50', 'MCQ', 'Shinjuku', '', false),
+('50', 'MCQ', 'Odaiba', '', false),
+('50', 'MCQ', 'Akihabara', 'Akihabara est le quartier électronique de Tokyo. C\'est le lieu privilégié des amateurs de mangas, jeux vidéo et de culture populaire japonaise, très apprécié des jeunes touristes étrangers "geek" ou "otaku".', true),
+('51', 'MCQ', 'Juno', '', false),
+('51', 'MCQ', 'ExoMars', '', false),
+('51', 'MCQ', 'Rosetta', 'Douze ans après son départ pour un long voyage dans le système solaire, la sonde Rosetta s\'est écrasée à la surface de la comète Tchouri, qu\'elle étudiait.', true),
+('51', 'MCQ', 'New Horizons', '', false),
+('52', 'MCQ', 'France', '', false),
+('52', 'MCQ', 'Uruguay', 'C\'est l\'Uruguay, le pays hôte de la première Coupe du monde, qui a remporté le tournoi après une victoire en finale contre l\'Argentine.', true),
+('52', 'MCQ', 'Argentine', '', false),
+('52', 'MCQ', 'États-Unis', '', false),
+('53', 'MCQ', 'Noir Désir', 'Le vent nous portera est une chanson du groupe Noir Désir sortie le 28 août 2001 en single et publiée sur l\'album Des visages des figures le 11 septembre 2001.', true),
+('53', 'MCQ', 'Yannick', '', false),
+('53', 'MCQ', 'Francis Cabrel', '', false),
+('53', 'MCQ', 'Calogero', '', false),
+('54', 'MCQ', 'Rihanna', '', false),
+('54', 'MCQ', 'Zara Larsson', '"Ain\'t My Fault" est une chanson de l\'auteure-compositrice-interprète suédoise Zara Larsson. Elle sort le 2 septembre 2016 en tant que premier single extrait de son deuxième album studio, sous les labels TEN, Epic et Sony.', true),
+('54', 'MCQ', 'Katy Perry', '', false),
+('54', 'MCQ', 'Sia', '', false),
+('55', 'MCQ', '2014', '', false),
+('55', 'MCQ', '2015', '', false),
+('55', 'MCQ', '2016', '"My Way" est une composition de Calvin Harris. Elle est sortie le 16 septembre 2016.', true),
+('55', 'MCQ', '2017', '', false);
 
 COMMIT;
