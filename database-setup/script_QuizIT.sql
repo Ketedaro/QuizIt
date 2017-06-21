@@ -7,7 +7,7 @@
 
 SET NAMES 'utf8' COLLATE 'utf8_general_ci';
 
-DROP TABLE USERS, ANSWERS, QUESTIONS, TOPIC CASCADE;
+DROP TABLE users, answers, questions, topic CASCADE;
 
 --
 -- Database : QuizIT
@@ -19,7 +19,7 @@ DROP TABLE USERS, ANSWERS, QUESTIONS, TOPIC CASCADE;
 -- Table users
 --
 
-CREATE TABLE USERS (
+CREATE TABLE users (
 	id_user INTEGER NOT NULL AUTO_INCREMENT,
 	login VARCHAR(20) NOT NULL UNIQUE,
 	password VARCHAR(100) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE USERS (
 -- Content users
 --
 
-INSERT INTO USERS (login, password, email, isAdmin) VALUES
+INSERT INTO users (login, password, email, isAdmin) VALUES
 ('Xaizo', 'xaizo', 'xaizo@xaizo.fr', true),
 ('Ketedaro', 'kete', 'kete@kete.fr', true),
 ('Yoshiiix', 'yos', 'yos@yos.fr', false),
@@ -44,7 +44,7 @@ INSERT INTO USERS (login, password, email, isAdmin) VALUES
 -- Table questions // Composition descendante
 --
 
-CREATE TABLE QUESTIONS (
+CREATE TABLE questions (
 	id_quest INTEGER NOT NULL AUTO_INCREMENT,
 	typeQuest VARCHAR(10) NOT NULL,
 	topicQuest VARCHAR(50) NOT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE QUESTIONS (
 -- Content questions
 --
 
-INSERT INTO QUESTIONS (typeQuest, topicQuest, questContent, mp3_link, id_submitter, validation) VALUES
+INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitter, validation) VALUES
 ('MCQ', 'Le débarquement de Normandie', 'Où étaient tournées les scènes de débarquement du film "Il faut sauver le soldat Ryan" ?', null, '1', true), -- 1
 ('MCQ', 'Le débarquement de Normandie', 'Où se trouvait le maréchal Rommel, responsable de la Normandie, le 6 juin 1944 ?', null, '1', true), -- 2
 ('MCQ', 'Le débarquement de Normandie', 'Sur combien de plages se concentrés les combats du 6 juin 1944 ?', null, '1', true), -- 3
@@ -122,7 +122,7 @@ LIMIT 1; */
 -- Table answers
 --
 
-CREATE TABLE ANSWERS (
+CREATE TABLE answers (
 	id_answer INTEGER NOT NULL AUTO_INCREMENT,
 	id_quest INTEGER NOT NULL,
 	typeAnswer VARCHAR(15) NOT NULL, -- Type de réponse
@@ -137,7 +137,7 @@ CREATE TABLE ANSWERS (
 -- answers content
 --
 
-INSERT INTO ANSWERS (id_quest, typeAnswer, answerContent, desc_answer, isTrue) VALUES
+INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) VALUES
 ('1', 'MCQ', 'France', '', false),
 ('1', 'MCQ', 'Irlande', 'Les scènes de débarquement du film Il faut sauver le soldat Ryan ont été tournées en Irlande. La plupart des figurants étaient des réservistes de larmée allemande.', true),
 ('1', 'MCQ', 'Allemagne', '', false),
@@ -315,8 +315,7 @@ INSERT INTO ANSWERS (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('44', 'BlindTest', 'Theatre', '', false),
 ('44', 'BlindTest', 'Hey man', '', false);
 
-
-CREATE TABLE TOPIC (
+CREATE TABLE topic (
 	topicName VARCHAR(50),
 	pictureURL VARCHAR(255),
 	descriptionTopic VARCHAR(50),
