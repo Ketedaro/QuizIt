@@ -72,4 +72,12 @@ public abstract class Question {
 			this.id=ID;		
 	}
 	
+	public int getGoodAnswer() throws Exception{
+		for(int i=0;i<this.answer.size();++i){
+			if(answer.get(i).correct)
+				return i+1;
+		}
+		throw new Exception("Question sans bonne réponse");
+	}
+	
 }

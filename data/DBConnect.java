@@ -193,6 +193,11 @@ public class DBConnect {
 		return this.getUsers("select * from user where login='" + formPseudo + "'").get(0);
 	}
 
+	public Question getRandQuestion(String type, String topic) {
+		return this.getQuestions("select * from Question where typeQuest='" + type + "' and topic='"+topic+"' order by rand() limit 1")
+				.get(0);
+	}
+	
 	private List<User> getUsers(String sql) {
 		Statement request;
 		ResultSet resultSet;
@@ -282,5 +287,7 @@ public class DBConnect {
 			e.printStackTrace();
 		}
 	}
+
+	
 
 }

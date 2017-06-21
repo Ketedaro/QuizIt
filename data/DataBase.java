@@ -24,14 +24,6 @@ public class DataBase {
 		return dataBConnect.getQuestion(type);		
 	}
 	
-	public int sizeQuestion(String[] type) {
-		int size=0;
-		for(int i=0;i<type.length;i++){
-			size=this.sizeQuestion(type[i]);
-		}
-		return size;
-	}
-
 	public int sizeQuestion(String type) {
 		return this.getQuestions(type).size();
 	}
@@ -40,11 +32,6 @@ public class DataBase {
 		return dataBConnect.getQuestion(id);
 	}
 	
-	//Récupère une question alétoire d'un type choisi aléatoirement dans un tableau de type
-	public Question getQuestion(int id, String[]type) {
-		int numType=(int)(Math.random()*type.length);
-		return this.getRandQuestion(type[numType]);
-	}
 	//Récupère une question alétoire d'un certain type
 	public Question getRandQuestion(String type) {
 		return dataBConnect.getRandQuestion(type);
@@ -78,6 +65,10 @@ public class DataBase {
 
 	public User getUser(String formPseudo) {
 		return this.dataBConnect.getUser(formPseudo);
+	}
+
+	public Question getRandQuestion(String type, String topic) {
+		return dataBConnect.getRandQuestion(type,topic);
 	}
 	
 }

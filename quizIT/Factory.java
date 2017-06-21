@@ -33,4 +33,8 @@ public class Factory {
 		return new User(id,login,password,email,score,isAdmin);
 	}
 
+	public static Game getGame(int nbQ, Class<?> classe, String topic) {
+		return new Game(nbQ,classe,topic);
+	}
+
 }
