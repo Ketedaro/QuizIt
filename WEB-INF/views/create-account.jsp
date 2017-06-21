@@ -32,7 +32,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="index.html"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
+            <li><a href="index.jsp"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -40,7 +40,7 @@
                 <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="change-password.html">Changer de mot de passe</a></li>
+                <li><a href="change-password.jsp">Changer de mot de passe</a></li>
                 <li><a href="disconnect">Se déconnecter</a></li>
               </ul>
             </li>
@@ -55,7 +55,11 @@
       <div class="col-md-4">
         <form class="panel panel-primary tweak-padding-50" method="post" action="/inscription">
           <fieldset>
-            <legend>Se connecter</legend>
+            <legend>S'inscrire</legend>
+            <div class="form-group">
+              <label for="inputEmail" class="control-label"> Email</label>
+              <input class="form-control" id="inputEmail" placeholder="Email" type="email">
+            </div>
             <div class="form-group">
               <label for="inputEmail" class="control-label"> Pseudo</label>
                 <input class="form-control" id="inputEmail" placeholder="Pseudo" type="text">
@@ -64,10 +68,14 @@
               <label for="inputPassword" class="control-label"> Mot de passe</label>
                 <input class="form-control" id="inputPassword" placeholder="Password" type="password">
             </div>
+            <div class="form-group">
+              <label for="inputPassword" class="control-label"> Confirmation du mot de passe</label>
+                <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+            </div>
             <br>
             <div class="form-group text-center">
-              <a href="index.html" class="btn btn-primary">Annuler</a>
-              <button type="submit" class="btn btn-success" data-_extension-text-contrast="">Connexion</button>
+              <a href="index.jsp" class="btn btn-primary">Annuler</a>
+              <button type="submit" class="btn btn-success" data-_extension-text-contrast="">S'inscrire</button>
             </div>
           </fieldset>
         </form>

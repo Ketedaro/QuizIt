@@ -32,19 +32,18 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="index.html"><i class="fa fa-list"></i> Liste des quiz</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catégories de questions
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="index.html#MCQ">Questions à choix multiples</a></li>
-                <li><a href="index.html#Blind">Blindtests</a></li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li>
-            <li class="active"><a href="leaderboard.html"><i class="fa fa-trophy"></i> Classement</a></li>
+            <li><a href="index.jsp"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="change-password.jsp">Changer de mot de passe</a></li>
+                <li><a href="disconnect">Se déconnecter</a></li>
+              </ul>
+            </li>
             <li><a href="https://github.com/Ketedaro/QuizIt" target="_blank"><i class="fa fa-github"></i> Github</a></li>
           </ul>
         </div>
@@ -52,48 +51,29 @@
     </nav>
 
     <div class="row">
-      <div class="col-md-3"></div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form class="panel panel-primary tweak-padding-50" method="post" action="/inscription">
+          <fieldset>
+            <legend>Se connecter</legend>
+            <div class="form-group">
+              <label for="inputEmail" class="control-label"> Pseudo</label>
+                <input class="form-control" id="inputEmail" placeholder="Pseudo" type="text">
+            </div>
+            <div class="form-group">
+              <label for="inputPassword" class="control-label"> Mot de passe</label>
+                <input class="form-control" id="inputPassword" placeholder="Password" type="password">
+            </div>
+            <br>
+            <div class="form-group text-center">
+              <a href="index.jsp" class="btn btn-primary">Annuler</a>
+              <button type="submit" class="btn btn-success" data-_extension-text-contrast="">Connexion</button>
+            </div>
+          </fieldset>
+        </form>
 
-      <div class="col-md-6 tweak-padding-50 row container">
-        <header class="text-center">
-          <h2>
-            Classement
-          </h2>
-        </header>
-        <table class="table leaderboard">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Pseudo</th>
-              <th>Nombre de points</th>
-            </tr>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>H0tmilk</td>
-                <td>10 469</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Kekettaro</td>
-                <td>5 021</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Yoshiiix</td>
-                <td>2 924</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Xeizo</td>
-                <td>2</td>
-              </tr>
-            </tbody>
-          </thead>
-        </table>
       </div>
-
-      <div class="col-md-3"></div>
+      <div class="col-md-4"></div>
     </div>
   </body>
 

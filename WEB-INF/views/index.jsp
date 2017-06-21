@@ -32,18 +32,18 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html"><i class="fa fa-list"></i> Liste des quiz</a></li>
+            <li class="active"><a href="index.jsp"><i class="fa fa-list"></i> Liste des quiz</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catégories de questions
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="index.html#MCQ">Questions à choix multiples</a></li>
-                <li><a href="index.html#Blind">Blindtests</a></li>
+                <li><a href="index.jsp#MCQ">Questions à choix multiples</a></li>
+                <li><a href="index.jsp#Blind">Blindtests</a></li>
               </ul>
             </li>
             <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li>
 
-            <li><a href="leaderboard.html"><i class="fa fa-trophy"></i> Classement</a></li>
+            <li><a href="leaderboard.jsp"><i class="fa fa-trophy"></i> Classement</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -54,19 +54,19 @@
                 <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="change-password.html">Changer de mot de passe</a></li>
+                <li><a href="change-password.jsp">Changer de mot de passe</a></li>
                 <li><a href="disconnect">Se déconnecter</a></li>
               </ul>
             </li>
-            <li><a href="new-question.html">
+            <li><a href="new-question.jsp">
               <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li> -->
 
             <!-- SINON -->
             <li>
-              <a href="connexion.html" target="_blank"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
+              <a href="connexion.jsp" target="_blank"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
             </li>
             <li>
-              <a href="create-account.html">
+              <a href="create-account.jsp">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> S'inscrire
               </a>
             </li>
@@ -89,37 +89,37 @@
           </h2>
         </header>
         <div class="row row-centered">
-          <a class="quiz col-xs-3 col-centered" href="question-simple.html">
+          <a class="quiz col-xs-3 col-centered" href="question-simple.jsp">
               <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Histoire</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/histoire.jpg" alt="Histodexire" class="img-circle img-thumbnail img-responsive">
               <h3>Histoire</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Histoire</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Histoire</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Histoire</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Histoire</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Histoire</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
@@ -141,17 +141,17 @@
           </h2>
         </header>
         <div class="row row-centered">
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Années 70s</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Variété française</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.html">
+          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
               <img src="../images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
               <h3>Pop / électro</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>

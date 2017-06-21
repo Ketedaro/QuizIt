@@ -32,18 +32,19 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="index.html"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
+            <li><a href="index.jsp"><i class="fa fa-list"></i> Liste des quiz</a></li>
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catégories de questions
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="change-password.html">Changer de mot de passe</a></li>
-                <li><a href="disconnect">Se déconnecter</a></li>
+                <li><a href="index.jsp#MCQ">Questions à choix multiples</a></li>
+                <li><a href="index.jsp#Blind">Blindtests</a></li>
               </ul>
             </li>
+            <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li>
+            <li class="active"><a href="leaderboard.jsp"><i class="fa fa-trophy"></i> Classement</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
             <li><a href="https://github.com/Ketedaro/QuizIt" target="_blank"><i class="fa fa-github"></i> Github</a></li>
           </ul>
         </div>
@@ -51,45 +52,48 @@
     </nav>
 
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="panel panel-success col-md-8 question-panel">
-        <div class="panel-heading">
-          <h3 class="panel-title">Question n°1</h3>
-        </div>
-        <div class="panel-body row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8 row container">
-            <header class="text-center">
-              <h2>Quelle est la couleur du cheval blanc d'Henri IV ?</h2>
-            </header>
-            <form class="row row-centered col-md-12" action="index.html" method="post">
-              <div class="field col-md-6">
-                <button class="btn btn-success" name="button" value="1">Bleu</button>
-              </div>
-              <div class="field col-md-6">
-                <button class="btn btn-success" name="button" value="2">Blanc</button>
-              </div>
-              <div class="field col-md-6">
-                <button class="btn btn-success" name="button" value="2">Vert</button>
-              </div>
-              <div class="field col-md-6">
-                <button class="btn btn-success" name="button" value="2">Violet</button>
-              </div>
-            </form>
-          </div>
-        </div>
+      <div class="col-md-3"></div>
+
+      <div class="col-md-6 tweak-padding-50 row container">
+        <header class="text-center">
+          <h2>
+            Classement
+          </h2>
+        </header>
+        <table class="table leaderboard">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Pseudo</th>
+              <th>Nombre de points</th>
+            </tr>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>H0tmilk</td>
+                <td>10 469</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Kekettaro</td>
+                <td>5 021</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Yoshiiix</td>
+                <td>2 924</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Xeizo</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </thead>
+        </table>
       </div>
 
-      <div class="col-md-2"></div>
-    </div>
-
-    <!-- PUB -->
-    <div class="row">
-      <div class="col-md-2"></div></div>
-      <div class="">
-
-      </div>
-      <div class="col-md-2"></div>
+      <div class="col-md-3"></div>
     </div>
   </body>
 

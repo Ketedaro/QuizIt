@@ -32,7 +32,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="index.html"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
+            <li><a href="index.jsp"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -40,7 +40,7 @@
                 <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="change-password.html">Changer de mot de passe</a></li>
+                <li><a href="change-password.jsp">Changer de mot de passe</a></li>
                 <li><a href="disconnect">Se déconnecter</a></li>
               </ul>
             </li>
@@ -51,37 +51,45 @@
     </nav>
 
     <div class="row">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
-        <form class="panel panel-primary tweak-padding-50" method="post" action="/inscription">
-          <fieldset>
-            <legend>S'inscrire</legend>
-            <div class="form-group">
-              <label for="inputEmail" class="control-label"> Email</label>
-              <input class="form-control" id="inputEmail" placeholder="Email" type="email">
-            </div>
-            <div class="form-group">
-              <label for="inputEmail" class="control-label"> Pseudo</label>
-                <input class="form-control" id="inputEmail" placeholder="Pseudo" type="text">
-            </div>
-            <div class="form-group">
-              <label for="inputPassword" class="control-label"> Mot de passe</label>
-                <input class="form-control" id="inputPassword" placeholder="Password" type="password">
-            </div>
-            <div class="form-group">
-              <label for="inputPassword" class="control-label"> Confirmation du mot de passe</label>
-                <input class="form-control" id="inputPassword" placeholder="Password" type="password">
-            </div>
-            <br>
-            <div class="form-group text-center">
-              <a href="index.html" class="btn btn-primary">Annuler</a>
-              <button type="submit" class="btn btn-success" data-_extension-text-contrast="">S'inscrire</button>
-            </div>
-          </fieldset>
-        </form>
+      <div class="col-md-2"></div>
+      <div class="panel panel-success col-md-8 question-panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">Question n°1</h3>
+        </div>
+        <div class="panel-body row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8 row container">
+            <header class="text-center">
+              <h2>Quelle est la couleur du cheval blanc d'Henri IV ?</h2>
+            </header>
+            <form class="row row-centered col-md-12" action="index.jsp" method="post">
+              <div class="field col-md-6">
+                <button class="btn btn-success" name="button" value="1">Bleu</button>
+              </div>
+              <div class="field col-md-6">
+                <button class="btn btn-success" name="button" value="2">Blanc</button>
+              </div>
+              <div class="field col-md-6">
+                <button class="btn btn-success" name="button" value="2">Vert</button>
+              </div>
+              <div class="field col-md-6">
+                <button class="btn btn-success" name="button" value="2">Violet</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2"></div>
+    </div>
+
+    <!-- PUB -->
+    <div class="row">
+      <div class="col-md-2"></div></div>
+      <div class="">
 
       </div>
-      <div class="col-md-4"></div>
+      <div class="col-md-2"></div>
     </div>
   </body>
 

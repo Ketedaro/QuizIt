@@ -31,7 +31,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="index.html"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
+            <li><a href="index.jsp"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -39,7 +39,7 @@
                 <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="change-password.html">Changer de mot de passe</a></li>
+                <li><a href="change-password.jsp">Changer de mot de passe</a></li>
                 <li><a href="disconnect">Se déconnecter</a></li>
               </ul>
             </li>
@@ -114,7 +114,7 @@
             </div>
             <br>
             <div class="form-group text-center">
-              <a href="index.html" class="btn btn-primary">Annuler</a>
+              <a href="index.jsp" class="btn btn-primary">Annuler</a>
               <button type="submit" class="btn btn-success" data-_extension-text-contrast="">Proposer</button>
             </div>
           </fieldset>
