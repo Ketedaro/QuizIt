@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import controllers.ConnexionForm;
-
 public class DeconnexionServlet {
 	private String message;
 	
@@ -16,11 +14,11 @@ public class DeconnexionServlet {
 		HttpSession session = request.getSession(false);
 		
 		if (session == null) {
-			message = "Vous n'êtes pas connecté.";
+			message = "Vous n'ï¿½tes pas connectï¿½.";
 			request.setAttribute("/*TODO*/", message);
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {
-			message = "Vous êtes déconnecté.";
+			message = "Vous ï¿½tes dï¿½connectï¿½.";
 			session.invalidate();
 			request.setAttribute("/*TODO*/", message);
 			response.sendRedirect("index.jsp");
