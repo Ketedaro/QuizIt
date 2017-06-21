@@ -19,6 +19,7 @@ import quizIT.Factory;
 import quizIT.MCQ;
 import quizIT.Question;
 import quizIT.SimpleAnswer;
+import quizIT.Topic;
 import quizIT.User;
 
 public class DBConnect {
@@ -124,11 +125,16 @@ public class DBConnect {
 				.getQuestions("select * from questions where typeQuest='" + type + "' and topicQuest='" + topic + "'");
 	}
 
-	public void playGame(User user) {
-		String sql = "Update users set score=" + user.getScore() + " where id_user=" + user.getId();
+	public void playGame(User user,int scoreGame) {
+		int score=user.getScore()+scoreGame;
+		String sql = "Update users set score=" + score + " where id_user=" + user.getId();
 		this.setUpdate(sql);
 	}
 
+	public List<Topic> getAllTopic(){
+		return this.getTopics("select * from topic");
+	}
+	
 	public void addQuestion(Question q) throws Exception {
 		String sql = "";
 		Statement request = null;
@@ -183,6 +189,10 @@ public class DBConnect {
 		}
 	}
 
+	public List<User> getTopUser() {
+		return this.getUsers("SELECT login FROM users ORDER BY score DESC LIMIT 20");
+	}
+	
 	public void createUser(String formPseudo, String formPwd, String formMail) {
 		this.setUpdate("Insert into users(login,password,email,isAdmin) Values('" + formPseudo + "','" + formPwd + "','"
 				+ formMail + "' false )");
@@ -285,6 +295,30 @@ public class DBConnect {
 		return lQuestion;
 	}
 
+	private List<Topic> getTopics(String sql){
+		Statement request;
+		ResultSet resultSet;
+		List<Topic> lTopic=new ArrayList<Topic>();
+		String name,url,desc;
+		
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery(sql);
+			while(resultSet.next()){
+				name=resultSet.getString("topicName");
+				url=resultSet.getString("pictureURL");
+				desc=resultSet.getString("descriptionTopic");
+				lTopic.add(Factory.getTopic(name,url,desc));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return lTopic;
+	}
+	
 	private void setUpdate(String sql) {
 		Statement request = null;
 		try {
@@ -294,5 +328,7 @@ public class DBConnect {
 			e.printStackTrace();
 		}
 	}
+
+	
 
 }

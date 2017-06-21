@@ -3,6 +3,7 @@ package data;
 import java.util.List;
 
 import quizIT.Question;
+import quizIT.Topic;
 import quizIT.User;
 
 public class DataBase {
@@ -38,8 +39,8 @@ public class DataBase {
 	}
 
 	//Changement des données de l'utilisateur après une partie
-	public void playGame(User user) {
-		dataBConnect.playGame(user);
+	public void playGame(User user,int scoreGame) {
+		dataBConnect.playGame(user,scoreGame);
 	}
 	
 	public void addQuestion(Question q){
@@ -48,6 +49,10 @@ public class DataBase {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<Topic> getAllTopic(){
+		return this.dataBConnect.getAllTopic();
 	}
 	
 	public boolean existLogin(String login){
@@ -69,6 +74,10 @@ public class DataBase {
 
 	public Question getRandQuestion(String type, String topic) {
 		return dataBConnect.getRandQuestion(type,topic);
+	}
+
+	public List<User> getTopUser() {
+		return dataBConnect.getTopUser();
 	}
 	
 }
