@@ -1,5 +1,7 @@
 package data;
 
+
+import java.util.HashMap;
 import quizIT.Question;
 
 public class DataBase {
@@ -8,7 +10,7 @@ public class DataBase {
 	private DBConnect dataBConnect;
 	
 	private DataBase(){
-		
+		this.dataBConnect=new DBConnect();
 	}
 	
 	public static DataBase getDataBase(){
@@ -17,8 +19,8 @@ public class DataBase {
 		return INSTANCE;
 	}
 
-	public int sizeQuestion(String string) {
-		return dataBConnect.getSizeQuestion(string);		
+	public int sizeQuestion(String type) {
+		return dataBConnect.getSizeQuestion(type);		
 	}
 	
 	public int sizeQuestion(String[] type) {
@@ -30,15 +32,15 @@ public class DataBase {
 	}
 
 	public Question getQuestion(int id, String type) {
-		return dataBConnect.getSizeQuestion(id,type);
+		return this.getTypeQuestion(dataBConnect.getQuestion(id,type),type);
 	}
 	
 	public Question getQuestion(int id, String[]type) {
 		int numType=(int)(Math.random()*type.length);
 		return this.getQuestion(id,type[numType]);
 	}
-
-	
-
-	
+  
+	private Question getTypeQuestion(HashMap<String, String> question,String type) {
+		return null;
+	}	
 }
