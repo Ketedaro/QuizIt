@@ -13,11 +13,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import quizIT.Question;
 
 public class DBConnect {
-
 	private Connection connect;
 
 	public DBConnect() {
@@ -27,7 +25,7 @@ public class DBConnect {
 			@SuppressWarnings("resource")
 			BufferedReader buff = new BufferedReader(fis);
 			try {
-				String className = buff.readLine();
+				String className = buff.readLintomcat debian create new webappe();
 				String url = buff.readLine();
 				String login = buff.readLine();
 				String password = buff.readLine();

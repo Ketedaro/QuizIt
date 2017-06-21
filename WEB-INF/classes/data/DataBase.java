@@ -1,7 +1,7 @@
 package data;
 
-import java.util.HashMap;
 
+import java.util.HashMap;
 import quizIT.Question;
 
 public class DataBase {
@@ -39,11 +39,8 @@ public class DataBase {
 		int numType=(int)(Math.random()*type.length);
 		return this.getQuestion(id,type[numType]);
 	}
-
+  
 	private Question getTypeQuestion(HashMap<String, String> question,String type) {
 		return null;
-	}
-
-
-	
+	}	
 }
