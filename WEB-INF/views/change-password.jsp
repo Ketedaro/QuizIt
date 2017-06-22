@@ -5,7 +5,7 @@
 <%@ page import = "quizIT.*" %>
 <%@ page import = "controllers.*" %>
 <%
-InscriptionForm form_inscription = (InscriptionForm)request.getAttribute("form_inscription");
+ChangePasswordForm changePasswordForm = (ChangePasswordForm)request.getAttribute("changePasswordForm");
 
 %>
 <!DOCTYPE html>
@@ -54,46 +54,46 @@ InscriptionForm form_inscription = (InscriptionForm)request.getAttribute("form_i
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <form class="panel panel-primary tweak-padding-50" method="post" action="${pageContext.request.contextPath}/sign_in">
+        <form class="panel panel-primary tweak-padding-50" method="post" action="${pageContext.request.contextPath}/change_password">
           <fieldset>
-            <legend>S'inscrire</legend>
+            <legend>Changer son mot de passe</legend>
 
-            <% if (form_inscription != null && !form_inscription.isCorrect()) { %>
+            <% if (changePasswordForm != null && !changePasswordForm.isCorrect()) { %>
               <div class="form-group">
                 <div class="alert alert-danger">
-                  <p><%= form_inscription.getMessage() %></p>
+                  <p><%= changePasswordForm.getMessage() %></p>
                 </div>
               </div>
             <% } %>
 
-            <% if (form_inscription != null && form_inscription.isCorrect()) { %>
+            <% if (changePasswordForm != null && changePasswordForm.isCorrect()) { %>
               <div class="form-group">
                 <div class="alert alert-success">
-                  <p><%= form_inscription.getMessage() %></p>
+                  <p><%= changePasswordForm.getMessage() %></p>
                 </div>
               </div>
             <% } %>
 
             <div class="form-group">
-              <label for="inputEmail" class="control-label"> Email</label>
-              <input class="form-control" id="inputEmail" placeholder="Email" type="email" name="email">
-            </div>
-            <div class="form-group">
               <label for="inputEmail" class="control-label"> Pseudo</label>
-                <input class="form-control" id="inputEmail" placeholder="Pseudo" type="text" name="pseudo">
+              <input class="form-control" id="inputEmail" placeholder="Pseudo" type="text" name="pseudo">
             </div>
             <div class="form-group">
-              <label for="inputPassword" class="control-label"> Mot de passe</label>
+              <label for="inputPassword" class="control-label"> Ancien mot de passe</label>
+                <input class="form-control" id="inputPassword" placeholder="Password" type="password" name="oldpassword">
+            </div>
+            <div class="form-group">
+              <label for="inputPassword" class="control-label"> Nouveau mot de passe</label>
                 <input class="form-control" id="inputPassword" placeholder="Password" type="password" name="password1">
             </div>
             <div class="form-group">
-              <label for="inputPassword" class="control-label"> Confirmation du mot de passe</label>
+              <label for="inputPassword" class="control-label"> Confirmation du nouveau mot de passe</label>
                 <input class="form-control" id="inputPassword" placeholder="Password" type="password" name="password2">
             </div>
             <br>
             <div class="form-group text-center">
               <a href="${pageContext.request.contextPath}/home" class="btn btn-primary">Annuler</a>
-              <button type="submit" class="btn btn-success" data-_extension-text-contrast="">S'inscrire</button>
+              <button type="submit" class="btn btn-success" data-_extension-text-contrast="">Confirmer</button>
             </div>
           </fieldset>
         </form>

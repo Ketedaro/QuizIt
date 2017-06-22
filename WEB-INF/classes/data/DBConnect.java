@@ -19,6 +19,7 @@ import quizIT.Factory;
 import quizIT.MCQ;
 import quizIT.Question;
 import quizIT.SimpleAnswer;
+import quizIT.Topic;
 import quizIT.User;
 
 public class DBConnect {
@@ -185,7 +186,7 @@ public class DBConnect {
 
 	public void createUser(String formPseudo, String formPwd, String formMail) {
 		this.setUpdate("Insert into users(login,password,email,isAdmin) Values('" + formPseudo + "','" + formPwd + "','"
-				+ formMail + "',false)");
+				+ formMail + "', false )");
 	}
 
 	public User getUser(String formPseudo) {
@@ -285,6 +286,50 @@ public class DBConnect {
 		return lQuestion;
 	}
 
+	/*public List<Topic> getTopics() {
+		Statement request;
+		ResultSet resultSet;
+		String topicName, pictureURL, descriptionTopic;
+		List<Topic> topics = new ArrayList<Topic>();
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery("select * from topic");
+
+			while (resultSet.next()) {
+				topicName = resultSet.getString("topicName");
+				pictureURL = resultSet.getString("pictureURL");
+				descriptionTopic = resultSet.getString("descriptionTopic");
+				topics.add(Factory.getTopic(topicName, pictureURL, descriptionTopic));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return topics;
+	}*/
+	
+	private List<Topic> getTopics(String sql) {
+		Statement request;
+		ResultSet resultSet;
+		List<Topic> lTopic = new ArrayList<Topic>();
+		String name, url, desc;
+
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery(sql);
+			while (resultSet.next()) {
+				name = resultSet.getString("topicName");
+				url = resultSet.getString("pictureURL");
+				desc = resultSet.getString("descriptionTopic");
+				lTopic.add(Factory.getTopic(name, url, desc));
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return lTopic;
+	}
+
 	private void setUpdate(String sql) {
 		Statement request = null;
 		try {
@@ -293,6 +338,56 @@ public class DBConnect {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void changePassword(String login, String password) {
+		this.setUpdate("update users set password ='" + password + "' where login = '" + login + "'");
+	}
+	
+	public List<User> getTopUser() {
+		return this.getUsers("SELECT * FROM users ORDER BY score DESC LIMIT 20");
+	}
+
+	public List<Topic> getTopics() {
+		return this.getTopics("SELECT * FROM topic");
+	}
+
+	public List<String> getListNameType() {
+		Statement request;
+		ResultSet resultSet;
+		List<String> listName = new ArrayList<String>();
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery("SELECT distinct typeQuest FROM questions ORDER BY id_quest");
+			while (resultSet.next()) {
+				listName.add(resultSet.getString("typeQuest"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listName;
+	}
+
+	public List<Topic> getTopicByType(String type) {
+		List<Question> listQuestion=this.getQuestions("select * from questions where typeQuest='"+type+"'");
+		List<String> tampon=new ArrayList<String>();
+		List<Topic> lTopic=new ArrayList<Topic>();
+		
+		for(int i=0;i<listQuestion.size();++i){
+			if(!tampon.contains(listQuestion.get(i).getTopic()))
+					tampon.add(listQuestion.get(i).getTopic());
+			
+		}
+		for(int i=0;i<tampon.size();++i){
+			lTopic.add(this.getTopics("Select * from topic where topicName='"+tampon.get(i)+"'").get(0));
+		}
+		
+		
+		return null;
+	}
+
+	public String getTypeByNameTopic(String name) {
+		return this.getQuestions("Select * from questions where topicQuest='"+name+"'").get(0).getClass().getSimpleName();
 	}
 
 }

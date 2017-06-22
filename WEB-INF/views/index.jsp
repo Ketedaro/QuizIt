@@ -4,13 +4,15 @@
 <%@ page import = "java.util.*" %>
 <%@ page import = "quizIT.*" %>
 <%
-boolean connect;
-User utilisateur;
+boolean connecté;
+User utilisateur = null;
+
+List<Topic> topics = (List<Topic>) request.getAttribute("topics");
 
 if (session.getAttribute("utilisateur") == null) {
-  connect = false;
+  connecté = false;
 } else {
-  connect = true;
+  connecté = true;
   utilisateur = (User)session.getAttribute("utilisateur");
 }
 %>
@@ -48,39 +50,31 @@ if (session.getAttribute("utilisateur") == null) {
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.jsp"><i class="fa fa-list"></i> Liste des quiz</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catégories de questions
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="${pageContext.request.contextPath}/index.jsp#MCQ">Questions à choix multiples</a></li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp#Blind">Blindtests</a></li>
-              </ul>
-            </li>
+            <li class="active"><a href="${pageContext.request.contextPath}/home"><i class="fa fa-list"></i> Liste des quiz</a></li>
             <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li>
 
             <li><a href="${pageContext.request.contextPath}/leaderboard"><i class="fa fa-trophy"></i> Classement</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <% if (connect) { %>
+            <% if (connecté) { %>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  <i class="fa fa-user-circle" aria-hidden="true"></i> <%= utilisateur %>
+                  <i class="fa fa-user-circle" aria-hidden="true"></i> <%= utilisateur.getLogin() %>
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="change-password.jsp">Changer de mot de passe</a></li>
-                  <li><a href="disconnect">Se déconnecter</a></li>
+                  <li><a href="${pageContext.request.contextPath}/change_password">Changer de mot de passe</a></li>
+                  <li><a href="${pageContext.request.contextPath}/disconnect">Se déconnecter</a></li>
                 </ul>
               </li>
-              <li><a href="new-question.jsp">
+              <li><a href="${pageContext.request.contextPath}/submit_question">
               <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li>
             <% } else { %>
               <li>
                 <a href="${pageContext.request.contextPath}/connexion"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
               </li>
               <li>
-                <a href="${pageContext.request.contextPath}/inscription">
+                <a href="${pageContext.request.contextPath}/sign_in">
                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i> S'inscrire
                 </a>
               </li>
@@ -99,79 +93,36 @@ if (session.getAttribute("utilisateur") == null) {
       <div class="quiz-list col-md-10 tweak-padding-50 row container" id="MCQ">
         <header>
           <h2>
-            Questions à choix multiples <br>
-            <small>Une question, quatre réponses possibles.</small>
+            Choisissez une catégorie<br>
+            <small>Scientifique ? Musicien ? Amoureux d'histoire ? A vous de le prouver !</small>
           </h2>
         </header>
-        <div class="row row-centered">
-          <a class="quiz col-xs-3 col-centered" href="question-simple.jsp">
-              <img src="images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Histoire</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/histoire.jpg" alt="Histodexire" class="img-circle img-thumbnail img-responsive">
-              <h3>Histoire</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Histoire</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Histoire</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Histoire</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Histoire</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/histoire.jpg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Histoire</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-        </div>
-      </div>
+          <% int cpt = 0; %>
+          <% for(Topic topic : topics) { %>
 
-      <div class="col-md-1"></div>
-    </div>
+            <% if (cpt == 0) { %>
+              <div class="row">
+                <div class="col-md-1 mobile-hidden"></div>
+            <% } %>
 
-    <div class="row">
-      <div class="col-md-1"></div>
+                <a class="quiz col-md-3" href="question-simple.jsp">
+                    <img src="<%= topic.getUrl() %>" class="img-circle img-thumbnail img-responsive">
+                    <h3><%= topic.getName() %></h3>
+                    <p><%= topic.getDesc() %></p>
+                </a>
 
-      <div class="quiz-list col-md-10 tweak-padding-50 row container" id="Blind">
-        <header>
-          <h2>
-            Blindtests <br>
-            <small>Testez votre culture musicale.</small>
-          </h2>
-        </header>
-        <div class="row row-centered">
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Années 70s</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Variété française</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-          <a class="quiz col-xs-3 col-centered" href="quiz.jsp">
-              <img src="images/musique.jpeg" alt="Histoire" class="img-circle img-thumbnail img-responsive">
-              <h3>Pop / électro</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          </a>
-        </div>
+            <% if (cpt == 2) { %>
+                <div class="col-md-1 mobile-hidden"></div>
+              </div>
+            <% } %>
+
+            <% ++cpt; %>
+
+            <% if (cpt == 3) { %>
+              <% cpt = 0; %>
+            <% } %>
+
+          <% } %>
       </div>
 
       <div class="col-md-1"></div>

@@ -86,7 +86,7 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('MCQ', 'Culture du monde', 'Un des symboles de la France est le coq, mais il l\'est également ... (Complétez)', null, '1', true), -- 22
 ('MCQ', 'Culture du monde', 'Si, dans un pays européen vous entendez (étonnamment en langue française)', null, '1', true), -- 23
 ('MCQ', 'Culture du monde', 'De quel pays le castor à large queue plate est-il emblématique ?', null, '1', true), -- 24
-('MCQ', 'Le monde en 2016', 'Quel film a remporté lOscar du meilleur film en 2016 ?', null, '1', true), -- 25
+('MCQ', 'Le monde en 2016', 'Quel film a remporté l\'Oscar du meilleur film en 2016 ?', null, '1', true), -- 25
 ('MCQ', 'Le monde en 2016', 'En quel mois a eu lieu l\'ouragan Matthew qui a tué près de 1000 personnes en Haïti ?', null, '1', true), -- 26
 ('MCQ', 'Le monde en 2016', 'Quel prix Bob Dylan, chanteur et poète, a-t-il reçu en 2016 ?', null, '1', true), -- 27
 ('MCQ', 'Le monde en 2016', 'Quel cycliste a remporté le Tour de France en 2016 ?', null, '1', true), -- 28

@@ -3,6 +3,7 @@ package data;
 import java.util.List;
 
 import quizIT.Question;
+import quizIT.Topic;
 import quizIT.User;
 
 public class DataBase {
@@ -32,12 +33,16 @@ public class DataBase {
 		return dataBConnect.getQuestion(id);
 	}
 	
-	//Récupère une question alétoire d'un certain type
+	public List<Topic> getTopics() {
+		return dataBConnect.getTopics();
+	}
+	
+	//Rï¿½cupï¿½re une question alï¿½toire d'un certain type
 	public Question getRandQuestion(String type) {
 		return dataBConnect.getRandQuestion(type);
 	}
 
-	//Changement des données de l'utilisateur après une partie
+	//Changement des donnï¿½es de l'utilisateur aprï¿½s une partie
 	public void playGame(User user) {
 		dataBConnect.playGame(user);
 	}
@@ -69,6 +74,14 @@ public class DataBase {
 
 	public Question getRandQuestion(String type, String topic) {
 		return dataBConnect.getRandQuestion(type,topic);
+	}
+	
+	public void changePassword(String login, String password){
+		dataBConnect.changePassword(login, password);
+	}
+	
+	public List<User> getTopUser() {
+		return dataBConnect.getTopUser();
 	}
 	
 }
