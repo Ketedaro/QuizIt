@@ -7,13 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.DataBase;
 
 @SuppressWarnings("serial")
-public class LeaderboardServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/views/leaderboard.jsp").forward(request, response);
+		request.setAttribute("topics", DataBase.getDataBase().getTopics());
+		this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 		
     }
 }

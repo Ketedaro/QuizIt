@@ -1,5 +1,7 @@
 package quizIT;
 
+import data.DataBase;
+
 public class Topic {
 	
 	private String name;
@@ -22,5 +24,9 @@ public class Topic {
 	
 	public String getDesc(){
 		return this.desc;
+	}
+	
+	public String getType(){
+		return DataBase.getDataBase().getTypeByNameTopic(name);
 	}
 }

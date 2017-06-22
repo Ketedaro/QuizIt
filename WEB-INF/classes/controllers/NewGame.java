@@ -10,7 +10,7 @@ public class NewGame {
 	public static Game createNewGame(HttpServletRequest request){
 		  String type=request.getParameter("type");
           String topic=request.getParameter("topic");
-          int nbQ=Integer.valueOf(request.getParameter("NbQuest"));
+          int nbQ=3;
           Class<?> classe = null;
 		try {
 			classe = Class.forName("quizIT."+type);

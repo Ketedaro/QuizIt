@@ -33,14 +33,18 @@ public class DataBase {
 		return dataBConnect.getQuestion(id);
 	}
 	
-	//Récupère une question alétoire d'un certain type
+	public List<Topic> getTopics() {
+		return dataBConnect.getTopics();
+	}
+	
+	//Rï¿½cupï¿½re une question alï¿½toire d'un certain type
 	public Question getRandQuestion(String type) {
 		return dataBConnect.getRandQuestion(type);
 	}
 
-	//Changement des données de l'utilisateur après une partie
-	public void playGame(User user,int scoreGame) {
-		dataBConnect.playGame(user,scoreGame);
+	//Changement des donnï¿½es de l'utilisateur aprï¿½s une partie
+	public void playGame(User user, int scoreGame) {
+		dataBConnect.playGame(user, scoreGame);
 	}
 	
 	public void addQuestion(Question q){
@@ -49,10 +53,6 @@ public class DataBase {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public List<Topic> getAllTopic(){
-		return this.dataBConnect.getAllTopic();
 	}
 	
 	public boolean existLogin(String login){
@@ -78,6 +78,18 @@ public class DataBase {
 
 	public List<User> getTopUser() {
 		return dataBConnect.getTopUser();
+	}
+
+	public List<String> getListNameType() {
+		return dataBConnect.getListNameType();
+	}
+
+	public List<Topic> getTopicByType(String type) {
+		return dataBConnect.getTopicByType(type);
+	}
+
+	public String getTypeByNameTopic(String name) {
+		return dataBConnect.getTypeByNameTopic(name);
 	}
 	
 }
