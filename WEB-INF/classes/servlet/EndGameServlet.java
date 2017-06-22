@@ -12,6 +12,7 @@ public class EndGameServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		EndGame.ScoreManagement((User) request.getAttribute("user"), (Game) request.getAttribute("game"));
 		try {
+			// Fin de partie
 			response.sendRedirect("/home");
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -33,8 +33,8 @@ public class DataBase {
 		return dataBConnect.getQuestion(id);
 	}
 	
-	public List<Topic> getTopics() {
-		return dataBConnect.getTopics();
+	public List<Topic> getTopics(String type) {
+		return dataBConnect.getTopics(type);
 	}
 	
 	//R�cup�re une question al�toire d'un certain type
@@ -43,8 +43,8 @@ public class DataBase {
 	}
 
 	//Changement des donn�es de l'utilisateur apr�s une partie
-	public void playGame(User user) {
-		dataBConnect.playGame(user);
+	public void playGame(User user, int scoreGame) {
+		dataBConnect.playGame(user, scoreGame);
 	}
 	
 	public void addQuestion(Question q){
@@ -74,6 +74,10 @@ public class DataBase {
 
 	public Question getRandQuestion(String type, String topic) {
 		return dataBConnect.getRandQuestion(type,topic);
+	}
+
+	public List<User> getTopUser() {
+		return dataBConnect.getTopUser();
 	}
 	
 }

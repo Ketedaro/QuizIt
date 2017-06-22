@@ -125,9 +125,9 @@ public class DBConnect {
 				.getQuestions("select * from questions where typeQuest='" + type + "' and topicQuest='" + topic + "'");
 	}
 
-	public void playGame(User user) {
-		String sql = "Update users set score=" + user.getScore() + " where id_user=" + user.getId();
-		this.setUpdate(sql);
+	public void playGame(User user, int scoreGame) {
+		int score = user.getScore() + scoreGame;
+		this.setUpdate("Update users set score=" + score + " where id_user=" + user.getId());
 	}
 
 	public void addQuestion(Question q) throws Exception {
@@ -286,14 +286,14 @@ public class DBConnect {
 		return lQuestion;
 	}
 
-	public List<Topic> getTopics() {
+	public List<Topic> getTopics(String type) {
 		Statement request;
 		ResultSet resultSet;
 		String topicName, pictureURL, descriptionTopic;
 		List<Topic> topics = new ArrayList<Topic>();
 		try {
 			request = connect.createStatement();
-			resultSet = request.executeQuery("select * from topic");
+			resultSet = request.executeQuery("select * from topic t where t.topicName IN (select * from questions q where q.topicQuest = t.topicName AND q.typeQuest = '"+ type +"'");
 
 			while (resultSet.next()) {
 				topicName = resultSet.getString("topicName");
@@ -315,6 +315,10 @@ public class DBConnect {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<User> getTopUser() {
+		return this.getUsers("SELECT * FROM users ORDER BY score DESC LIMIT 20");
 	}
 
 }

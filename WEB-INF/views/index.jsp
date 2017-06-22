@@ -50,10 +50,10 @@ if (session.getAttribute("utilisateur") == null) {
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.jsp"><i class="fa fa-list"></i> Liste des quiz</a></li>
-            <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li>
+            <li class="active"><a href="${pageContext.request.contextPath}/home"><i class="fa fa-list"></i> Liste des quiz</a></li>
+            <%-- <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li> --%>
 
-            <li><a href="views/leaderboard.jsp"><i class="fa fa-trophy"></i> Classement</a></li>
+            <li><a href="${pageContext.request.contextPath}/leaderboard"><i class="fa fa-trophy"></i> Classement</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">

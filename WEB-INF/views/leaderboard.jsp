@@ -1,4 +1,22 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import = "java.io.*" %>
+<%@ page import = "java.io.*" %>
+<%@ page import = "java.util.*" %>
+<%@ page import = "quizIT.*" %>
+<%
+boolean connecté;
+User utilisateur = null;
+
+List<Topic> topics = (List<Topic>) request.getAttribute("topics");
+
+if (session.getAttribute("utilisateur") == null) {
+  connecté = false;
+} else {
+  connecté = true;
+  utilisateur = (User)session.getAttribute("utilisateur");
+}
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -33,19 +51,36 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="../index.jsp"><i class="fa fa-list"></i> Liste des quiz</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catégories de questions
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="index.jsp#MCQ">Questions à choix multiples</a></li>
-                <li><a href="index.jsp#Blind">Blindtests</a></li>
-              </ul>
-            </li>
-            <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li>
-            <li class="active"><a href="leaderboard.jsp"><i class="fa fa-trophy"></i> Classement</a></li>
+            <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-list"></i> Liste des quiz</a></li>
+            <%-- <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li> --%>
+
+            <li class="active"><a href="${pageContext.request.contextPath}/leaderboard"><i class="fa fa-trophy"></i> Classement</a></li>
           </ul>
+
           <ul class="nav navbar-nav navbar-right">
+            <% if (connecté) { %>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-user-circle" aria-hidden="true"></i> <%= utilisateur.getLogin() %>
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="${pageContext.request.contextPath}/change_password">Changer de mot de passe</a></li>
+                  <li><a href="${pageContext.request.contextPath}/disconnect">Se déconnecter</a></li>
+                </ul>
+              </li>
+              <li><a href="${pageContext.request.contextPath}/submit_question">
+              <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li>
+            <% } else { %>
+              <li>
+                <a href="${pageContext.request.contextPath}/connexion"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
+              </li>
+              <li>
+                <a href="${pageContext.request.contextPath}/sign_in">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> S'inscrire
+                </a>
+              </li>
+            <% } %>
+
             <li><a href="https://github.com/Ketedaro/QuizIt" target="_blank"><i class="fa fa-github"></i> Github</a></li>
           </ul>
         </div>
