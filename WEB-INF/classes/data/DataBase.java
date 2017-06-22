@@ -96,4 +96,8 @@ public class DataBase {
 		return dataBConnect.getTopicbyName(name);
 	}
 	
+	public void changePassword(String login, String password){
+		dataBConnect.changePassword(login, password);
+	}
+	
 }

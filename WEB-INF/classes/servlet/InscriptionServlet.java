@@ -23,11 +23,17 @@ public class InscriptionServlet extends HttpServlet {
 		
 		request.setAttribute("form_inscription", form);
 		try {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/views/sign_in.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/views/create-account.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
 		
     }
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/views/create-account.jsp").forward(request, response);
+		
+	}
 	
 }

@@ -89,7 +89,7 @@ public class DBConnect {
 		ResultSet res;
 		boolean tmp = false;
 		try {
-			String sql = "SELECT * FROM USERS WHERE login = '" + loginConnect + "' and password = '" + passConnect
+			String sql = "SELECT * FROM users WHERE login = '" + loginConnect + "' and password = '" + passConnect
 					+ "'";
 			request = connect.createStatement();
 			res = request.executeQuery(sql);
@@ -367,6 +367,10 @@ public class DBConnect {
 	
 	public Topic getTopicbyName(String name){
 		return this.getTopics("Select * from topic where topicName='"+name+"'").get(0);
+	}
+	
+	public void changePassword(String login, String password) {
+		this.setUpdate("update users set password ='" + password + "' where login = '" + login + "'");
 	}
 
 }

@@ -43,13 +43,31 @@
  </servlet-mapping>
 
  <servlet>
- 	 <servlet-name>LeaderboardServlet</servlet-name>
- 	 <servlet-class>servlet.LeaderboardServlet</servlet-class>
+ 	 <servlet-name>InscriptionServlet</servlet-name>
+ 	 <servlet-class>servlet.InscriptionServlet</servlet-class>
   </servlet>
   <servlet-mapping>
- 	 <servlet-name>LeaderboardServlet</servlet-name>
- 	 <url-pattern>/leaderboard</url-pattern>
-  </servlet-mapping>
+ 	 <servlet-name>InscriptionServlet</servlet-name>
+ 	 <url-pattern>/sign_in</url-pattern>
+ </servlet-mapping>
+
+ <servlet>
+ 	 <servlet-name>ChangePasswordServlet</servlet-name>
+ 	 <servlet-class>servlet.ChangePasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+ 	 <servlet-name>ChangePasswordServlet</servlet-name>
+ 	 <url-pattern>/change_password</url-pattern>
+ </servlet-mapping>
+
+ <servlet>
+   <servlet-name>LeaderboardServlet</servlet-name>
+   <servlet-class>servlet.LeaderboardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>LeaderboardServlet</servlet-name>
+   <url-pattern>/leaderboard</url-pattern>
+ </servlet-mapping>
 
   <servlet>
     <servlet-name>EndGameServlet</servlet-name>

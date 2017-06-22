@@ -7,9 +7,8 @@
 <%
 boolean connecté;
 User utilisateur = null;
-
 List<Topic> topics = (List<Topic>) request.getAttribute("topics");
-
+List<User> users = (List<User>) request.getAttribute("users");
 if (session.getAttribute("utilisateur") == null) {
   connecté = false;
 } else {
@@ -104,26 +103,17 @@ if (session.getAttribute("utilisateur") == null) {
               <th>Nombre de points</th>
             </tr>
             <tbody>
+              <% if(users != null) { %>
+              <% int cpt = 0; %>
+              <% for(User user : users) { %>
               <tr>
-                <td>1</td>
-                <td>H0tmilk</td>
-                <td>10 469</td>
+                <td><%= cpt + 1 %></td>
+                <td><%= user.getLogin() %></td>
+                <td><%= user.getScore() %></td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Kekettaro</td>
-                <td>5 021</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Yoshiiix</td>
-                <td>2 924</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Xaizo</td>
-                <td>2</td>
-              </tr>
+              <% ++cpt; %>
+              <% } %>
+              <% } %>
             </tbody>
           </thead>
         </table>

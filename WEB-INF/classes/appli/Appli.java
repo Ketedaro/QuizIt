@@ -6,8 +6,8 @@ import tools.Hashage;
 public class Appli {
 
 	public static void main(String[] args) {
-		String formPseudo = "Test";
-		String formMdp = Hashage.sha256("Test");
+		String formPseudo = "Tsdfst";
+		String formMdp = Hashage.sha256("a");
 		String message = "";
 		boolean correct = false;
 		try {
@@ -20,7 +20,7 @@ public class Appli {
 			message = "Cet utilisateur n'existe pas.";
 			correct = false;
 		}
-		System.out.println(message + " " + correct);
+		System.out.println(message + " " + correct + " " + formMdp);
 
 	}
 
