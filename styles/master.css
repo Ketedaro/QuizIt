@@ -59,8 +59,8 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
 }
 
-.quiz-list header{%>
-  text-align: center;
+.quiz-list header {
+  width: 100%;
 }
 
 @media screen and (max-width: 1000px) {

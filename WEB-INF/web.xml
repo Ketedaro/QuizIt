@@ -51,6 +51,33 @@
  	 <url-pattern>/leaderboard</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>EndGameServlet</servlet-name>
+    <servlet-class>servlet.EndGameServlet</servlet-class>
+   </servlet>
+   <servlet-mapping>
+    <servlet-name>EndGameServlet</servlet-name>
+    <url-pattern>/end-game</url-pattern>
+   </servlet-mapping>
+
+<servlet>
+ <servlet-name>InitializeGameServlet</servlet-name>
+ <servlet-class>servlet.InitializeGameServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+ <servlet-name>InitializeGameServlet</servlet-name>
+ <url-pattern>/init-game</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>GameServlet</servlet-name>
+  <servlet-class>servlet.GameServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>GameServlet</servlet-name>
+  <url-pattern>/game</url-pattern>
+</servlet-mapping>
+
  <servlet>
  	 <servlet-name>DeconnexionServlet</servlet-name>
  	 <servlet-class>servlet.DeconnexionServlet</servlet-class>

@@ -33,8 +33,8 @@ public class DataBase {
 		return dataBConnect.getQuestion(id);
 	}
 	
-	public List<Topic> getTopics(String type) {
-		return dataBConnect.getTopics(type);
+	public List<Topic> getTopics() {
+		return dataBConnect.getTopics();
 	}
 	
 	//R�cup�re une question al�toire d'un certain type
@@ -78,6 +78,22 @@ public class DataBase {
 
 	public List<User> getTopUser() {
 		return dataBConnect.getTopUser();
+	}
+
+	public List<String> getListNameType() {
+		return dataBConnect.getListNameType();
+	}
+
+	public List<Topic> getTopicByType(String type) {
+		return dataBConnect.getTopicByType(type);
+	}
+
+	public String getTypeByNameTopic(String name) {
+		return dataBConnect.getTypeByNameTopic(name);
+	}
+
+	public Topic getTopicByName(String name) {
+		return dataBConnect.getTopicbyName(name);
 	}
 	
 }

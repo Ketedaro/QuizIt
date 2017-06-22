@@ -6,16 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import data.DataBase;
+import controllers.Home;
 
 @SuppressWarnings("serial")
 public class HomeServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		
-		request.setAttribute("topics", DataBase.getDataBase().getTopics());
+		request.setAttribute("topics", Home.getTopics());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 		
     }

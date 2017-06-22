@@ -286,25 +286,27 @@ public class DBConnect {
 		return lQuestion;
 	}
 
-	public List<Topic> getTopics(String type) {
+	private List<Topic> getTopics(String sql) {
 		Statement request;
 		ResultSet resultSet;
-		String topicName, pictureURL, descriptionTopic;
-		List<Topic> topics = new ArrayList<Topic>();
+		List<Topic> lTopic = new ArrayList<Topic>();
+		String name, url, desc;
+
 		try {
 			request = connect.createStatement();
-			resultSet = request.executeQuery("select * from topic t where t.topicName IN (select * from questions q where q.topicQuest = t.topicName AND q.typeQuest = '"+ type +"'");
-
+			resultSet = request.executeQuery(sql);
 			while (resultSet.next()) {
-				topicName = resultSet.getString("topicName");
-				pictureURL = resultSet.getString("pictureURL");
-				descriptionTopic = resultSet.getString("descriptionTopic");
-				topics.add(Factory.getTopic(topicName, pictureURL, descriptionTopic));
+				name = resultSet.getString("topicName");
+				url = resultSet.getString("pictureURL");
+				desc = resultSet.getString("descriptionTopic");
+				lTopic.add(Factory.getTopic(name, url, desc));
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return topics;
+
+		return lTopic;
 	}
 
 	private void setUpdate(String sql) {
@@ -319,6 +321,51 @@ public class DBConnect {
 
 	public List<User> getTopUser() {
 		return this.getUsers("SELECT * FROM users ORDER BY score DESC LIMIT 20");
+	}
+
+	public List<Topic> getTopics() {
+		return this.getTopics("SELECT * FROM topic");
+	}
+
+	public List<String> getListNameType() {
+		Statement request;
+		ResultSet resultSet;
+		List<String> listName = new ArrayList<String>();
+		try {
+			request = connect.createStatement();
+			resultSet = request.executeQuery("SELECT distinct typeQuest FROM questions ORDER BY id_quest");
+			while (resultSet.next()) {
+				listName.add(resultSet.getString("typeQuest"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listName;
+	}
+
+	public List<Topic> getTopicByType(String type) {
+		List<Question> listQuestion=this.getQuestions("select * from questions where typeQuest='"+type+"'");
+		List<String> tampon=new ArrayList<String>();
+		List<Topic> lTopic=new ArrayList<Topic>();
+		
+		for(int i=0;i<listQuestion.size();++i){
+			if(!tampon.contains(listQuestion.get(i).getTopic()))
+					tampon.add(listQuestion.get(i).getTopic());
+		}
+		for(int i=0;i<tampon.size();++i){
+			lTopic.add(this.getTopicbyName(tampon.get(i)));
+		}
+		
+		
+		return lTopic;
+	}
+
+	public String getTypeByNameTopic(String name) {
+		return this.getQuestions("Select * from questions where topicQuest='"+name+"'").get(0).getClass().getSimpleName();
+	}
+	
+	public Topic getTopicbyName(String name){
+		return this.getTopics("Select * from topic where topicName='"+name+"'").get(0);
 	}
 
 }

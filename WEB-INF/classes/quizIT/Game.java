@@ -9,6 +9,7 @@ public class Game {
 	private List<Question> questions;
 	private List<Answer> answers;
 	private int cpt;
+	private boolean end=false;
 
 	// Evolution possible ?GENRE?
 
@@ -46,17 +47,25 @@ public class Game {
 		return this.questions.get(num);
 	}
 
-	public boolean play(int ans) {
+	public Game play(int ans) throws Exception {
+		if(this.end)
+			throw new Exception("Partie terminÃ©e");
 		Question quest = this.questions.get(this.cpt);
 		this.answers.add(quest.getAnswers().get(ans - 1));
 		this.cpt++;
+		System.out.println("CPT="+cpt+" Size="+questions.size());
 		if (cpt >= this.questions.size())
-			return true;
-		return false;
+			 this.end=true;
+		System.out.println(this.end);
+		return this;
 	}
 	
 	public List<Answer> getAnswers(){
 		return this.answers;
+	}
+	
+	public int getNbQuest() {
+		return this.questions.size();
 	}
 
 	public int getCpt() {
@@ -65,6 +74,10 @@ public class Game {
 
 	public Question getCurrentQuestion() {
 		return this.questions.get(cpt);
+	}
+	
+	public boolean isFinish() {
+		return this.end;
 	}
 }
 /*
@@ -75,7 +88,7 @@ public class Game {
  * rdm=(int)(Math.random()*(max)); tmp=db.getQuestion(rdm,type);
  * if(questions.contains(tmp)) this.questions.add(tmp); } }
  * 
- * //Partie avec différent type de question public Game(int nbQ,String type[]){
+ * //Partie avec diffï¿½rent type de question public Game(int nbQ,String type[]){
  * score=0; DataBase db=DataBase.getDataBase(); int max=db.sizeQuestion(type);
  * int rdm; Question tmp; for(int i=0;i<nbQ;i++){
  * rdm=(int)(Math.random()*(max)); tmp=db.getQuestion(rdm,type);

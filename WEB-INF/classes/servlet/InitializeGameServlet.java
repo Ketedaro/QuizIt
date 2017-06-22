@@ -17,10 +17,11 @@ public class InitializeGameServlet extends HttpServlet{
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) { 
 
-		request.setAttribute("game", NewGame.createNewGame(request));
+
+		request.getSession().setAttribute("game", NewGame.createNewGame(request));
 		try {
 			//Redirection
-			this.getServletContext().getRequestDispatcher("/WEB-INF/JSP/accueil.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/views/question-simple.jsp").forward(request, response);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}

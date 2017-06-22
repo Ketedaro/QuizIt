@@ -121,7 +121,7 @@ if (session.getAttribute("utilisateur") == null) {
               </tr>
               <tr>
                 <td>4</td>
-                <td>Xeizo</td>
+                <td>Xaizo</td>
                 <td>2</td>
               </tr>
             </tbody>

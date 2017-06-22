@@ -15,13 +15,14 @@ public abstract class Question {
 		this.entitled = entit;
 		this.id = ID;
 		this.validate = false;
+		this.topic=topic;
 	}
 
 	public void valid(User u) throws Exception {
 		if (u.isAdmin())
 			this.validate = true;
 		else
-			throw new Exception("Vous n'avez pas les droits admin pour faire ça");
+			throw new Exception("Vous n'avez pas les droits admin pour faire ï¿½a");
 	}
 
 	public boolean getValidate() {
@@ -77,7 +78,7 @@ public abstract class Question {
 			if (answer.get(i).correct)
 				return i + 1;
 		}
-		throw new Exception("Question sans bonne réponse");
+		throw new Exception("Question sans bonne rï¿½ponse");
 	}
 
 }

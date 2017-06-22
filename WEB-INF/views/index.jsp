@@ -50,14 +50,14 @@ if (session.getAttribute("utilisateur") == null) {
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="${pageContext.request.contextPath}/home"><i class="fa fa-list"></i> Liste des quiz</a></li>
+            <li class="active"><a href="${pageContext.request.contextPath}/home"><i class="fa fa-list-ul"></i> Liste des quiz</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user-circle" aria-hidden="true"></i> Catégories
+                <i class="fa fa-tasks" aria-hidden="true"></i> Catégories
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <% for(List<Topic> topics : topics_list) { %>
-                  <li><a href="#<%= topics.get(0).getType() %>"><%= topics.get(0).getType() %></a></li>
+                <% for(List<Topic> topic_entity : topics_list) { %>
+                  <li><a href="#<%= topic_entity.get(0).getType() %>"><%= topic_entity.get(0).getType() %></a></li>
                 <% } %>
               </ul>
             </li>
@@ -98,29 +98,35 @@ if (session.getAttribute("utilisateur") == null) {
 
     <!-- QUIZ LIST -->
     <div class="row">
-      <div class="col-md-1"></div>Topic
+      <div class="col-md-1"></div>
 
-      <% for(List<Topic> topics : topics_list) { %>
 
-        <div class="quiz-list col-md-10 tweak-padding-50 row container" id="<%= topic.get(0).getType() %>">
-          <header>
-            <h2>
-              <%= topic.get(0).getType() %><br>
-            </h2>
-          </header>
+      <div class="col-md-10 tweak-padding-50 row container">
+
+      <header class="text-center">
+        <h2>
+          Choisissez une catégorie <br>
+          <small>Scientifique ? Passionné d'Histoire ? Spécialiste de la musique ? Prouvez-le !</small>
+        </h2>
+      </header>
+      <form action="${pageContext.request.contextPath}/init-game" method="post">
+        <% for(List<Topic> topic_entity : topics_list) { %>
+          <div class="quiz-list" id="<%= topic_entity.get(0).getType() %>">
+            <h3 class="text-success">
+              <%= topic_entity.get(0).getType() %>
+            </h3>
             <% int cpt = 0; %>
-            <% for(Topic topic : topics) { %>
-
+            <% for(Topic topic : topic_entity) { %>
               <% if (cpt == 0) { %>
                 <div class="row">
                   <div class="col-md-1 mobile-hidden"></div>
               <% } %>
 
-                  <a class="quiz col-md-3" href="question-simple.jsp">
+                  <button class="quiz col-md-3" name ="topic" value="<%= topic.getName() %>">
                       <img src="<%= topic.getUrl() %>" class="img-circle img-thumbnail img-responsive">
                       <h3><%= topic.getName() %></h3>
                       <p><%= topic.getDesc() %></p>
-                  </a>
+                  </button>
 
               <% if (cpt == 2) { %>
                   <div class="col-md-1 mobile-hidden"></div>
@@ -134,8 +140,12 @@ if (session.getAttribute("utilisateur") == null) {
               <% } %>
 
             <% } %>
-        </div>
-      <% } %>
+          </div>
+          <hr>
+        <% } %>
+      </form>
+
+  </div>
 
       <div class="col-md-1"></div>
     </div>

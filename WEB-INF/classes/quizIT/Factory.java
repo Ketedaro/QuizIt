@@ -11,7 +11,7 @@ public class Factory {
 		case "MCQ":
 			newQuestion=new MCQ(listAnw,entitled,id,topic,submitter);
 			break;
-		case "Blindtest":
+		case "BlindTest":
 			newQuestion=new Blindtest(listAnw,entitled,id,topic,submitter,mp3Link);
 			break;
 		default:
@@ -23,7 +23,7 @@ public class Factory {
 	public static Answer getAnswer(int id_answer, String answerEnti, String typeAns, boolean correct) throws Exception {
 		Answer newAnswer = null;
 		switch(typeAns){
-		case "simple":
+		case "SimpleAnswer":
 			newAnswer=new SimpleAnswer(id_answer,answerEnti,correct);
 			break;
 		default:
@@ -34,7 +34,7 @@ public class Factory {
 	public static Answer getAnswer(int id_answer, String answerEnti, String typeAns, boolean correct,String desc) throws Exception {
 		Answer newAnswer = null;
 		switch(typeAns){
-		case "simple":
+		case "SimpleAnswer":
 			newAnswer=new SimpleAnswer(id_answer,answerEnti,correct,desc);
 			break;
 		default:
@@ -45,7 +45,7 @@ public class Factory {
 	}
 
 	public static User getUser(int id, String login, String password, String email, int score, boolean isAdmin) {
-		//Possibilité de faire un traitement sur le password ici
+		//Possibilitï¿½ de faire un traitement sur le password ici
 		return new User(id,login,password,email,score,isAdmin);
 	}
 
