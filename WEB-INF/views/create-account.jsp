@@ -36,15 +36,6 @@
             <li><a href="../index.jsp"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="change-password.jsp">Changer de mot de passe</a></li>
-                <li><a href="disconnect">Se déconnecter</a></li>
-              </ul>
-            </li>
             <li><a href="https://github.com/Ketedaro/QuizIt" target="_blank"><i class="fa fa-github"></i> Github</a></li>
           </ul>
         </div>

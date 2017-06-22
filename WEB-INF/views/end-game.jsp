@@ -8,8 +8,6 @@ boolean connecté;
 User utilisateur = null;
 
 Game game = (Game) request.getSession().getAttribute("game");
-Question question = game.getCurrentQuestion();
-List<Answer> answers = game.getCurrentQuestion().getAnswers();
 
 if (session.getAttribute("utilisateur") == null) {
   connecté = false;
@@ -32,7 +30,7 @@ if (session.getAttribute("utilisateur") == null) {
     <!-- Javascript (jquery BEFORE bootstrap) -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" defaultsrc="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   </head>
 
@@ -52,59 +50,83 @@ if (session.getAttribute("utilisateur") == null) {
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="../index.jsp"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
+            <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user-circle" aria-hidden="true"></i> H0tmilk
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="change-password.jsp">Changer de mot de passe</a></li>
-                <li><a href="disconnect">Se déconnecter</a></li>
-              </ul>
-            </li>
+            <% if (connecté) { %>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-user-circle" aria-hidden="true"></i> <%= utilisateur.getLogin() %>
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="${pageContext.request.contextPath}/change_password">Changer de mot de passe</a></li>
+                  <li><a href="${pageContext.request.contextPath}/disconnect">Se déconnecter</a></li>
+                </ul>
+              </li>
+              <li><a href="${pageContext.request.contextPath}/submit_question">
+              <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li>
+            <% } else { %>
+              <li>
+                <a href="${pageContext.request.contextPath}/connexion"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
+              </li>
+              <li>
+                <a href="${pageContext.request.contextPath}/sign_in">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i> S'inscrire
+                </a>
+              </li>
+            <% } %>
+
             <li><a href="https://github.com/Ketedaro/QuizIt" target="_blank"><i class="fa fa-github"></i> Github</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="panel panel-success col-md-8 question-panel">
-        <div class="panel-heading">
-          <h3 class="panel-title">Question n°<%= game.getCpt()+1 %> / <%= game.getNbQuest() %></h3>
-        </div>
-        <div class="panel-body row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8 row container">
-            <header class="text-center">
-              <h2><%= game.getCurrentQuestion().getEntitled() %></h2>
-            </header>
-            <form class="row row-centered col-md-12" action="${pageContext.request.contextPath}/game" method="post">
-              <% int cpt = 0; %>
-              <% for(Answer answer : answers) { %>
-              <% ++cpt; %>
-              <div class="field col-md-6">
-                <button class="btn btn-success" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
+    <% for(int i = 0; i < game.getNbQuest(); ++i) { %>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="panel panel-success col-md-8 question-panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Question n°<%= i+1 %></h3>
+          </div>
+          <div class="panel-body row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 row container">
+              <header class="text-center">
+                <h2><%= game.getQuestion(i).getEntitled() %></h2>
+              </header>
+              <div class="row row-centered col-md-12">
+                <% int cpt = 0; %>
+                <% for(Answer answer : game.getQuestion(i).getAnswers()) { %>
+                <% ++cpt; %>
+                <div class="field col-md-6">
+                  <% if(answer.getAnswer().equals(game.getAnswers().get(i).getAnswer()) && !answer.isCorrect()) { %>
+                    <button class="btn btn-danger" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
+                  <% } else if(answer.getAnswer().equals(game.getAnswers().get(i).getAnswer()) && answer.isCorrect()){ %>
+                    <button class="btn btn-success" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
+                  <% } else if(answer.isCorrect()){ %>
+                    <button class="btn btn-success" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
+                  <% } else { %>
+                    <button class="btn btn-default" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
+                  <% } %>
+                </div>
+                <% } %>
               </div>
-              <% } %>
-            </form>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-2"></div>
-    </div>
+        <div class="col-md-2"></div>
+      </div>
+    <% } %>
 
     <!-- PUB -->
     <div class="row">
-      <div class="col-md-2"></div></div>
-      <div class="">
-
+      <div class="col-md-4"></div>
+      <div class="col-md-4 text-center">
+        <a href="${pageContext.request.contextPath}/home" class="btn btn-success">Retour à l'accueil</a>
       </div>
-      <div class="col-md-2"></div>
+      <div class="col-md-4"></div>
     </div>
   </body>
 

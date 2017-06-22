@@ -18,15 +18,15 @@ public class GameServlet extends HttpServlet {
 		if (CurrentGame.isEnd(request)) {
 			try {
 				// Partie terminé .
-				response.sendRedirect("/end-game");
+				System.out.println(request.getContextPath());
+				response.sendRedirect(request.getContextPath()+"/end-game");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
 			// Partie en cours
 			try {
-				this.getServletContext().getRequestDispatcher("/WEB-INF/views/question-simple.jsp").forward(request,
-						response);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/views/question-simple.jsp").forward(request,response);
 			} catch (ServletException | IOException e) {
 				e.printStackTrace();
 			}

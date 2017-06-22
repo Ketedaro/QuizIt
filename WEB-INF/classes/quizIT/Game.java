@@ -53,10 +53,8 @@ public class Game {
 		Question quest = this.questions.get(this.cpt);
 		this.answers.add(quest.getAnswers().get(ans - 1));
 		this.cpt++;
-		System.out.println("CPT="+cpt+" Size="+questions.size());
 		if (cpt >= this.questions.size())
 			 this.end=true;
-		System.out.println(this.end);
 		return this;
 	}
 	

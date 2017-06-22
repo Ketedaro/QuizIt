@@ -27,7 +27,8 @@ public class DBConnect {
 	private Connection connect;
 
 	public DBConnect() {
-		File file = new File("/var/lib/tomcat7/webapps/QuizIt/WEB-INF/classes/config.txt");
+		File file = new File(DBConnect.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"config.txt");
+	
 		try {
 			FileReader fis = new FileReader(file);
 			@SuppressWarnings("resource")
