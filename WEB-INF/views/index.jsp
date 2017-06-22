@@ -7,7 +7,7 @@
 boolean connecté;
 User utilisateur = null;
 
-List<Topic> topics = (List<Topic>) request.getAttribute("topics");
+List<List<Topic>> topics_list = (List<List<Topic>>) request.getAttribute("topics");
 
 if (session.getAttribute("utilisateur") == null) {
   connecté = false;
@@ -51,6 +51,16 @@ if (session.getAttribute("utilisateur") == null) {
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
             <li class="active"><a href="${pageContext.request.contextPath}/home"><i class="fa fa-list"></i> Liste des quiz</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user-circle" aria-hidden="true"></i> Catégories
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <% for(List<Topic> topics : topics_list) { %>
+                  <li><a href="#<%= topics.get(0).getType() %>"><%= topics.get(0).getType() %></a></li>
+                <% } %>
+              </ul>
+            </li>
             <%-- <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li> --%>
 
             <li><a href="${pageContext.request.contextPath}/leaderboard"><i class="fa fa-trophy"></i> Classement</a></li>
@@ -88,42 +98,44 @@ if (session.getAttribute("utilisateur") == null) {
 
     <!-- QUIZ LIST -->
     <div class="row">
-      <div class="col-md-1"></div>
+      <div class="col-md-1"></div>Topic
 
-      <div class="quiz-list col-md-10 tweak-padding-50 row container" id="MCQ">
-        <header>
-          <h2>
-            Choisissez une catégorie<br>
-            <small>Scientifique ? Musicien ? Amoureux d'histoire ? A vous de le prouver !</small>
-          </h2>
-        </header>
-          <% int cpt = 0; %>
-          <% for(Topic topic : topics) { %>
+      <% for(List<Topic> topics : topics_list) { %>
 
-            <% if (cpt == 0) { %>
-              <div class="row">
-                <div class="col-md-1 mobile-hidden"></div>
+        <div class="quiz-list col-md-10 tweak-padding-50 row container" id="<%= topic.get(0).getType() %>">
+          <header>
+            <h2>
+              <%= topic.get(0).getType() %><br>
+            </h2>
+          </header>
+            <% int cpt = 0; %>
+            <% for(Topic topic : topics) { %>
+
+              <% if (cpt == 0) { %>
+                <div class="row">
+                  <div class="col-md-1 mobile-hidden"></div>
+              <% } %>
+
+                  <a class="quiz col-md-3" href="question-simple.jsp">
+                      <img src="<%= topic.getUrl() %>" class="img-circle img-thumbnail img-responsive">
+                      <h3><%= topic.getName() %></h3>
+                      <p><%= topic.getDesc() %></p>
+                  </a>
+
+              <% if (cpt == 2) { %>
+                  <div class="col-md-1 mobile-hidden"></div>
+                </div>
+              <% } %>
+
+              <% ++cpt; %>
+
+              <% if (cpt == 3) { %>
+                <% cpt = 0; %>
+              <% } %>
+
             <% } %>
-
-                <a class="quiz col-md-3" href="question-simple.jsp">
-                    <img src="<%= topic.getUrl() %>" class="img-circle img-thumbnail img-responsive">
-                    <h3><%= topic.getName() %></h3>
-                    <p><%= topic.getDesc() %></p>
-                </a>
-
-            <% if (cpt == 2) { %>
-                <div class="col-md-1 mobile-hidden"></div>
-              </div>
-            <% } %>
-
-            <% ++cpt; %>
-
-            <% if (cpt == 3) { %>
-              <% cpt = 0; %>
-            <% } %>
-
-          <% } %>
-      </div>
+        </div>
+      <% } %>
 
       <div class="col-md-1"></div>
     </div>
