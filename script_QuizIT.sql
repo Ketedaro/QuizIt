@@ -19,10 +19,10 @@ SET NAMES 'utf8' COLLATE 'utf8_general_ci';
 
 CREATE TABLE users (
 	id_user INTEGER NOT NULL AUTO_INCREMENT,	
-	login VARCHAR(20) NOT NULL UNIQUE,
-	password VARCHAR(100) NOT NULL,
-	email VARCHAR(100),
-	score INTEGER DEFAULT 0,
+	login VARCHAR(20) NOT NULL UNIQUE, -- Login de connexion
+	password VARCHAR(100) NOT NULL, -- Mot de passe de connexion
+	email VARCHAR(100) NOT NULL, -- Adresse email de l'utilisateur
+	score INTEGER DEFAULT 0, -- Score
 	isAdmin BOOLEAN DEFAULT FALSE,
 	CONSTRAINT PK_USERS PRIMARY KEY (id_user)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -52,9 +52,9 @@ INSERT INTO users (login, password, email, isAdmin) VALUES
 --
 
 CREATE TABLE topic (
-	topicName VARCHAR(50) NOT NULL,
-	pictureURL VARCHAR(255),
-	descriptionTopic VARCHAR(100) NOT NULL,
+	topicName VARCHAR(50) NOT NULL, -- Nom du topic
+	pictureURL VARCHAR(255), -- Image à afficher
+	descriptionTopic VARCHAR(100) NOT NULL, -- Description du topic
 	CONSTRAINT PK_TOPIC PRIMARY KEY (topicName)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -78,17 +78,17 @@ INSERT INTO topic (topicName, pictureURL, descriptionTopic) VALUES
 -- --------------------------------------------------------
 
 --
--- Table questions // Composition descendante
+-- Table questions // Décomposition ascendante
 --
 
 CREATE TABLE questions (
 	id_quest INTEGER NOT NULL AUTO_INCREMENT,
 	typeQuest VARCHAR(10) NOT NULL,
 	topicQuest VARCHAR(50) NOT NULL,
-	questContent VARCHAR(255) NOT NULL,
-	mp3_link VARCHAR(255),
-	id_submitter INTEGER NOT NULL,
-	validation BOOLEAN DEFAULT 0,
+	questContent VARCHAR(255) NOT NULL, -- Nom de la question
+	mp3_link VARCHAR(255), -- Pour Blindtest 
+	id_submitter INTEGER NOT NULL, -- Référence du propriétaire qui a soumis la question
+	validation BOOLEAN DEFAULT false,
 	CONSTRAINT PK_QUESTIONS PRIMARY KEY (id_quest),
 	FOREIGN KEY (id_submitter) REFERENCES users (id_user),
 	FOREIGN KEY (topicQuest) REFERENCES topic (topicName)
@@ -101,13 +101,13 @@ CREATE TABLE questions (
 INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitter, validation) VALUES
 ('MCQ', 'Le débarquement de Normandie', 'Où étaient tournées les scènes de débarquement du film "Il faut sauver le soldat Ryan" ?', null, '1', true), -- 1
 ('MCQ', 'Le débarquement de Normandie', 'Où se trouvait le maréchal Rommel, responsable de la Normandie, le 6 juin 1944 ?', null, '1', true), -- 2
-('MCQ', 'Le débarquement de Normandie', 'Sur combien de plages se concentrés les combats du 6 juin 1944 ?', null, '1', true), -- 3
+('MCQ', 'Le débarquement de Normandie', 'Sur combien de plages se sont concentrés les combats du 6 juin 1944 ?', null, '1', true), -- 3
 ('MCQ', 'Le débarquement de Normandie', 'Quel personnage était un ardent défenseur du projet de débarquement en Normandie ?', null, '1', true), -- 4
-('MCQ', 'Les scientifiques', 'Quelle planète Urbain Le Verrier a-t-il découvert par des calculs mathématiques ?', null, '1', true), -- 5
+('MCQ', 'Les scientifiques', 'Quelle planète le scientifique Urbain Le Verrier a-t-il découvert par des calculs mathématiques ?', null, '1', true), -- 5
 ('MCQ', 'Les scientifiques', 'Sur quelle(s) île(s) Darwin a-t-il développé sa théorie sur l\'évolution des espèces ?', null, '1', true), -- 6
 ('MCQ', 'Les scientifiques', 'Quel scientifique a donné son nom à l\'unité d\'intensité du courant électrique ?', null, '1', true), -- 7
 ('MCQ', 'Les scientifiques', 'Par quel nom Nikola Tesla a-t-il baptisé l\'invention de la première voiture électrique ?', null, '1', true), -- 8
-('MCQ', 'Les félins', 'De quelle manière voient le chat ? Choisissez la bonne réponse.', null, '1', true), -- 9
+('MCQ', 'Les félins', 'De quelle manière voit le chat ? Choisissez la bonne réponse.', null, '1', true), -- 9
 ('MCQ', 'Les félins', 'À quelle distance un chat peut-il sentir un autre chat ?', null, '1', true), -- 10
 ('MCQ', 'Les félins', 'Quel félin est le seul à vivre en groupe ?', null, '1', true), -- 11
 ('MCQ', 'Les félins', 'Quel contient les félins n\'ont-ils pas colonisé naturellement ?', null, '1', true), -- 12
@@ -121,7 +121,7 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('MCQ', 'Les ordinateurs', 'Quel est le navigateur qui a popularisé l\'utilisation des images dans un site web ?', null, '1', true), -- 20
 ('MCQ', 'Culture du monde', 'Un animal rare est un des symboles de la Nouvelle-Zélande, lequel ?', null, '1', true), -- 21
 ('MCQ', 'Culture du monde', 'Un des symboles de la France est le coq, mais il l\'est également ... (Complétez)', null, '1', true), -- 22
-('MCQ', 'Culture du monde', 'Si, dans un pays européen vous entendez (étonnamment en langue française)', null, '1', true), -- 23
+('MCQ', 'Culture du monde', 'Si, dans un pays européen vous entendez (étonnamment en langue française) : « Je maintiendrai ! » ; c\'est que vous vous trouvez …', null, '1', true), -- 23
 ('MCQ', 'Culture du monde', 'De quel pays le castor à large queue plate est-il emblématique ?', null, '1', true), -- 24
 ('MCQ', 'Le monde en 2016', 'Quel film a remporté l\'Oscar du meilleur film en 2016 ?', null, '1', true), -- 25
 ('MCQ', 'Le monde en 2016', 'En quel mois a eu lieu l\'ouragan Matthew qui a tué près de 1000 personnes en Haïti ?', null, '1', true), -- 26
@@ -129,11 +129,11 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('MCQ', 'Le monde en 2016', 'Quel cycliste a remporté le Tour de France en 2016 ?', null, '1', true), -- 28
 ('MCQ', 'La Coupe du monde de football', 'Quel pays a remporté deux fois d\'affilé la Coupe du monde ?', null, '1', true), -- 29
 ('MCQ', 'La Coupe du monde de football', 'Quel pays détient du record de défaites en finale de Coupe du monde ?', null, '1', true), -- 30
-('MCQ', 'La Coupe du monde de football', 'Quel footballeur a champion du monde à trois reprises ?', null, '1', true), -- 31
+('MCQ', 'La Coupe du monde de football', 'Quel footballeur a remporté la Coupe du monde à trois reprises ?', null, '1', true), -- 31
 ('MCQ', 'La Coupe du monde de football', 'De quelle nationalité était le footballeur qui a marqué le premier but de la première édition de la Coupe du monde ?', null, '1', true), -- 32
-('BlindTest', 'Chanson française', 'Qui est l\'artiste ?', 'quelquun_ma_dit.mp3', '1', true), -- 33
-('BlindTest', 'Chanson française', 'Quel est le titre de cette chanson composée par Léo Ferré ?', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 34
-('BlindTest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 35
+('BlindTest', 'Chanson française', 'Qui est l\'artiste ?', 'Carla_Bruni_quelqun_ma_dit.mp3', '1', true), -- 33
+('BlindTest', 'Chanson française', 'Quel est le titre de cette chanson composée par Léo Ferré ?', 'Leo_Ferre_affiche_rouge.mp3', '2', true), -- 34
+('BlindTest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'Serge_Lama_je_suis_malade.mp3', '2', true), -- 35
 ('BlindTest', 'Chanson française', 'En quelle année cet album a été le plus vendu ?', 'christophe_mae_on_trace_la_route.mp3', '2', true), -- 36
 ('BlindTest', 'Pop et Electro', 'Qui est l\'artiste ?', 'this_is_what_you_came_for.mp3', '1', true), -- 37
 ('BlindTest', 'Pop et Electro', 'Quel est le titre de cette chanson composée par Ed Sheeran ?', 'shape_of_you.mp3', '2', true), -- 38
@@ -147,7 +147,7 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('MCQ', 'Les scientifiques', 'À la suite du projet Manhattan, quel surnom Robert Oppenheimer a-t-il obtenu ?', null, '1', true), -- 46
 ('MCQ', 'Les félins', 'Combien de kg de viande mange un tigre adulte annuellement ?', null, '1', true), -- 47
 ('MCQ', 'Les États-Unis', 'Combien de personnes volent au-dessus des États-Unis à chaque instant ?', null, '1', true), -- 48
-('MCQ', 'Les ordinateurs', 'Qu\'est-ce que Ray Tomlinson a créé ? ?', null, '1', true), -- 49
+('MCQ', 'Les ordinateurs', 'Qu\'est-ce que Ray Tomlinson a créé ?', null, '1', true), -- 49
 ('MCQ', 'Culture du monde', 'Quel est le nom du quartier populaire geek à Tokyo ?', null, '1', true), -- 50
 ('MCQ', 'Le monde en 2016', 'Quelle mission spatiale a été mise fin en 2016 ?', null, '1', true), -- 51
 ('MCQ', 'La Coupe du monde de football', 'Quel pays a remporté la première Coupe du monde ?', null, '1', true), -- 52
@@ -171,9 +171,9 @@ LIMIT 1; */
 
 CREATE TABLE answers (
 	id_answer INTEGER NOT NULL AUTO_INCREMENT,
-	id_quest INTEGER NOT NULL,
-	typeAnswer VARCHAR(15) NOT NULL, -- Type de réponse
-	answerContent VARCHAR(255), -- Réponse
+	id_quest INTEGER NOT NULL, -- Référence de la question
+	typeAnswer VARCHAR(30) NOT NULL, -- Type de réponse : peut être une simple réponse ou par la suite multiples répones possibles par question
+	answerContent VARCHAR(255) NOT NULL, -- Nom de la réponse
 	desc_answer VARCHAR(255), -- Description de la réponse
 	isTrue BOOLEAN, -- Réponse juste ou non
 	CONSTRAINT PK_ANSWERS PRIMARY KEY (id_answer),
@@ -377,7 +377,7 @@ INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue) V
 ('48', 'SimpleAnswer', '25 000 personnes', '', false),
 ('48', 'SimpleAnswer', '45 000 personnes', '', false),
 ('48', 'SimpleAnswer', '60 0000 personnes', 'Plus de 60 000 personnes voyagent à bord d\'un avion quelque part au-dessus des États-Unis à tout moment de la journée.', true),
-('49', 'SimpleAnswer', 'Le courrier électronique', '', true),
+('49', 'SimpleAnswer', 'Le courrier électronique', 'Raymond Samuel Tomlinson, était un ingénieur américain considéré comme le créateur et un des précurseurs du courrier électronique. Le premier email de l\'Histoire a été envoyé en automne 1971.', true),
 ('49', 'SimpleAnswer', 'Le protocole HTTP', '', false),
 ('49', 'SimpleAnswer', 'Le World Wide Web', '', false),
 ('49', 'SimpleAnswer', 'Le système des noms de domaine', 'Ray Tomlinson, le créateur du courrier électronique, a eu l\'idée de séparer le nom d\'utilisateur et le nom d\'hôte par un caractère qui n\'était utilisé dans aucun nom propre et qui pouvait servir de préfixe aux noms de domaine : le symbole @.', false),
