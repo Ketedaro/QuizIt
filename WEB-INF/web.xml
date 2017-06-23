@@ -96,6 +96,24 @@
   <url-pattern>/game</url-pattern>
 </servlet-mapping>
 
+<servlet>
+  <servlet-name>NewQuestionServlet</servlet-name>
+  <servlet-class>servlet.NewQuestionServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>NewQuestionServlet</servlet-name>
+  <url-pattern>/submit_question</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>ValidateServlet</servlet-name>
+  <servlet-class>servlet.ValidateServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>ValidateServlet</servlet-name>
+  <url-pattern>/validate-questions</url-pattern>
+</servlet-mapping>
+
  <servlet>
  	 <servlet-name>DeconnexionServlet</servlet-name>
  	 <servlet-class>servlet.DeconnexionServlet</servlet-class>

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.io.*" %>
 <%@ page import = "java.io.*" %>
 <%@ page import = "java.util.*" %>
@@ -46,6 +46,18 @@ User utilisateur = (User)session.getAttribute("utilisateur");
             <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-user-circle" aria-hidden="true"></i> <%= utilisateur.getLogin() %>
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="${pageContext.request.contextPath}/change_password">Changer de mot de passe</a></li>
+                  <li><a href="${pageContext.request.contextPath}/disconnect">Se déconnecter</a></li>
+                </ul>
+              </li>
+              <li><a href="${pageContext.request.contextPath}/submit_question">
+              <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li>
+
             <li><a href="https://github.com/Ketedaro/QuizIt" target="_blank"><i class="fa fa-github"></i> Github</a></li>
           </ul>
         </div>

@@ -1,6 +1,5 @@
 package quizIT;
 
-
 public class User {
 	private int id;
 	private int score;
@@ -41,6 +40,12 @@ public class User {
 	public String getPassword(){
 		return this.password;
 	}
+
+	public void play(int score2) {		
+		this.score=score2;
+	}
+
+	
 	
 }
 

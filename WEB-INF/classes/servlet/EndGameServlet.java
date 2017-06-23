@@ -5,14 +5,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controllers.EndGame;
-import quizIT.*;
 
 @SuppressWarnings("serial")
 public class EndGameServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-		if(request.getSession().getAttribute("user") != null) {
-			EndGame.ScoreManagement((User) request.getSession().getAttribute("user"), (Game) request.getSession().getAttribute("game"));
+		if(request.getSession().getAttribute("utilisateur") != null) {
+			
+			EndGame.ScoreManagement(request);
 		}
 		try {
 			// Fin de partie

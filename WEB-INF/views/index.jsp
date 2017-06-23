@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.io.*" %>
 <%@ page import = "java.io.*" %>
 <%@ page import = "java.util.*" %>
@@ -26,7 +26,6 @@ if (session.getAttribute("utilisateur") == null) {
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap-custom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/master.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <!-- Javascript (jquery BEFORE bootstrap) -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
@@ -79,6 +78,10 @@ if (session.getAttribute("utilisateur") == null) {
               </li>
               <li><a href="${pageContext.request.contextPath}/submit_question">
               <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li>
+              <% if( utilisateur.isAdmin() ) { %>
+                <li><a href="${pageContext.request.contextPath}/validate-questions">
+                <i class="fa fa-check" aria-hidden="true"></i> Valider des propositions de questions</a></li>
+              <% } %>
             <% } else { %>
               <li>
                 <a href="${pageContext.request.contextPath}/connexion"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>

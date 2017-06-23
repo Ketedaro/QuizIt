@@ -10,4 +10,8 @@ public class SimpleAnswer extends Answer{
 		super(id_answer, answerEnti,correct,desc);
 	}
 
+	public SimpleAnswer(String answerEnti, boolean correct, String desc) {
+		super(answerEnti,correct,desc);
+	}
+
 }

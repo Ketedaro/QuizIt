@@ -19,6 +19,11 @@ public abstract class Answer {
 		this.description=desc;
 	}
 	
+	public Answer(String answerEnti, boolean correct2, String desc) {
+		this.answer=answerEnti;
+		this.correct=correct2;
+		this.description=desc;
+	}
 	public String getAnswer(){
 		return answer;
 	}

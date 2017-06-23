@@ -10,6 +10,11 @@ public class Blindtest extends Question{
 		this.setLinkMp3(linkMP3);			
 	}
 
+	public Blindtest(String entitled, String topic, int submitter, String mp3Link) {
+		super(entitled,topic,submitter);
+		this.linkMp3=mp3Link;
+	}
+
 	public String getLinkMp3() {
 		return linkMp3;
 	}

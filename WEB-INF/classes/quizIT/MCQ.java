@@ -8,4 +8,8 @@ public class MCQ extends Question{
 		super(listAwnser, entit, ID, topic, Submitter);
 	}
 
+	public MCQ(String entitled, String topic, int submitter) {
+		super(entitled,topic,submitter);
+	}
+
 }

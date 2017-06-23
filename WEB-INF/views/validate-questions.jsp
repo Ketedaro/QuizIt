@@ -6,8 +6,9 @@
 <%
 boolean connecté;
 User utilisateur = null;
-List<Topic> topics = (List<Topic>) request.getAttribute("topics");
-List<User> users = (List<User>) request.getAttribute("users");
+
+List<Question> questions = (List<Question>)request.getAttribute("UnvalidateQuestions");
+
 if (session.getAttribute("utilisateur") == null) {
   connecté = false;
 } else {
@@ -29,11 +30,11 @@ if (session.getAttribute("utilisateur") == null) {
     <!-- Javascript (jquery BEFORE bootstrap) -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" defaultsrc="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   </head>
 
-  <body>
+  <body class="end-game">
     <!-- NAVBAR -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -49,12 +50,8 @@ if (session.getAttribute("utilisateur") == null) {
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-list"></i> Liste des quiz</a></li>
-            <%-- <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li> --%>
-
-            <li class="active"><a href="${pageContext.request.contextPath}/leaderboard"><i class="fa fa-trophy"></i> Classement</a></li>
+            <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
           </ul>
-
           <ul class="nav navbar-nav navbar-right">
             <% if (connecté) { %>
               <li class="dropdown">
@@ -85,40 +82,61 @@ if (session.getAttribute("utilisateur") == null) {
       </div>
     </nav>
 
-    <div class="row">
-      <div class="col-md-3"></div>
+    <% for(Question question : questions) { %>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="panel panel-success col-md-8 question-panel tweak-margin-bottom tweak-margin-bottom">
+          <div class="panel-heading">
+            <h3 class="panel-title">Question de <i><%= question.getSubmitter() %></i></h3>
+          </div>
+          <div class="panel-body row tweak-margin-bottom">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 row container">
+              <header divclass="text-center">
+                <h2><%= question.getEntitled() %></h2>
+              </header>
+              <div class="row row-centered">
+                <% int cpt = 0; %>
+                <% String desc = "Sans commentaire."; %>
+                <% for(Answer answer : question.getAnswers()) { %>
+                <% ++cpt; %>
+                <div class="field col-md-6">
+                  <% if(answer.isCorrect()){ %>
+                    <button class="btn btn-success" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
+                  <% } else { %>
+                    <button class="btn btn-default" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
+                  <% } %>
 
-      <div class="col-md-6 tweak-padding-50 row container">
-        <header class="text-center">
-          <h2>
-            Classement
-          </h2>
-        </header>
-        <table class="table leaderboard">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Pseudo</th>
-              <th>Nombre de points</th>
-            </tr>
-            <tbody>
-              <% if(users != null) { %>
-              <% int cpt = 0; %>
-              <% for(User user : users) { %>
-              <tr>
-                <td><%= cpt + 1 %></td>
-                <td><%= user.getLogin() %></td>
-                <td><%= user.getScore() %></td>
-              </tr>
-              <% ++cpt; %>
-              <% } %>
-              <% } %>
-            </tbody>
-          </thead>
-        </table>
+                  <% if(answer.isCorrect()) { %>
+                    <% desc = answer.getDescription(); %>
+                  <% } %>
+                </div>
+                <% } %>
+              </div>
+              <div class="tweak-margin-top">
+
+                <p class="well desc"><%= desc %></p>
+                <form action="${pageContext.request.contextPath}/validate-questions" method="post">
+                  <button classe="btn btn-success" type="submit" name="button" value="<%= question.getId() %>">Valider la question</button>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-2"></div>
+          </div>
+        </div>
+
+        <div class="col-md-2"></div>
       </div>
+    <% } %>
 
-      <div class="col-md-3"></div>
+    <!-- PUB -->
+    <div class="row tweak-margin-top tweak-margin-bottom">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 text-center">
+        <a href="${pageContext.request.contextPath}/home" class="btn btn-primary">Retour à l'accueil</a>
+          <a href="${pageContext.request.contextPath}/leaderboard" class="btn btn-success">Classement</a>
+      </div>
+      <div class="col-md-4"></div>
     </div>
   </body>
 

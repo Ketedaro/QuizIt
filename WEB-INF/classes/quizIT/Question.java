@@ -18,6 +18,12 @@ public abstract class Question {
 		this.topic=topic;
 	}
 
+	public Question(String entitled2, String topic2, int submitter2) {
+		this.entitled=entitled2;
+		this.topic=topic2;
+		this.submitter=submitter2;
+	}
+
 	public void valid(User u) throws Exception {
 		if (u.isAdmin())
 			this.validate = true;

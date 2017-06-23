@@ -20,11 +20,11 @@ public class ChangePasswordForm {
 		if (DataBase.getDataBase().existUser(pseudo, oldMdp)) {
 			this.correct = true;
 			if (!formMdp.equals(formMdp2)) {
-				this.message = "Les deux mots de passes sont différents.";
+				this.message = "Les deux mots de passes sont diffÃ©rents.";
 				this.correct = false;
 			} else {
 				DataBase.getDataBase().changePassword(pseudo, formMdp);
-				this.message = "Mot de passe modifié.";
+				this.message = "Mot de passe modifiÃ©.";
 				this.correct = true;
 			}
 		} else {

@@ -14,6 +14,7 @@ public class Home {
 		for(int i=0;i<listNameType.size();++i){
 			lTopics.add(DataBase.getDataBase().getTopicByType(listNameType.get(i)));
 		}
+			
 		return lTopics;
 		
 	}

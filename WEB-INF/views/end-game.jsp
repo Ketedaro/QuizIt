@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.io.*" %>
 <%@ page import = "java.io.*" %>
 <%@ page import = "java.util.*" %>
@@ -34,7 +34,7 @@ if (session.getAttribute("utilisateur") == null) {
 
   </head>
 
-  <body>
+  <body class="end-game">
     <!-- NAVBAR -->
     <nav class="navbar navbar-default">
       <div class="container-fluid">
@@ -85,18 +85,19 @@ if (session.getAttribute("utilisateur") == null) {
     <% for(int i = 0; i < game.getNbQuest(); ++i) { %>
       <div class="row">
         <div class="col-md-2"></div>
-        <div class="panel panel-success col-md-8 question-panel">
+        <div class="panel panel-success col-md-8 question-panel tweak-margin-bottom tweak-margin-bottom">
           <div class="panel-heading">
             <h3 class="panel-title">Question n°<%= i+1 %></h3>
           </div>
-          <div class="panel-body row">
+          <div class="panel-body row tweak-margin-bottom">
             <div class="col-md-2"></div>
             <div class="col-md-8 row container">
-              <header class="text-center">
+              <header divclass="text-center">
                 <h2><%= game.getQuestion(i).getEntitled() %></h2>
               </header>
-              <div class="row row-centered col-md-12">
+              <div class="row row-centered">
                 <% int cpt = 0; %>
+                <% String desc = "Sans commentaire."; %>
                 <% for(Answer answer : game.getQuestion(i).getAnswers()) { %>
                 <% ++cpt; %>
                 <div class="field col-md-6">
@@ -109,10 +110,19 @@ if (session.getAttribute("utilisateur") == null) {
                   <% } else { %>
                     <button class="btn btn-default" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
                   <% } %>
+
+                  <% if(answer.isCorrect()) { %>
+                    <% desc = answer.getDescription(); %>
+                  <% } %>
                 </div>
                 <% } %>
               </div>
+              <div class="tweak-margin-top">
+
+                <p class="well desc"><%= desc %></p>
+              </div>
             </div>
+            <div class="col-md-2"></div>
           </div>
         </div>
 
@@ -121,10 +131,11 @@ if (session.getAttribute("utilisateur") == null) {
     <% } %>
 
     <!-- PUB -->
-    <div class="row">
+    <div class="row tweak-margin-top tweak-margin-bottom">
       <div class="col-md-4"></div>
       <div class="col-md-4 text-center">
-        <a href="${pageContext.request.contextPath}/home" class="btn btn-success">Retour à l'accueil</a>
+        <a href="${pageContext.request.contextPath}/home" class="btn btn-primary">Retour à l'accueil</a>
+          <a href="${pageContext.request.contextPath}/leaderboard" class="btn btn-success">Classement</a>
       </div>
       <div class="col-md-4"></div>
     </div>

@@ -28,5 +28,5 @@ public class Topic {
 	
 	public String getType(){
 		return DataBase.getDataBase().getTypeByNameTopic(name);
-	}
+}
 }

@@ -2,6 +2,7 @@ package data;
 
 import java.util.List;
 
+import quizIT.Answer;
 import quizIT.Question;
 import quizIT.Topic;
 import quizIT.User;
@@ -43,17 +44,17 @@ public class DataBase {
 	}
 
 	//Changement des donn�es de l'utilisateur apr�s une partie
-	public void playGame(User user, int scoreGame) {
-		dataBConnect.playGame(user, scoreGame);
+	public void playGame(int scoreGame,int id) {
+		dataBConnect.playGame(scoreGame,id);
 	}
 	
-	public void addQuestion(Question q){
+	/*public void addQuestion(Question q){
 		try {
 			dataBConnect.addQuestion(q);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public boolean existLogin(String login){
 		return this.dataBConnect.existLogin(login);
@@ -98,6 +99,31 @@ public class DataBase {
 	
 	public void changePassword(String login, String password){
 		dataBConnect.changePassword(login, password);
+	}
+
+	public void setNewQuestion(Question question) {
+		System.out.println("ok");
+		this.dataBConnect.setNewQuestion(question);
+	}
+
+	public int getIdQuestion(Question q) {
+		return this.dataBConnect.getIdQuestion(q);
+	}
+
+	public void setNewAnswer(Answer answer,int idQ) {
+		this.dataBConnect.setNewAnswer(answer, idQ);		
+	}
+
+	public List<String> getTypeAnswer() {
+		return this.dataBConnect.getTypeAnswer();
+	}
+
+	public void validateQuestion(int id) {
+		this.dataBConnect.validateQUestion(id);
+	}
+
+	public List<Question> getQuestionUnvalidate() {
+		return dataBConnect.getQuestionUnvalidate();
 	}
 	
 }

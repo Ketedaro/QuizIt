@@ -16,9 +16,7 @@ import java.util.List;
 import quizIT.Answer;
 import quizIT.Blindtest;
 import quizIT.Factory;
-import quizIT.MCQ;
 import quizIT.Question;
-import quizIT.SimpleAnswer;
 import quizIT.Topic;
 import quizIT.User;
 
@@ -27,8 +25,9 @@ public class DBConnect {
 	private Connection connect;
 
 	public DBConnect() {
-		File file = new File(DBConnect.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"config.txt");
-	
+		File file = new File(
+				DBConnect.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "config.txt");
+
 		try {
 			FileReader fis = new FileReader(file);
 			@SuppressWarnings("resource")
@@ -44,7 +43,6 @@ public class DBConnect {
 				} catch (ClassNotFoundException e1) {
 
 					e1.printStackTrace();
-
 				}
 				try {
 					this.connect = DriverManager.getConnection(url, login, password);// ("jdbc:oracle:thin:@localhost:1521:xe",
@@ -65,13 +63,13 @@ public class DBConnect {
 		}
 	}
 
-	// V�rifi� que le login n'est pas d�j� pris
+	// Vérifié que le login n'est pas déjé pris
 	public boolean existLogin(String login) {
 		Statement request;
 		ResultSet res;
 		boolean tmp = false;
 		try {
-			String sql = "SELECT * FROM USERS WHERE login = '" + login + "'";
+			String sql = "SELECT * FROM users WHERE login = '" + login + "'";
 			request = connect.createStatement();
 			res = request.executeQuery(sql);
 			tmp = res.next();
@@ -101,7 +99,7 @@ public class DBConnect {
 
 	}
 
-	// R�cup�rer le nombre de ligne de la table Question
+	// Récupérer le nombre de ligne de la table Question
 	public List<Question> getQuestion(String type) {
 		return this.getQuestions("select * from questions where typeQuest='" + type + "'");
 	}
@@ -111,12 +109,12 @@ public class DBConnect {
 				.get(0);
 	}
 
-	// R�cup�rer une question avec son id
+	// Récupérer une question avec son id
 	public Question getQuestion(int id) {
 		return this.getQuestions("select * from questions where id_quest=" + id).get(0);
 	}
 
-	// R�cup�rer un user avec son id
+	// Récupérer un user avec son id
 	public User getUser(int id) {
 		return this.getUsers("select * from users where id_user=" + id).get(0);
 	}
@@ -126,12 +124,12 @@ public class DBConnect {
 				.getQuestions("select * from questions where typeQuest='" + type + "' and topicQuest='" + topic + "'");
 	}
 
-	public void playGame(User user, int scoreGame) {
-		int score = user.getScore() + scoreGame;
-		this.setUpdate("Update users set score=" + score + " where id_user=" + user.getId());
+	public void playGame(int scoreGame,int id) {
+		int score = scoreGame;
+		this.setUpdate("Update users set score=" + score + " where id_user=" + id);
 	}
 
-	public void addQuestion(Question q) throws Exception {
+	/*public void addQuestion(Question q) throws Exception {
 		String sql = "";
 		Statement request = null;
 		switch (q.getClass().getSimpleName()) {
@@ -175,7 +173,7 @@ public class DBConnect {
 				break;
 
 			default:
-				throw new Exception("Typage incorrect pour une r�ponse");
+				throw new Exception("Typage incorrect pour une réponse");
 			}
 			try {
 				request.executeUpdate(sql2);
@@ -183,7 +181,7 @@ public class DBConnect {
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 
 	public void createUser(String formPseudo, String formPwd, String formMail) {
 		this.setUpdate("Insert into users(login,password,email,isAdmin) Values('" + formPseudo + "','" + formPwd + "','"
@@ -229,7 +227,7 @@ public class DBConnect {
 		Statement request;
 		ResultSet resultSet;
 		int id_answer = 0;
-		String answerEnti = null, typeAns = null;
+		String answerEnti = null, typeAns = null, desc = null;
 		boolean correct = false;
 		List<Answer> lAnswer = new ArrayList<Answer>();
 		try {
@@ -239,9 +237,10 @@ public class DBConnect {
 				id_answer = resultSet.getInt("id_answer");
 				typeAns = resultSet.getString("typeAnswer");
 				answerEnti = resultSet.getString("answerContent");
+				desc = resultSet.getString("desc_answer");
 				correct = resultSet.getBoolean("isTrue");
 				try {
-					lAnswer.add(Factory.getAnswer(id_answer, answerEnti, typeAns, correct));
+					lAnswer.add(Factory.getAnswer(id_answer, answerEnti, typeAns, correct, desc));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -345,32 +344,82 @@ public class DBConnect {
 	}
 
 	public List<Topic> getTopicByType(String type) {
-		List<Question> listQuestion=this.getQuestions("select * from questions where typeQuest='"+type+"'");
-		List<String> tampon=new ArrayList<String>();
-		List<Topic> lTopic=new ArrayList<Topic>();
-		
-		for(int i=0;i<listQuestion.size();++i){
-			if(!tampon.contains(listQuestion.get(i).getTopic()))
-					tampon.add(listQuestion.get(i).getTopic());
+		List<Question> listQuestion = this.getQuestions("select * from questions where typeQuest='" + type + "'");
+		List<String> tampon = new ArrayList<String>();
+		List<Topic> lTopic = new ArrayList<Topic>();
+
+		for (int i = 0; i < listQuestion.size(); ++i) {
+			if (!tampon.contains(listQuestion.get(i).getTopic()))
+				tampon.add(listQuestion.get(i).getTopic());
 		}
-		for(int i=0;i<tampon.size();++i){
+		for (int i = 0; i < tampon.size(); ++i) {
 			lTopic.add(this.getTopicbyName(tampon.get(i)));
 		}
-		
-		
+
 		return lTopic;
 	}
 
 	public String getTypeByNameTopic(String name) {
-		return this.getQuestions("Select * from questions where topicQuest='"+name+"'").get(0).getClass().getSimpleName();
+		return this.getQuestions("Select * from questions where topicQuest='" + name + "'").get(0).getClass()
+				.getSimpleName();
 	}
-	
-	public Topic getTopicbyName(String name){
-		return this.getTopics("Select * from topic where topicName='"+name+"'").get(0);
+
+	public Topic getTopicbyName(String name) {
+		return this.getTopics("Select * from topic where topicName='" + name + "'").get(0);
 	}
-	
+
 	public void changePassword(String login, String password) {
 		this.setUpdate("update users set password ='" + password + "' where login = '" + login + "'");
+	}
+
+	public void setNewQuestion(Question q) {
+		if (q.getClass().getSimpleName().equals("Blindtest")) {
+			Blindtest b = (Blindtest) q;
+			this.setUpdate("Insert into questions (typeQuest, topicQuest, questContent, mp3_link, id_submitter, validation) Values ('"
+			+ q.getClass().getSimpleName() + "' , '" + q.getTopic() + "' , '" + q.getEntitled() + "' , '" + b.getLinkMp3()
+			+ "' , '" + q.getSubmitter() + " , false)");
+		}
+		else{
+			this.setUpdate(
+					"Insert into questions (typeQuest, topicQuest, questContent, mp3_link, id_submitter, validation) Values ('"
+							+ q.getClass().getSimpleName() + "' , '" + q.getTopic() + "' , '" + q.getEntitled() + "' , null " 
+							+ " , " + q.getSubmitter() + " , false)");
+		}
+		
+	}
+
+	public void setNewAnswer(Answer a,int idQ) {
+			this.setUpdate("INSERT INTO answers (id_quest, typeAnswer, answerContent, desc_answer, isTrue)"
+				+ " Values ("+idQ+" , '"+ a.getClass().getSimpleName()+"' , '"+a.getAnswer()+"' , '"+a.getDescription()+"',"+a.isCorrect()+")");
+	}
+
+	public int getIdQuestion(Question q) {
+		System.out.println("Select * from questions where typeQuest='" + q.getClass().getSimpleName()
+				+ "' and topicQuest='" + q.getTopic() + "' and questContent='" + q.getEntitled()
+				+ "' and id_submitter=" + q.getSubmitter() + " and validation=" + q.getValidate());
+		return this
+				.getQuestions("Select * from questions where typeQuest='" + q.getClass().getSimpleName()
+						+ "' and topicQuest='" + q.getTopic() + "' and questContent='" + q.getEntitled()
+						+ "' and id_submitter=" + q.getSubmitter() + " and validation=" + q.getValidate())
+				.get(0).getId();
+	}
+
+	public List<String> getTypeAnswer() {
+		List<Answer> lA=this.getAnswers("select distinct * from answers");
+		List<String> lR=new ArrayList<String>();
+		for(int i=0;i<lA.size();++i){
+			if(!lR.contains(lA.get(i).getClass().getSimpleName()))
+			lR.add(lA.get(i).getClass().getSimpleName());
+		}
+		return lR;
+		}
+
+	public void validateQUestion(int id) {
+		this.setUpdate("update questions set validation=true where id_quest="+id );
+	}
+
+	public List<Question> getQuestionUnvalidate() {
+		return this.getQuestions("select * from questions where validation=false");
 	}
 
 }

@@ -18,7 +18,6 @@ public class GameServlet extends HttpServlet {
 		if (CurrentGame.isEnd(request)) {
 			try {
 				// Partie terminé .
-				System.out.println(request.getContextPath());
 				response.sendRedirect(request.getContextPath()+"/end-game");
 			} catch (IOException e) {
 				e.printStackTrace();

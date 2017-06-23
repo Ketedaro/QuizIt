@@ -18,14 +18,14 @@ public class InscriptionForm {
 		this.correct = true;
 
 		if (DataBase.getDataBase().existLogin(formPseudo)) {
-			this.message = "Ce nom d'utilisateur est déjà pris.";
+			this.message = "Ce nom d'utilisateur est dÃ©jÃ  pris.";
 			this.correct = false;
 		} else if (!formPwd.equals(formPwd2)) {
 			System.out.println(formPwd + " " + formPwd2);
-			this.message = "Les deux mots de passes sont différents.";
+			this.message = "Les deux mots de passes sont diffÃ©rents.";
 			this.correct = false;
 		} else {
-			this.message = "Vous êtes inscrit et vous pouvez maintenant vous connecter.";
+			this.message = "Vous Ãªtes inscrit et vous pouvez maintenant vous connecter.";
 			// Changer le password
 			DataBase.getDataBase().createNewUser(formPseudo, formPwd, formMail);
 		}

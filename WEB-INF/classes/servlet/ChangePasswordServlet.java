@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controllers.ChangePasswordForm;
-import controllers.ConnexionForm;
 
 public class ChangePasswordServlet extends HttpServlet{
 	

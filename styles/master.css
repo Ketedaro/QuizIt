@@ -8,6 +8,13 @@ body {
   }
 }
 
+.tweak-margin-top {
+  margin-top: 50px;
+}
+
+.tweak-margin-bottom {
+  margin-bottom: 50px;
+}
 
 .debug1 {
   border: solid 1px red;
@@ -56,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .quiz-list a {
-  text-decoration: none;
+  text-decoration: none;user.play(score);
 }
 
 .quiz-list header {
@@ -101,6 +108,17 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.field {
+  width: 100%;
+}
+
+.radio {
+  width: 50px;
+  height: 50px;
+  background-size: contain;
+  background-position: center;
+}
+
 /* centered columns styles */
 .row-centered {
     text-align:center;
@@ -123,6 +141,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .question-panel .panel-body {
   padding: 5%;
+}
+
+.end-game .question-panel .panel-body{
+  padding-bottom: 1%;
 }
 
 @media screen and (max-width: 640px) {
