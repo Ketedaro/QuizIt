@@ -12,7 +12,7 @@ public class Validate {
 
 	public static void validateQ(HttpServletRequest request){
 		int id= Integer.valueOf(request.getParameter("id_quest"));
-		User user=(User) request.getSession().getAttribute("user");
+		User user=(User) request.getSession().getAttribute("utilisateur");
 		if(user.isAdmin())
 			DataBase.getDataBase().validateQuestion(id);
 	}

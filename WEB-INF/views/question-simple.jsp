@@ -96,6 +96,12 @@ if (session.getAttribute("utilisateur") == null) {
             <header class="text-center">
               <h2><%= game.getCurrentQuestion().getEntitled() %></h2>
             </header>
+            <% if(game.getCurrentQuestion().getType().equals("BlindTest")) { %>
+            <%-- <audio controls>
+              <source src="${pageContext.request.contextPath}/uploaded_files/<%= game.getCurrentQuestion().getLinkMp3() %>" type="audio/mpeg">
+              Your browser does not support the audio tag.
+            </audio> --%>
+            <% } %>
             <form class="row row-centered col-md-12" action="${pageContext.request.contextPath}/game" method="post">
               <% int cpt = 0; %>
               <% for(Answer answer : answers) { %>

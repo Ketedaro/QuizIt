@@ -2,6 +2,8 @@ package quizIT;
 
 import java.util.List;
 
+import data.DataBase;
+
 public abstract class Question {
 	protected List<Answer> answer;
 	protected String entitled;
@@ -37,6 +39,10 @@ public abstract class Question {
 
 	public String getTopic() {
 		return this.topic;
+	}
+	
+	public String getType() {
+		return DataBase.getDataBase().getTypeByNameTopic(this.topic);
 	}
 
 	public int getSubmitter() {

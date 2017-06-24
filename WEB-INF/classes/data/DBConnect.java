@@ -120,8 +120,9 @@ public class DBConnect {
 	}
 
 	public List<Question> getQuestion(String type, String topic) {
+		System.out.println("select * from questions where typeQuest='" + type + "' and topicQuest='" + topic + "' and validation=1");
 		return this
-				.getQuestions("select * from questions where typeQuest='" + type + "' and topicQuest='" + topic + "'");
+				.getQuestions("select * from questions where typeQuest='" + type + "' and topicQuest='" + topic + "' and validation=1");
 	}
 
 	public void playGame(int scoreGame,int id) {
@@ -194,7 +195,7 @@ public class DBConnect {
 
 	public Question getRandQuestion(String type, String topic) {
 		return this.getQuestions("select * from questions where typeQuest='" + type + "' and topicQuest='" + topic
-				+ "' order by rand() limit 1").get(0);
+				+ "' and validation=1 order by rand() limit 1").get(0);
 	}
 
 	private List<User> getUsers(String sql) {
@@ -380,7 +381,7 @@ public class DBConnect {
 			+ "' , '" + q.getSubmitter() + " , false)");
 		}
 		else{
-			this.setUpdate(
+			this.setUpdate(	
 					"Insert into questions (typeQuest, topicQuest, questContent, mp3_link, id_submitter, validation) Values ('"
 							+ q.getClass().getSimpleName() + "' , '" + q.getTopic() + "' , '" + q.getEntitled() + "' , null " 
 							+ " , " + q.getSubmitter() + " , false)");

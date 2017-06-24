@@ -93,7 +93,8 @@ if (session.getAttribute("utilisateur") == null) {
             <div class="col-md-2"></div>
             <div class="col-md-8 row container">
               <header divclass="text-center">
-                <h2><%= question.getEntitled() %></h2>
+                <h2 class="text-center"><%= question.getEntitled() %>
+                <br><small><strong>Catégorie : </strong><%= question.getTopic() %></small></h2>
               </header>
               <div class="row row-centered">
                 <% int cpt = 0; %>
@@ -107,8 +108,8 @@ if (session.getAttribute("utilisateur") == null) {
                     <button class="btn btn-default" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
                   <% } %>
 
-                  <% if(answer.isCorrect()) { %>
-                    <% desc = answer.getDescription(); %>
+                  <% if(answer.isCorrect() && !answer.getDescription().equals("null")) { %>
+                      <% desc = answer.getDescription(); %>
                   <% } %>
                 </div>
                 <% } %>
@@ -116,8 +117,8 @@ if (session.getAttribute("utilisateur") == null) {
               <div class="tweak-margin-top">
 
                 <p class="well desc"><%= desc %></p>
-                <form action="${pageContext.request.contextPath}/validate-questions" method="post">
-                  <button classe="btn btn-success" type="submit" name="button" value="<%= question.getId() %>">Valider la question</button>
+                <form class="form text-center" action="${pageContext.request.contextPath}/validate-questions" method="post">
+                  <button class="btn btn-primary" type="submit" name="id_quest" value="<%= question.getId() %>">Valider la question</button>
                 </form>
               </div>
             </div>
