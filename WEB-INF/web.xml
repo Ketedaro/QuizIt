@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+           http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+ version="3.1"
+ metadata-complete="true">
+
+ <error-page>
+     <error-code>500</error-code>
+     <location>/error.jsp</location>
+ </error-page>
+ <error-page>
+     <error-code>404</error-code>
+     <location>/error.jsp</location>
+ </error-page>
+ <error-page>
+     <error-code>405</error-code>
+     <location>/error.jsp</location>
+ </error-page>
+
+<!-- DEFAULT, éléments externes (images, css...) -->
+
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.css</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.png</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.jpg</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.mp3</url-pattern>
+</servlet-mapping>
+
+
+<servlet>
+	 <servlet-name>HomeServlet</servlet-name>
+	 <servlet-class>servlet.HomeServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+	 <servlet-name>HomeServlet</servlet-name>
+	 <url-pattern>/</url-pattern>
+ </servlet-mapping>
+
+​<servlet>
+	 <servlet-name>ConnexionServlet</servlet-name>
+	 <servlet-class>servlet.ConnexionServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+	 <servlet-name>ConnexionServlet</servlet-name>
+	 <url-pattern>/connexion</url-pattern>
+ </servlet-mapping>
+
+ <servlet>
+ 	 <servlet-name>InscriptionServlet</servlet-name>
+ 	 <servlet-class>servlet.InscriptionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+ 	 <servlet-name>InscriptionServlet</servlet-name>
+ 	 <url-pattern>/sign_in</url-pattern>
+ </servlet-mapping>
+
+ <servlet>
+ 	 <servlet-name>ChangePasswordServlet</servlet-name>
+ 	 <servlet-class>servlet.ChangePasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+ 	 <servlet-name>ChangePasswordServlet</servlet-name>
+ 	 <url-pattern>/change_password</url-pattern>
+ </servlet-mapping>
+
+ <servlet>
+   <servlet-name>LeaderboardServlet</servlet-name>
+   <servlet-class>servlet.LeaderboardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>LeaderboardServlet</servlet-name>
+   <url-pattern>/leaderboard</url-pattern>
+ </servlet-mapping>
+
+  <servlet>
+    <servlet-name>EndGameServlet</servlet-name>
+    <servlet-class>servlet.EndGameServlet</servlet-class>
+   </servlet>
+   <servlet-mapping>
+    <servlet-name>EndGameServlet</servlet-name>
+    <url-pattern>/end-game</url-pattern>
+   </servlet-mapping>
+
+<servlet>
+ <servlet-name>InitializeGameServlet</servlet-name>
+ <servlet-class>servlet.InitializeGameServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+ <servlet-name>InitializeGameServlet</servlet-name>
+ <url-pattern>/init-game</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>GameServlet</servlet-name>
+  <servlet-class>servlet.GameServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>GameServlet</servlet-name>
+  <url-pattern>/game</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>NewQuestionServlet</servlet-name>
+  <servlet-class>servlet.NewQuestionServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>NewQuestionServlet</servlet-name>
+  <url-pattern>/submit_question</url-pattern>
+</servlet-mapping>
+
+<servlet>
+  <servlet-name>ValidateServlet</servlet-name>
+  <servlet-class>servlet.ValidateServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>ValidateServlet</servlet-name>
+  <url-pattern>/validate-questions</url-pattern>
+</servlet-mapping>
+
+ <servlet>
+ 	 <servlet-name>DeconnexionServlet</servlet-name>
+ 	 <servlet-class>servlet.DeconnexionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+ 	 <servlet-name>DeconnexionServlet</servlet-name>
+ 	 <url-pattern>/disconnect</url-pattern>
+  </servlet-mapping>
+
+
+
+
+
+
+
+
+
+
+​
+
+</web-app>
