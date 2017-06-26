@@ -7,9 +7,7 @@
 boolean connecté;
 User utilisateur = null;
 
-Game game = (Game) request.getSession().getAttribute("game");
-Question question = game.getCurrentQuestion();
-List<Answer> answers = game.getCurrentQuestion().getAnswers();
+List<List<Topic>> topics_list = (List<List<Topic>>) request.getAttribute("topics");
 
 if (session.getAttribute("utilisateur") == null) {
   connecté = false;
@@ -28,7 +26,6 @@ if (session.getAttribute("utilisateur") == null) {
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/bootstrap-custom.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/styles/master.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <!-- Javascript (jquery BEFORE bootstrap) -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
@@ -52,9 +49,23 @@ if (session.getAttribute("utilisateur") == null) {
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-            <li><a href="${pageContext.request.contextPath}/home"><i class="fa fa-sign-out" aria-hidden="true"></i> Retour à l'accueil</a></li>
+            <li class="active"><a href="${pageContext.request.contextPath}/home"><i class="fa fa-list-ul"></i> Liste des quiz</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-tasks" aria-hidden="true"></i> Catégories
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <% for(List<Topic> topic_entity : topics_list) { %>
+                  <li><a href="#<%= topic_entity.get(0).getType() %>"><%= topic_entity.get(0).getType() %></a></li>
+                <% } %>
+              </ul>
+            </li>
+            <%-- <li><a href="#"><i class="fa fa-play-circle"></i> Partie aléatoire</a></li> --%>
+
+            <li><a href="${pageContext.request.contextPath}/leaderboard"><i class="fa fa-trophy"></i> Classement</a></li>
           </ul>
-          <<ul class="nav navbar-nav navbar-right">
+
+          <ul class="nav navbar-nav navbar-right">
             <% if (connecté) { %>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -67,6 +78,10 @@ if (session.getAttribute("utilisateur") == null) {
               </li>
               <li><a href="${pageContext.request.contextPath}/submit_question">
               <i class="fa fa-pencil" aria-hidden="true"></i> Proposer une question</a></li>
+              <% if( utilisateur.isAdmin() ) { %>
+                <li><a href="${pageContext.request.contextPath}/validate-questions">
+                <i class="fa fa-check" aria-hidden="true"></i> Valider des propositions de questions</a></li>
+              <% } %>
             <% } else { %>
               <li>
                 <a href="${pageContext.request.contextPath}/connexion"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
@@ -84,52 +99,10 @@ if (session.getAttribute("utilisateur") == null) {
       </div>
     </nav>
 
-    <div class="row">
-      <div class="col-md-2"></div>
-      <div class="panel panel-success col-md-8 question-panel">
-        <div class="panel-heading">
-          <h3 class="panel-title">Question n°<%= game.getCpt()+1 %> / <%= game.getNbQuest() %></h3>
-        </div>
-        <div class="panel-body row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8 row container">
-            <header class="text-center">
-              <h2><%= game.getCurrentQuestion().getEntitled() %></h2>
-            </header>
-            <% if(game.getCurrentQuestion().getType().equals("Blindtest")) { %>
-              <% Blindtest blindtest = (Blindtest) game.getCurrentQuestion(); %>
-              <div class="text-center">
-                <%-- <embed type="audio/mpeg" src="${pageContext.request.contextPath}/uploaded_files/<%= blindtest.getLinkMp3() %>" autostart="true" loop="false" class="audio"> --%>
-                <audio controls="controls">
-                  <source src="${pageContext.request.contextPath}/uploaded_files/<%= blindtest.getLinkMp3() %>" type="audio/mp3" />
-                  Votre navigateur n'est pas compatible
-                </audio>
-              </div>
-            <% } %>
-            <form class="row row-centered col-md-12" action="${pageContext.request.contextPath}/game" method="post">
-              <% int cpt = 0; %>
-              <% for(Answer answer : answers) { %>
-              <% ++cpt; %>
-              <div class="field col-md-6">
-                <button class="btn btn-success" name="answer" value="<%= cpt %>"><%= answer.getAnswer() %></button>
-              </div>
-              <% } %>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-2"></div>
+    <div class="alert alert-danger tweak-margin-top">
+      <p>Une erreur s'est produite.</p>
     </div>
 
-    <!-- PUB -->
-    <div class="row">
-      <div class="col-md-2"></div></div>
-      <div class="">
-
-      </div>
-      <div class="col-md-2"></div>
-    </div>
   </body>
 
 </html>

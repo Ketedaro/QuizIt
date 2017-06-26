@@ -31,11 +31,24 @@ CREATE TABLE users (
 -- Content users
 --
 
+/*
+user:password to connect to an QuizIt Account
+
+Admin:admin
+Andy:andy
+Kilian:kilian
+Victor:victor
+Lucas:lucas
+
+Only admin has admin privilege and can accept the questions requests
+*/
+
 INSERT INTO users (login, password, email, isAdmin) VALUES
-('Xaizo', 'xaizo', 'xaizo@xaizo.fr', true),
-('Ketedaro', 'kete', 'kete@kete.fr', true),
-('Yoshiiix', 'yos', 'yos@yos.fr', false),
-('Test', '532eaabd9574880dbf76b9b8cc00832c20a6ec113d682299550d7a6e0f345e25', 'hot@hot.fr', true);
+('Admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin@etu.parisdescartes.fr', true),
+('Andy', '6177321eac992341d1ad0823a07e76bfc4ee6909db120e377ea303fdc216756c', 'andy@etu.parisdescartes.fr', false),
+('Victor', '99bde068af2d49ed7fc8b8fa79abe13a6059e0db320bb73459fd96624bb4b33f', 'victor@etu.parisdescartes.fr', false),
+('Lucas', '7cadab457ad8d811f134612436daaa5e5914b20dc2502865f714035b0f267680', 'lucas@etu.parisdescartes.fr', false),
+('Kilian', '3f00822ab3409980878cf50d4d501352597d77ead2fd288c5b9d958ec4d4ef91', 'kilian@etu.parisdescartes.fr', false);
 
 -- Top 20 Score
 
@@ -131,14 +144,14 @@ INSERT INTO questions (typeQuest, topicQuest, questContent, mp3_link, id_submitt
 ('MCQ', 'La Coupe du monde de football', 'Quel pays détient du record de défaites en finale de Coupe du monde ?', null, '1', true), -- 30
 ('MCQ', 'La Coupe du monde de football', 'Quel footballeur a champion du monde à trois reprises ?', null, '1', true), -- 31
 ('MCQ', 'La Coupe du monde de football', 'De quelle nationalité était le footballeur qui a marqué le premier but de la première édition de la Coupe du monde ?', null, '1', true), -- 32
-('BlindTest', 'Chanson française', 'Qui est l\'artiste ?', 'quelquun_ma_dit.mp3', '1', true), -- 33
+('BlindTest', 'Chanson française', 'Qui est l\'artiste ?', 'carla_bruni_quelquun_ma_dit.mp3', '1', true), -- 33
 ('BlindTest', 'Chanson française', 'Quel est le titre de cette chanson composée par Léo Ferré ?', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 34
-('BlindTest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'leo_ferre_affiche_rouge.mp3', '2', true), -- 35
+('BlindTest', 'Chanson française', 'Complétez les paroles "Je bois toutes les nuits mais..." de Serge Lama - Je suis malade', 'serge_lama_je_suis_malade.mp3', '2', true), -- 35
 ('BlindTest', 'Chanson française', 'En quelle année cet album a été le plus vendu ?', 'christophe_mae_on_trace_la_route.mp3', '2', true), -- 36
 ('BlindTest', 'Pop et Electro', 'Qui est l\'artiste ?', 'this_is_what_you_came_for.mp3', '1', true), -- 37
 ('BlindTest', 'Pop et Electro', 'Quel est le titre de cette chanson composée par Ed Sheeran ?', 'shape_of_you.mp3', '2', true), -- 38
 ('BlindTest', 'Pop et Electro', 'Complétez les paroles "Ooh, it\'s something magical..." Justin Timberlake - Can\'t Stop The Feeling', 'cant_stop_the_feeling.mp3', '2', true), -- 39
-('BlindTest', 'Pop et Electro', 'Quel est le titre de cette chanson ?', 'two_feets_go_fuck_yourself.mp3', '2', true), -- 40
+('BlindTest', 'Pop et Electro', 'Quel est le titre de cette chanson ?', 'two_feet_go_fuck_yourself.mp3', '2', true), -- 40
 ('BlindTest', 'House', 'Qui est l\'artiste ?', 'no_promises.mp3', '1', true), -- 41
 ('BlindTest', 'House', 'Quel est le titre de cette chanson composée par Justin Caruso ?', 'talk_about_me.mp3', '2', true), -- 42
 ('BlindTest', 'House', 'Complétez les paroles "It\'s been a long day..." Wiz Khalifa - See you again', 'see_you_again.mp3', '2', true), -- 43

@@ -71,7 +71,7 @@ User utilisateur = (User)session.getAttribute("utilisateur");
             <div class="form-group">
               <select class="form-control" name="type" id="type">
                 <option value="MCQ">Question à choix multiple</option>
-                <option value="Blindtest">Blindtest</option>
+                <option value="Blindtest">Blindtest (démo - pas d'upload audio possible)</option>
               </select>
             </div>
             <legend>Question</legend>
@@ -89,9 +89,10 @@ User utilisateur = (User)session.getAttribute("utilisateur");
               </div>
             </div>
             <div class="blindtest" hidden>
-              <legend>URL du MP3</legend>
+              <hr>
+              <legend>Ajouter un fichier audio <br><small>Cette fonctionnalité n'est pas encore disponible.</small></legend>
               <div class="form-group">
-                <input class="form-control" name="mp3Link" placeholder="URL ftp, http..." type="text">
+                <input class="form-control" name="mp3Link" placeholder="MP3, wav..." type="file" disabled>
               </div>
             </div>
             <hr>
@@ -134,8 +135,8 @@ User utilisateur = (User)session.getAttribute("utilisateur");
             </select>
             <br>
             <div class="form-group text-center">
-              <a href="index.jsp" class="btn btn-primary">Annuler</a>
-              <button type="submit" class="btn btn-success" data-_extension-text-contrast="">Proposer</button>
+              <a href="${pageContext.request.contextPath}/home" class="btn btn-primary">Annuler</a>
+              <button type="submit" class="btn btn-success" id="propose">Proposer</button>
             </div>
           </fieldset>
         </form>
@@ -149,8 +150,12 @@ User utilisateur = (User)session.getAttribute("utilisateur");
         $("#type").on('change', function() {
           if ($("#type").val() == "Blindtest") {
             $(".blindtest").show();
+            $("#propose").attr("type", "button");
+            $("#propose").addClass("disabled");
           } else if ($("#type").val() == "MCQ") {
             $(".blindtest").hide();
+            $("#propose").attr("type", "submit");
+            $("#propose").removeClass("disabled");
           }
         });
       });

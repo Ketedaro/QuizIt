@@ -96,7 +96,20 @@ if (session.getAttribute("utilisateur") == null) {
                 <h2 class="text-center"><%= question.getEntitled() %>
                 <br><small><strong>Catégorie : </strong><%= question.getTopic() %></small></h2>
               </header>
+              <div class="text-center">
+                <% if(question.getType().equals("Blindtest")) { %>
+                  <% Blindtest blindtest = (Blindtest) question; %>
+                  <div class="text-center">
+                    <%-- <embed type="audio/mpeg" src="${pageContext.request.contextPath}/uploaded_files/<%= blindtest.getLinkMp3() %>" autostart="true" loop="false" class="audio"> --%>
+                    <audio controls="controls">
+                      <source src="${pageContext.request.contextPath}/uploaded_files/<%= blindtest.getLinkMp3() %>" type="audio/mp3" />
+                      Votre navigateur n'est pas compatible
+                    </audio>
+                  </div>
+                <% } %>
+              </div>
               <div class="row row-centered">
+
                 <% int cpt = 0; %>
                 <% String desc = "Sans commentaire."; %>
                 <% for(Answer answer : question.getAnswers()) { %>
